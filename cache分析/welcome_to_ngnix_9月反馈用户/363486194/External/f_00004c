@@ -1,0 +1,2697 @@
+/**
+ * minisite.js
+ * 
+ * Release 5.9.4
+ * @author  <a href="mailto:harleywang@tencent.com">Harley Wang</a>
+ * @describe  Tencent MiniSite主要逻辑实现
+ */
+var UserData = {
+	userData: null,
+	name: location.hostname,
+	isLocalStorage: typeof localStorage == 'undefined'?false:true,
+	init: function(){
+		if (!this.userData) {
+			try {
+				this.userData = document.createElement('INPUT');
+				this.userData.type = "hidden";
+				this.userData.style.display = "none";
+				this.userData.addBehavior ("#default#userData");
+				document.body.appendChild(this.userData);
+				var expires = new Date();
+				expires.setDate(expires.getDate()+365);
+				this.userData.expires = expires.toUTCString();
+			} catch(e) {
+				return false;
+			}
+		}
+		return true;
+	},
+	setItem: function(key, value) {
+		if(this.isLocalStorage){
+			localStorage.setItem(key, value);
+		}
+		else if(this.init()){
+			this.userData.load(this.name);
+			this.userData.setAttribute(key, value);
+			this.userData.save(this.name);
+		}
+	},
+	getItem: function(key) {
+		if(this.isLocalStorage){
+			return localStorage.getItem(key);
+		}
+		else if(this.init()){
+			this.userData.load(this.name);
+			return this.userData.getAttribute(key)
+		}
+		return null;
+	},
+	removeItem: function(key) {
+		if(this.isLocalStorage){
+			localStorage.removeItem(key);
+		}
+		else if(this.init()){
+			this.userData.load(this.name);
+			this.userData.removeAttribute(key);
+			this.userData.save(this.name);
+		}
+	}
+};
+// 退订演示
+var SubscibeDemo = function(){
+	    this.construct.apply(this, arguments);
+};
+SubscibeDemo.prototype = {
+	construct: function(options){
+		this.currentIndex=options.defaultIndex||0;
+		this.imagesData = options.imagesData||[];
+		this.demoBox = document.getElementById(options.demoBox);
+	},
+	nextPage: function(){
+		if(this.currentIndex >= this.imagesData.length-1){
+			this.onDemoEnd();
+		}else{
+			this.currentIndex++;
+			this.demoBox.className = this.imagesData[this.currentIndex];
+		}
+	},
+	prevPage: function(){
+		if(this.currentIndex<=0){
+			this.onDemoStart();
+		}else{
+			this.currentIndex--;
+			this.demoBox.className = this.imagesData[this.currentIndex];
+		}
+	},
+	onDemoStart: function(){},
+	onDemoEnd: function(){
+		this.close();
+	},
+	gotoPage: function(index){
+		if(index >= 0 || index<this.imagesData.length){
+			this.currentIndex = index;
+			this.demoBox.className = this.imagesData[this.currentIndex];
+		}
+	},
+	show: function(){
+		this.demoBox.style.display='block';
+		this.currentIndex=0;
+		this.demoBox.className = this.imagesData[this.currentIndex];
+		this.onDemoStart();
+		this.onShow();
+	},
+	onShow: function(){},
+	close: function(){
+		this.demoBox.style.display = 'none';
+		this.onClose();
+	},
+	onClose: function(){}
+};
+
+var ModelJS = {
+	merge: function(model, objs){
+		function convert(m, obj){
+			for(var attr in obj){
+				var key = new RegExp("%%" + attr + "%%", 'g');
+				m = m.replace(key, obj[attr]);
+			}
+			return m;
+		}
+		if(objs instanceof Array){
+			var buffer = [];
+			for(var i=0, len=objs.length; i<len; i++){
+				buffer.push( convert(model, objs[i]) );
+			}
+			return buffer.join('');
+		}
+		return convert(model, objs);
+	}
+};
+
+var dom = {}; 
+dom.bind = function(fn, context){
+	if (arguments.length < 2 && context===undefined) return fn;
+	var method = fn, slice = Array.prototype.slice, args = slice.call(arguments, 2); 
+	return function(){
+		var array = slice.call(arguments, 0);	
+		method.apply(context, args.concat(array)) 
+	}
+};
+var Pos = function(x, y){
+	this.x = x;
+	this.y = y;
+};
+function positionedOffset(element, isToRoot){
+	var x=0,y=0;
+	do{
+		y+=element.offsetTop||0;
+		x+=element.offsetLeft||0; 
+		element= element.offsetParent; 
+	  if(!isToRoot && element && element.id=='Drag_Zone'){
+		break;
+	  }
+	  if(element){ 
+		  p=element.style.position;
+		  if(p=='relative'||p=='absolute')break; 
+	  } 
+  }   while(element);
+  return new Pos(x, y);
+}
+var ScrollBar = function(){
+	this.construct.apply(this, arguments);
+};
+ScrollBar.prototype = {
+	construct: function(options){
+		this.scrollBox = options.scrollBox || null;
+		this.scrollBar = options.scrollBar || null;
+		this.contentBox = options.contentBox || null;
+
+		this.autoBarSize = options.autoBarSize || true;
+		this.VM = options.verticalMargin || 0;
+
+		// 重新内部变量
+		this.reset();
+			// 绑定事件
+		this.addScrollListener(this.contentBox, dom.bind(this.onWheelHandle, this));
+		this.scrollBar.onmousedown = dom.bind(this.onDragStart, this);
+	},
+	reset: function(){
+		this.isShowBar = true;
+		if(this.contentBox.scrollHeight <= Math.min(this.scrollBox.scrollHeight, this.scrollBox.offsetHeight)){
+			this.isShowBar = false;
+			return false;
+		}
+
+		this.scrollBar.style.display = 'block';
+
+		// 鼠标偏移量
+		this.offset = 0;
+
+		this.pos = positionedOffset(this.scrollBox);
+
+		// 动态设置滚动条的高度
+		if(this.autoBarSize){
+			var barHeight = parseInt(this.scrollBox.offsetHeight/(this.contentBox.scrollHeight/this.contentBox.offsetHeight));
+			this.scrollBar.style.height = barHeight + 'px';
+		}
+
+		// 滚动条可用高度
+		this.scrollHeight = this.scrollBox.offsetHeight - this.scrollBar.offsetHeight-2 - this.VM*2;
+		// 内容可用高度
+		this.contentHeight = this.contentBox.scrollHeight - this.contentBox.offsetHeight-2;
+			
+		// 设置滚动条的位置
+		this.setPosition(this.contentBox.scrollTop);
+
+		return true;
+	},
+	addScrollListener: function(element, wheelHandle){
+		var ua = navigator.userAgent.toLowerCase();
+		if(element.attachEvent){
+			element.attachEvent('onmousewheel', wheelHandle);
+		}else if(ua.indexOf("firefox") > -1){
+			element.addEventListener('DOMMouseScroll', wheelHandle, false);
+		}else{
+			element.addEventListener('mousewheel', wheelHandle, false);
+		}
+	},
+	onWheelHandle: function(e){
+		var e = e || window.event;
+		var delta = e.wheelDelta ? (e.wheelDelta / 120) : (- e.detail / 3);
+		if(delta && this.isShowBar){
+			this.contentBox.scrollTop -= delta * 20;
+			this.setPosition(this.contentBox.scrollTop);
+		}
+	},
+	setPosition: function(topnum){
+		this.scrollBar.style.top = parseInt(this.scrollHeight/this.contentHeight*topnum) + this.VM + 'px';
+	},
+	onDragStart: function(){
+		var event = arguments[0] || window.event;
+		var obj = event.target || event.srcElement;
+		
+		this.offset = event.clientY - this.pos.y - obj.offsetTop;
+		try{
+			window.getSelection?window.getSelection().removeAllRanges():document.selection.empty();
+		}catch(e){}
+		
+		document.onmousemove = dom.bind(this.onDraging, this);
+		document.onmouseup = dom.bind(this.onDragEnd, this);
+	},
+	onDraging: function(){
+		var event = arguments[0] || window.event;
+		var obj = event.target || event.srcElement;
+		try{
+			window.getSelection?window.getSelection().removeAllRanges():document.selection.empty();
+		}catch(e){}
+
+		var moveTop = event.clientY - this.pos.y - this.offset;
+		
+		moveTop = moveTop<0?0:moveTop;
+		moveTop = moveTop>this.scrollHeight?this.scrollHeight:moveTop;
+
+		this.scrollBar.style.top =  moveTop + this.VM + 'px';
+		this.scrollBar.style.cursor = 'default';
+		this.contentBox.scrollTop = parseInt(moveTop/(this.scrollHeight/this.contentHeight));
+	},
+	onDragEnd: function(){
+		document.onmousemove = null;
+		document.onmouseup = null;
+	}
+};
+
+(function(W){
+	var miniTool = window["MIN"] = {};//注册命名空间，工具集
+	var DragMini = window["MIN_D"] = {};//拖拽
+	var MinisteMain =window["MIN_M"] = {};//主函数
+	var extend = function(destination, source) {//扩展
+        for (var property in source)
+            destination[property] = source[property];
+        return destination;
+    };
+	var $A = function(iterable){
+		if (!iterable) return [];
+		if (iterable.toArray) return iterable.toArray();
+		var length = iterable.length, results = new Array(length);
+		while (length--) results[length] = iterable[length];
+		return results;
+	}
+	Function.prototype.bind=function(){
+		if (arguments.length < 2 && arguments[0] === undefined) return this;
+			var __method = this, args = $A(arguments), object = args.shift();
+			return function() {
+			 return __method.apply(object, args.concat($A(arguments)));
+		}
+	};
+	var equals = function(eqs,obj){
+		if(eqs == obj)
+			return true;
+		if(typeof(obj)=="undefined"||obj==null||typeof(obj)!="object") 
+			return false;
+		var length = 0; var length1=0;
+		for(var ele in eqs) {
+			length++;
+		}
+		for(var ele in obj){
+			length1++;
+		}
+		if(length!=length1)
+			return false;
+		if(obj.constructor==eqs.constructor){
+			for(var ele in eqs){
+				if(typeof(eqs[ele])=="object") {
+					if(!equals(eqs[ele],obj[ele]))
+						return false;
+				}
+				else if(typeof(eqs[ele])=="function"){
+					if(!equals(eqs[ele].toString(),obj[ele].toString())) 
+						return false;
+				}
+				else if(eqs[ele]!=obj[ele]) 
+					return false;
+			}
+			return true;
+		}
+		return false;
+	};
+	Array.prototype.contains = function(obj) {
+		var boo = false;
+		for(var i=0, len=this.length; i<len; i++) {
+			if(typeof obj == "object") {
+				if(equals(this[i],obj)) {
+					boo = true;
+					break;
+				}						
+			}else {
+				if(this[i] == obj)  {
+					   boo = true;
+					   break;				
+				}
+			}			
+		}
+		return boo;
+	};
+	miniTool = {//工具
+		$:function(id){return (typeof(id) == 'string') ? document.getElementById(id) : id;},
+		$$:function(oTag,id){//获取tag集合
+			 if (document.getElementsByTagName && document.getElementsByTagName(oTag)) {
+				if(id){
+					return this.$(id).getElementsByTagName(oTag);
+				}
+				return document.getElementsByTagName(oTag)
+			} else {
+				return false
+			}
+		},
+		$$$:function(obj, tag, clsName){//获得class集合
+			var reArray = [];
+			var target = obj.getElementsByTagName(tag);
+			for (var i=0, len=target.length; i<len; i++) {
+				if (target[i].className == clsName) {
+					reArray.push(target[i]);
+				}
+			}
+			return reArray;
+		},
+	   	Jsonp:{
+			loadScript: function(url){
+				var script = document.createElement("script");
+				script.type = "text/javascript";
+				if(script.readyState){
+					script.onreadystatechange = function(){
+					   if(this.readyState == "loaded" || this.readyState == "complete"){   
+							this.onreadystatechange = null; 
+							document.body.removeChild(this);
+					   }
+					};
+				}else {
+					script.onload = function(){
+						document.body.removeChild(this);
+					};
+				}
+				script.setAttribute('src', url);
+				document.body.appendChild(script);
+			},
+			encodeParameters: function(parameters){
+				var paras = [];
+				for (parameter in parameters){
+					paras.push(escape(parameter) + "=" + escape(parameters[parameter]));
+				}
+				return paras.length>0?'?'+paras.join('&'):'';
+			},
+			request: function(url, param){
+				this.loadScript(url + this.encodeParameters(param) );
+			}
+		},
+		cutstr: function(str, len, repStr){
+			var str_length=0, str_len=0;
+			str_cut = new String(); 
+			str_len = str.length; 
+			for(var i = 0; i < str_len; i++){ 
+				a = str.charAt(i);
+				str_length++; 
+				if(escape(a).length > 4){ 
+					//中文字符的长度经编码之后大于4 
+					str_length++; 
+				}
+				str_cut = str_cut.concat(a); 
+				if(str_length>=len){
+					if(i<str_len-1){
+						str_cut=str_cut.concat(repStr); 
+					}
+					return str_cut;
+				}
+			}
+			//如果给定字符串小于指定长度，则返回源字符串； 
+			if(str_length < len){
+				return  str; 
+			}
+		},
+		strAllLen: function(str){
+			var str_length=0, str_len=0;
+			str_len = str.length; 
+			for(var i=0; i<str_len; i++){ 
+				a = str.charAt(i);
+				str_length++;
+				if(escape(a).length > 4){ 
+					str_length++; 
+				}
+			}
+			return str_length;
+		},
+		getParm:function(name){//从URL获取参数
+			if(!name || name == "")
+			return "";
+			var r = new RegExp("(\\?|#|&)*"+name+"=([^&]*)(&|$)")
+			var m = location.href.match(r)
+			if(!m || m=="") m =top.location.href.match(r);
+			return (!m?"":m[2]);
+		},
+		getCookie:function(name){//获得cookie
+			 var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
+			 if(arr != null) return unescape(arr[2]); 
+			 return null;
+		},
+		setCookie:function(cookieName,cookieValue,days,domain){
+			var today  = new Date();
+			var expire = new Date();
+			if (days == undefined) days=0;
+			expire.setTime(today.getTime() + 3600000*days);
+			document.cookie = cookieName+"="+escape(cookieValue)+ ";path=/;domain="+domain+".qq.com;expires="+expire.toGMTString();
+		},
+		loadJs:function(sUrl, fCallback){
+			try {
+				var script = document.createElement('script');
+				script.src = sUrl;
+				script.type = "text/javascript";
+				document.getElementsByTagName("head")[0].appendChild(script);
+				if( script.addEventListener ) {
+					script.addEventListener("load", fCallback, false);
+				} else if(script.attachEvent) {
+					script.attachEvent("onreadystatechange", function(){
+							if(script.readyState == 4
+								|| script.readyState == 'complete'
+								|| script.readyState == 'loaded') {
+								fCallback();
+							}
+					});
+				}
+			} catch(e) {
+				   fCallback();
+			}
+		},
+		loadCss:function(url){
+			var cssTag=document.getElementById('loadCss');
+			var head=document.getElementsByTagName('head').item(0);
+			if(cssTag)head.removeChild(cssTag);
+			css=document.createElement('link');
+			css.href=url;
+			css.rel='stylesheet';
+			css.type='text/css';
+			css.id='loadCss';
+			head.appendChild(css);
+		},
+		addEvent: function (l, i, I) {//添加事件
+			if (l.attachEvent) {
+				l.attachEvent("on" + i, I)
+			} else {
+				l.addEventListener(i, I, false)
+			}
+		},
+		delEvent: function (l, i, I) {//删除事件
+			if (l.detachEvent) {
+				l.detachEvent("on" + i, I)
+			} else {
+				l.removeEventListener(i, I, false)
+			}
+		},
+		 getStyle:function(element,styleName) {//获取样式
+			  var realStyle = null;
+				if(element.currentStyle)
+					realStyle = element.currentStyle[styleName];
+				else if(window.getComputedStyle)
+					realStyle = window.getComputedStyle(element, null)[styleName];
+				return realStyle;
+		},
+		show:function(o){o.style.display="";},
+		hide:function(o){o.style.display="none"},
+		SetOpacity: function(ev, v){//设置透明度
+            ev.filters ? ev.style.filter = 'alpha(opacity=' + v + ')' : ev.style.opacity = v / 100;
+        },
+		fadeIn:function(elem, speed, opacity){//淡入
+			var _self = this;
+			speed = speed || 20;
+			opacity = opacity || 100;
+			//显示元素,并将元素值为0透明度(不可见)
+			elem.style.display = 'block';
+			_self.SetOpacity(elem, 0);
+			//初始化透明度变化值为0
+			var val = 0;
+			//循环将透明值以5递增,即淡入效果
+			(function(){
+				_self.SetOpacity(elem, val);
+				val += 5;
+				if (val <= opacity) {
+					setTimeout(arguments.callee, speed)
+				}
+			})();
+		},
+		fadeOut:function(elem, speed, opacity){
+			var _self = this;
+			speed = speed || 20;
+			opacity = opacity || 0;
+			//初始化透明度变化值为0
+			var val = 100;
+			//循环将透明值以5递减,即淡出效果
+			(function(){
+				_self.SetOpacity(elem, val);
+				val -= 5;
+				if (val >= opacity) {
+					setTimeout(arguments.callee, speed);
+				}else if (val < 0) {
+					//元素透明度为0后隐藏元素
+					elem.style.display = 'none';
+				}
+			})();
+		},
+		each:function(list,fun){
+			for (var i=0,len=list.length;i<len;i++){
+				fun(list[i], i);
+			}
+		},
+		quchong:function(a,b){
+			 for(var i=0,j=0,ci,r={},c=[];ci=a[i++]||b[j++];){
+					if(r[ci])continue;
+					r[ci]=1;
+					c.push(ci);
+			}
+			return c;
+		},
+		append:function(o,prams){
+			var newEle = document.createElement(prams.tag);
+			if(prams.Attribute){
+				for(var i=0, len=prams.Attribute.length; i<len; i++){
+					if(prams.Attribute[i][0]=="style"){
+						newEle.style.cssText = prams.Attribute[i][1];
+					}else{
+						if(prams.Attribute[i][0]=="frameborder"){
+							newEle.setAttribute(prams.Attribute[i][0], prams.Attribute[i][1],0);
+						}else{
+							newEle.setAttribute(prams.Attribute[i][0], prams.Attribute[i][1]);
+						}
+					}
+				}
+			}
+			if(prams.inner){
+				newEle.innerHTML = prams.inner;
+			}
+			o.appendChild(newEle);
+		},
+		html:function(o,h){
+			if(o){
+				o.innerHTML = h; 
+			}
+		},
+		attr:function(o,name){
+			if(o){
+				return o.getAttribute(name)
+			}
+		},
+		uniq: function(arr) {   
+			var map={}, re=[];
+			for(var i=0,l=arr.length; i<l; i++){
+				if(typeof map[arr[i]] == "undefined"){    
+					map[arr[i]]=1;
+					re.push(arr[i]);
+				}
+			}
+			return re;    
+		},
+		filterArr:function(a1, a2) {//数组对比取出反集
+			var myAry = [];
+			var fun = function(item,ary) {
+				var boo = false;
+				for(var i=0, len=ary.length;i<len;i++) {
+					if(item==ary[i]) {
+						  boo = true;
+						  break;
+					}
+				}
+				return boo;								
+			}
+			for(var i=0, len=a1.length;i<len;i++) {
+				if(!a2.contains(a1[i]))
+				myAry.push(a1[i]);
+			}
+			return myAry;
+		},
+		Tab: (function(){
+			var Tab = function(){ this.initialize.apply(this, arguments);};
+			Tab.prototype = {
+				initialize: function(options, onchange){
+					this.onchange = onchange || null;
+					this.setOptions(options);
+					this.binding();
+				},
+				setOptions: function(options){
+					this.tabElement = options.tabElement || null;
+					this.contentElement = options.contentElement || null;
+					this.currentClass = options.currentClass || 'current';
+					this.eventType = options.eventType || 'onclick';
+					this.defaultIndex = options.defaultIndex || 0;
+					this.deferTime = Math.abs(options.deferTime) || 0;
+					this.mateAttribute = options.mateAttribute || null;
+					this.tabTimer = null;
+					this.targetCache = null;
+					this.instance = [];
+				},
+				binding: function(){
+					var tabs = this.tabElement.children,
+					contents = this.contentElement.children,
+					i = tabs.length,
+					that = this,
+					notEmptyContent = contents.length!==0,
+					di = (this.defaultIndex%i+i)%i;
+			
+					if(	i != contents.length && notEmptyContent)
+						throw new Error("tabs numbers or contents numbers erorr!");
+							
+					for(;i--;){
+						if(this.mateAttribute && notEmptyContent){
+							var j=contents.length, att = tabs[i].getAttribute(this.mateAttribute);
+							while(j--){
+								if(contents[j].getAttribute(this.mateAttribute) == att){
+									tabs[i].setAttribute('index', j);
+									break;
+								}
+							}
+						}else{
+							tabs[i].setAttribute('index', i);
+						}
+					}
+					
+					tabs[di].className = that.currentClass;
+					var contentIndex = tabs[di].getAttribute('index');
+					if(notEmptyContent){
+						contents[contentIndex].style.display = 'block';
+					}
+				
+					this.targetCache = tabs[di];
+					if(that.onchange){
+						that.onchange(that, di, tabs[di], notEmptyContent?contents[contentIndex]:that.contentElement);
+					}
+					
+					this.tabElement[this.eventType] = function(e){
+						e = e||window.event;
+						var target = e.target||e.srcElement;
+						var count = 3;
+						while(this != target.parentNode){
+							target = target.parentNode;
+							if(count-- < 0){
+								return;
+							}
+						}
+						
+						window.clearTimeout(that.tabTimer);
+						that.tabTimer = window.setTimeout(function(){
+								var index = target.getAttribute('index');
+								var cacheIndex = that.targetCache.getAttribute('index');
+								if(index != cacheIndex){
+									target.className = that.currentClass;
+									that.targetCache.className = '';
+									
+									if(notEmptyContent){
+										contents[index].style.display = 'block';
+										contents[cacheIndex].style.display = 'none';
+									}
+			
+									that.targetCache = target;
+									if(that.onchange){ that.onchange(that, index, target, notEmptyContent?contents[index]:that.contentElement);}
+							};
+						}, that.deferTime);
+						
+						if('function' === typeof e.preventDefault){
+							e.preventDefault();
+							e.stopPropagation();
+						}else{
+							e.returnValue = false;
+							e.cancelBubble = true;
+						}
+						return false;
+					};
+					if(that.deferTime>0){
+						that.tabElement.onmouseout = function(){
+							window.clearTimeout(that.tabTimer);
+						};
+					}
+				}
+			};
+			return Tab;
+		})(),
+		ajaxObj:{
+			bindFunction:function (caller, object) {
+					return function() {
+						return caller.apply(object, new Array(object));
+					}
+			},
+			stateChange:function(object){
+				if(this.request.readyState==4){
+						this.callbackFunction(this.request.responseText);
+				}
+			},
+			getRequest:function() {
+					if (window.ActiveXObject)
+						return new ActiveXObject('Microsoft.XMLHTTP');
+					else if (window.XMLHttpRequest)
+						return new XMLHttpRequest();
+					else
+						return false;
+			},
+			request:null,
+			init:function(url,callbackFunction){
+				this.callbackFunction=callbackFunction;
+				this.url=url;   
+				this.request = this.getRequest();
+				if (arguments[2]){
+					this.postBody = arguments[2];
+				}else{ 
+					this.postBody=null;
+				}
+				if(this.request) {
+					this.request.onreadystatechange = this.bindFunction(this.stateChange, this);
+					if (this.postBody!="") {
+						this.request.open("GET", url, true);
+						this.request.setRequestHeader("If-Modified-Since","0");
+						this.request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+						this.request.setRequestHeader('Connection', 'close');
+					} else {
+						this.request.open("GET", url, true);
+						this.request.setRequestHeader("If-Modified-Since","0");
+						this.request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+						this.request.setRequestHeader('Connection', 'close');
+					}
+					this.request.send(this.postBody);
+				}
+			}
+		}
+	};
+	DragMini = {
+		isDragThis:false,
+		subscibeLib:document.getElementById("subscibeLib"),
+		contentLib:document.getElementById("contentLib"),
+		getDragQue: function(){
+			var dragQue = [];
+			function pushToQue(arr){
+				for(var i=0, len=arr.length; i<len; i++){
+					var id = arr[i].getAttribute('dataID');
+					if(id!=''){
+						dragQue.push(id);
+					}
+				}
+			}
+			pushToQue(this.subscibeLib.children);
+			pushToQue(this.contentLib.children);
+			return dragQue;
+		}
+	};
+	(function(){
+		var Pos = function(x, y){
+		    this.x = x;
+		    this.y = y;
+		}
+		/**
+		 * 基于坐标的滑动效果类
+		 */
+		var PosMotion = function(){
+			this.initialize.apply(this, arguments);
+		};
+		PosMotion.prototype = {
+			/**
+			 * 构造函数
+			 * @param  {String} containerId 滑动元素的ID（必选）
+			 * @param  {Object} options     参数配置对象（必选）
+			 */
+			initialize: function(container, options){
+				this.container = container;//document.getElementById(containerId);
+				options = options || {};
+				this.d = options.duration || 30;                             // 滑动持续时间
+				this.timeInterval = options.timeInterval || 10;				 // 滑动时间间隔
+				this.t = options.currentTime || 0;				 			 // 当前时间
+				this.startPos = options.startPos || new Pos(0, 0);	         // 初始坐标
+				this.endPos = options.endPos || new Pos(0, 0);				 // 结束坐标
+				this.tween = options.tween || this.tweenCirc.easeInOut;		 // 缓动动画算法设置
+				this.timer = null;											 // 计时器钩子
+
+				this.onStart = options.onStart || function(){};				 // 开始滑动前回调函数
+				this.onStop = options.onStop || function(){};				 // 停止滑动后回调函数
+			},
+			/**
+			 * 默认的滑动算法
+			 * @type {Object}
+			 */
+			tweenCirc:{
+				easeInOut: function(t,b,c,d){
+					if ((t/=d/2) < 1) return -c/2 * (Math.sqrt(1 - t*t) - 1) + b;
+					return c/2 * (Math.sqrt(1 - (t-=2)*t) + 1) + b;
+				}
+			},
+			/**
+			 * 将元素移动到坐标处
+			 * @param  {Pos} pos 坐标对象
+			 */
+			moveTo: function(pos) {
+				this.container.style['left'] = pos.x + 'px';
+				this.container.style['top'] = pos.y + 'px';
+			},
+			/**
+			 * 按时间递归的移动方法
+			 */
+			move: function(){
+				var that = this;
+				clearTimeout( this.timer );
+				if (this.t++ < this.d) {
+					var x = Math.floor(this.tween(this.t, this.startPos.x, this.endPos.x-this.startPos.x, this.d));
+					var y = Math.floor(this.tween(this.t, this.startPos.y, this.endPos.y-this.startPos.y, this.d));
+					this.moveTo(new Pos(x, y));
+					this.timer = setTimeout(function(){ that.move()}, this.timeInterval);
+				}else{
+					this.moveTo(this.endPos);
+					this.onStop();
+				}
+			},
+			/**
+			 * 开始执行滑动
+			 */
+			run: function(){
+				this.onStart();
+				this.move();
+			}
+		};
+
+		// 装载到插件树
+		if(!window.MIN_Plugins){
+			window.MIN_Plugins = {};
+		}
+		window.MIN_Plugins['PosMotion'] = PosMotion;
+
+		var darg = {
+		    target:null,		// 当前拖动的对象引用
+		    currentEle:null,	// 拖动时，移动到某个对象的引用
+		    ox:0,				// 当前拖动对象的X坐标
+		    oy:0,				// 当前拖动对象的Y坐标
+		    lastX:0,			// 最后移动的鼠标位置，X坐标
+		    lastY:0,			// 最后移动的鼠标位置，X坐标
+		    count:0,			// 交换计数，用于检测元素交换同步完成
+		    lock:false			// 动画排他锁
+		};
+
+		var maskLayer = document.getElementById('maskLayer');
+		var subscribeBox = document.getElementById('Drag_Zone');
+		// 分界线
+		var interfaceEle = document.getElementById('interface');
+
+		// 当前的内容库
+		var contentLib = document.getElementById('contentLib');
+		// 已经订阅的内容库
+		var subscibeLib = document.getElementById('subscibeLib');
+
+		// 交换层
+		var subLayer = document.getElementById('subLayer');
+		var conLayer = document.getElementById('conLayer');
+
+		var timer = null;
+		/**
+		 * 获取定位
+		 * @param  {Element} element  获取定位的元素对象
+		 * @param  {Boolean} isToRoot 是否计算基于根元素，还基于最近的定位元素
+		 * @return {Pos}           	  返回一个坐标对象
+		 */
+		function positionedOffset(element, isToRoot){
+		    var x=0,y=0;
+		    do{
+		        y+=element.offsetTop||0;
+		        x+=element.offsetLeft||0; 
+		    	element= element.offsetParent; 
+		      if(!isToRoot && element && element.id=='Drag_Zone'){
+		        break;
+		      }
+		      if(element){ 
+		          p=element.style.position;
+		          if(p=='relative'||p=='absolute')break; 
+		      } 
+		  }   while(element);
+		  return new Pos(x, y); 
+		}
+
+		/**
+		 * 根据坐标值获取Box对象
+		 * @param  {Number} x  X坐标值
+		 * @param  {Number} y  Y坐标值
+		 * @return {Element}   坐标位置的Box对象
+		 */
+		function getBox(x, y){
+			var interfacePos = positionedOffset(interfaceEle, true);
+			if(interfacePos.y > y){
+				subscibeLib.rows = 1;
+				subscibeLib.cols = 9;
+				return subscibeLib;
+			}else{
+				contentLib.rows = 2;
+				contentLib.cols = 9;
+				return contentLib;
+			}
+		}
+		/**
+		 * 获取已知坐标处的Box和Index索引值
+		 * @param  {Number} x  X坐标值
+		 * @param  {Number} y  Y坐标值
+		 * @return {Object}    返回一个对象，包括Box对象和坐标处的index索引值
+		 */
+		function getBoxIndex(x, y){
+			// 获取鼠标所在坐标的当前Box
+			var box = getBox(x, y);
+		    // 获取鼠标到Box左上角坐标的距离
+		    var pos = positionedOffset(box, true);
+		    
+		    x = x - pos.x;
+		    y = y - pos.y;
+
+		    var rows = Number(box.rows), cols = Number(box.cols), 
+		    //TODO height和boxHeight应该自动获取，因为CSS不能给一个高度，所有这个固定了高度
+		    width=73, height=69, boxHeight=69*rows;
+
+		    var index = (cols-parseInt((box.offsetWidth-x)/width) + 
+		                (rows-1- parseInt((boxHeight-y)/height))*cols)-1;
+
+		    //如果用户拖动的位置超出的索引范围，则返回
+		    if(index<0 || index >= box.children.length){
+		    	return null;
+		    }
+		    return {'box':box, 'index':index};
+		}
+		/**
+		 * 交换项目
+		 * @param  {Number} index 交换目标的Index引索值
+		 */
+		function switchItem(box, index){
+			if(darg.lock){return false;}
+			var subTarget = box.children[index];
+			if(subTarget == darg.target){
+				darg.count = 2;
+				resetCache();
+				return;
+			}
+			// 锁定拖动，防止动画过程元素队列更变
+			darg.lock = true;
+
+			var node1 = subTarget.cloneNode(true);
+			var node2 = darg.target.cloneNode(true);
+
+			var pos = positionedOffset(subTarget, false);
+			var pos2 = positionedOffset(darg.target, false);
+
+			new PosMotion(subLayer, {startPos:pos, endPos:pos2, onStart:function(){
+		    	subLayer.innerHTML = '';
+		    	var ul = document.createElement('ul');
+		    	ul.appendChild(node1.cloneNode(true));
+		    	subLayer.appendChild(ul);
+				subLayer.style.visibility = 'visible';
+				subTarget.style.visibility = 'hidden';
+			}, onStop:function(){
+				darg.count++;
+				subTarget.parentNode.replaceChild(node2, subTarget);
+				subLayer.style.visibility = 'hidden';
+				resetCache();
+			}}).run();
+
+
+			new PosMotion(conLayer, {startPos:pos2, endPos:pos, onStart:function(){
+		    	conLayer.innerHTML = '';
+		    	var ul = document.createElement('ul');
+		    	ul.appendChild(node2.cloneNode(true));
+		    	conLayer.appendChild(ul);
+				conLayer.style.visibility = 'visible';
+				darg.target.style.visibility = 'hidden';
+			}, onStop:function(){
+				darg.count++;
+				darg.target.parentNode.replaceChild(node1, darg.target);
+				conLayer.style.visibility = 'hidden';
+				resetCache();
+			}}).run();
+
+			DragMini.isDragThis = true;
+		}
+		/**
+		 * 重置拖动时的缓存引用
+		 */
+		function resetCache(){
+			if(darg.count >= 2){
+			    darg.target = null;
+			    darg.lock = false 	  // 解锁
+				darg.count = 0;		  // 恢复同步计数
+			}
+		}
+		/**
+		 * 鼠标按下事件，最后绑定onmouseover和onmouseup事件
+		 */
+		subscribeBox.onmousedown = function(){
+			if(darg.lock){return false;}
+
+		    var event = arguments[0] || window.event;
+		    var obj = event.target || event.srcElement;
+
+		    if((obj.nodeType!=1 || obj.nodeName != 'LI') 
+		    	&& obj.parentNode.nodeName!="LI"){
+		        return false;
+		    }
+			if(obj.parentNode.nodeName=="LI"){
+				obj = obj.parentNode;
+			}
+		    darg.target = obj;
+
+		    if(subscribeBox.setCapture){
+		    	subscribeBox.setCapture();
+		    }
+
+		    maskLayer.innerHTML = '';
+		    var ul = document.createElement('ul');
+		    ul.appendChild(obj.cloneNode(true));
+		    maskLayer.appendChild(ul);
+
+		    obj.className = 'opa';
+		    
+		    var pos = positionedOffset(obj);
+		    maskLayer.style["top"] = pos.y + "px"; 
+		    maskLayer.style["left"] = pos.x + "px"; 
+		    maskLayer.style["visibility"] = "visible"; 
+		    maskLayer.style["cursor"] = "move";
+		    darg.ox = event.clientX - maskLayer.offsetLeft; 
+		    darg.oy = event.clientY - maskLayer.offsetTop;
+
+		    try{
+		        window.getSelection?window.getSelection().removeAllRanges():document.selection.empty();
+		    }catch(e){}
+
+		    document.onmousemove = onDragItem;
+			document.onmouseup = onDragEnd;
+		};
+		/**
+		 * 拖动中事件，绑定document.onmousemove
+		 */
+		function onDragItem(){
+			//如果拖动锁定状态，则退出
+			if(darg.lock){return false;}
+			var event = arguments[0] || window.event; 
+		    try{
+		        window.getSelection?window.getSelection().removeAllRanges():document.selection.empty();
+		    }catch(e){}
+
+		    if(darg.target != null && darg.target.nodeType == 1){ 
+		        maskLayer.style["left"] = event.clientX - darg.ox + "px"; 
+		        maskLayer.style["top"] = event.clientY - darg.oy + "px";
+				maskLayer.style["cursor"] = "move";
+
+		        darg.lastX = event.clientX;
+		        darg.lastY = event.clientY;
+
+		        // 防止拖动时超时界限
+		        if(darg.lastX<0 || darg.lastY<0){
+		        	return false;
+		        }
+		        if(darg.lastX>subscribeBox.offsetWidth || darg.lastY>subscribeBox.offsetHeight){
+		        	return false;
+		        }
+		        // 延时显示高亮
+				window.clearTimeout(timer);
+				timer = window.setTimeout(function(){
+					var obj = getBoxIndex(darg.lastX, darg.lastY);
+					if(obj != null){
+						var ele = obj.box.children[obj.index];
+						if(darg.target != ele && ele.nodeType == 1 && ele.className != 'cur'){
+							ele.className = 'cur';
+							// 移动上次的图标的高亮显示
+							if(darg.currentEle!=null && darg.currentEle.nodeType == 1 && darg.target!=darg.currentEle){
+								darg.currentEle.className = '';
+							}
+							// 缓存当前高亮显示的图标元素
+							darg.currentEle = ele;
+						}
+					}else{
+						// 当拖动不是图标位置时，移除高亮显示
+						if(darg.currentEle!=null && darg.currentEle.nodeType == 1 && darg.target!=darg.currentEle){
+							darg.currentEle.className = '';
+							darg.currentEle = null;
+						}
+					}
+				}, 20);
+		    }
+		}
+		/**
+		 * 拖动结束事件，绑定document.onmouseup，事件结束时清空onmousemove和onmouseup事件
+		 */
+		function onDragEnd(){
+			if(darg.lock){return false;}
+	        var e = arguments[0] || window.event;
+
+			if(subscribeBox.releaseCapture){
+				subscribeBox.releaseCapture();
+			}
+
+			maskLayer.style["visibility"] = "hidden";
+
+			if(darg.currentEle!=null && darg.currentEle.nodeType == 1){
+				darg.currentEle.className = '';
+			}
+
+		    if(darg.target != null && darg.target.nodeType == 1){ 
+		        darg.target.className = '';
+
+		        var obj = getBoxIndex(e.clientX, e.clientY); 
+		        if(obj != null){
+		        	switchItem(obj.box, obj.index);
+		        }else{
+		        	darg.count = 2;
+		        	resetCache();
+		        }
+		    }
+
+			document.onmousemove = null;
+			document.onmouseup = null;
+		}
+	})();
+
+	/**
+	 * 用户数据状态
+	 * UNSUBSCRIBE  表示未订阅
+	 * SUBSCRIBED   表示已订阅
+	 * PERSONALIZED 表示已个性化
+	 */
+	var UNSUBSCRIBE=0x01, SUBSCRIBED=0x02, PERSONALIZED=0x04;
+	/**
+	 * 主函数
+	 */
+	var MinisteMain = {
+		userData:[],//默认数据
+		haveOrder:false,//是否做过定制
+		haveInt:false,//是否执行过
+		cloneMap:{},//克隆站点地图
+		canNotDrag:[],  //不可拖拽数组
+		canDrag:[],     //可拖拽数组
+		UIN:null,
+		SKY:null,
+		MIclentkey:null,
+		isLocalSite:false,   // 用户当前位置是否处于地方站
+		isHouseSite:false,   // 用户当前位置是否处于房产站
+		currentTab:null,     // 当前显示的频道
+		contentCache:{},	 // 缓存频道内容
+		UPLE_TIMEOUT:5000,   // 访问定制接口超时时间（毫秒）
+		MAX_COUNT:9,		 // 最多显示页卡的数目
+		isAutoPlay:true,     // 是否自动轮播
+		renewalError: 5,	 // 续期失败重试次数
+		userStatus: UNSUBSCRIBE,  // 默认用户状态为未订阅
+		renewalTime: {succeed: 1000*60*40, failed:1000*60*3},	// 续期时间
+		tabId:"Tab_Nav",
+		exeCache:{},	 // 用于保证内容代码只执行一次
+		/**
+		 *  @param {Object} map       参数对象，Tab的配置信息。
+		 *  @param {Object} skinMap	     皮肤对象参数。
+		 */
+		init:function(map, skinMap){
+			var _self = this;
+			this.cloneMap = map;
+			
+			this.geoLocation=decodeURI(miniTool.getParm("geo_location"));
+			if(this.geoLocation==''){
+				var proCit= miniTool.getCookie("QQ_Mini_IP_GeoCache");
+				this.geoLocation=decodeURI(proCit);
+			}
+				
+			// 判断用户当前位置是否处于地方站和房产站
+			this.isLocalSite = _self.locationResult(this.geoLocation,16);
+			this.isHouseSite = _self.locationResult(this.geoLocation,8);
+			
+			this.contentBox = miniTool.$("Main_Conent");
+			this.tabBox = miniTool.$(_self.tabId);
+			this.customBox = miniTool.$('Drag_Zone');
+			this.aioMask = miniTool.$('aioMask');
+			this.dataList = _self.getDataList(this.cloneMap.data);
+
+			// 皮肤ID
+			var skinId = miniTool.getCookie("fwSkin_minisite_QQ");
+			// 用户QQ号码
+			this.UIN = miniTool.getCookie("fwuin_minisite_QQ");
+			this.SKY = miniTool.getCookie("skey");
+			this.MIclentkey = miniTool.getCookie("fwSkey_minisite_QQ");
+			
+			// 换肤
+			this.changeSkin(skinId|0,skinMap);
+			
+			// 更多页卡
+			this.moreCard = miniTool.$('moreCard');
+			
+			/**
+			 * 获取服务器Map配置数据
+			 * 格式例如：var DragGet={"code":0,"msg":"success", "data":[12,2,4,13,3,9,6,7,14,5,8,11,15]} 
+			 */
+			try{
+				var uple = window.setTimeout(function(){
+					MIN_M.DataParse(map);
+					_self.reportBoss('uple_timeout', '1280', '定制数据');
+				}, this.UPLE_TIMEOUT);
+				
+				var url = "http://uple.qq.com/?t=aio_page&op=get&uin="+MIN_M.UIN+"&sessionkey="+MIN_M.SKY;
+				QosSS.addPoint(3, 'start');
+				miniTool.loadJs(url, function(){
+					QosSS.addPoint(3, 'end');
+					window.clearTimeout(uple);
+					if("undefined"!==typeof DragGet){
+						// 用户已订阅
+						if( (DragGet.code == 0 || DragGet.code == 3) && DragGet.data.length>0){//获得用户数据成功
+							if(DragGet.code == 3){
+								// 用户已个性化
+								_self.userStatus = PERSONALIZED;
+								MIN_M.userData = _self.getDataList(DragGet.data);
+							}else{
+								_self.userStatus = SUBSCRIBED;
+								MIN_M.userData=DragGet.data;
+							}
+							MIN_M.haveOrder = true;
+						}else{
+							_self.userStatus = UNSUBSCRIBE;
+						}
+					}
+					if(!MIN_M.haveInt){
+						MIN_M.DataParse(map);
+					}
+				});
+			}catch(e){
+				// 是否已经 解析过Map数据
+				if(!MIN_M.haveInt){
+					MIN_M.DataParse(map);
+				}
+			}
+			try{
+				// 开始计时续期登录态
+				window.setTimeout(function(){ _self.passportRenewal();}, _self.renewalTime.succeed);
+			}catch(e){}
+		},
+		getDataList:function(data){
+			var that = this, mapIdList=[], count=0, total=0;
+			for(var i=0, len=data.length; i<len; i++) {
+				var id = typeof data[i]=='object'?data[i].id:data[i];
+				if(1==id || 16==id){
+					count -= 1;
+					continue;
+				}
+				if(!that.isHouseSite && 8==id){
+					total = i + count;
+					continue;
+				}
+
+				if(!that.isLocalSite && 10==id){
+					continue;
+				}
+				if(!that.isHouseSite && id==11 ){
+					continue;
+				}
+				mapIdList.push(id);
+			}
+			if(!this.isHouseSite && total!=0){
+				mapIdList.splice(total, 0, '11');
+			}
+			return mapIdList;
+		},
+		/**
+		 * 换肤
+		 * @param {Object} ID
+		 * @param {Object} skinMap
+		 */
+		changeSkin:function(ID,skinMap){
+			if(typeof skinMap[ID] !== "undefined"){
+				miniTool.loadCss(skinMap[ID])
+			}
+		},
+		reportBoss:function(sOp, iTy, tabname, sUrl){
+			try{
+				var p = ['http://btrace.qq.com/collect?sIp='];
+				p.push( 'iQQ=' + MIN.getCookie("fwuin_minisite_QQ") );
+				p.push( 'sBiz=minisite2012' );
+				p.push( 'sOp=' + sOp );
+				p.push( 'iSta=0' );
+				p.push( 'iTy=' + iTy );
+				p.push( 'iFlow=' );
+				p.push( 'sLocUrl=' + escape(location.href) );
+				p.push( 'sTab=' + escape(tabname||"") );
+				p.push( 'sUrl=' + escape(sUrl||"") );
+				p.push( 'rnd='+Math.floor(Math.random()*100000) );
+				
+				window.aioBossImg = new Image();
+				window.aioBossImg.src = p.join('&');
+			}catch(e){}
+		},
+		/**
+		 * 检查是否为有效地方站或者房产站
+		 * @param {String} geoGroup IP定位信息
+		 * @param {Number} id 为页卡所在的ID
+		 */
+		locationResult:function(geoGroup, id){
+			if(!geoGroup || typeof geoGroup != 'string'){ return false;}
+			var geoQueue = geoGroup.split(',');
+			if(geoQueue.length == 0){ return false;}
+			
+			var data = MIN_M.cloneMap.data;
+			
+			var locationList = [];
+			for(var i=data.length;i--;){
+				if(data[i].id == id){
+					locationList = data[i].child;
+					break;
+				}
+			}
+			
+			var len = geoQueue.length-1;
+			while(len >= 0){
+				var name = geoQueue[len];
+				for(var o=locationList.length;o--;){
+					if(locationList[o].city && locationList[o].city.indexOf(name) >= 0){
+						return true;
+					}
+				}
+				len--;
+			}
+			return false;
+		},
+		/**
+		 * 根据排列顺序（Array）获取对应的数据源
+		 * @param {Array} arr  排列顺序（Array）
+		 */
+		getSours:function(arr){
+			var data = MIN_M.cloneMap.data, objs=[];
+			for(var i=0, len=arr.length; i<len; i++){
+				for(var j=data.length;j--;){
+					if(data[j].id == arr[i]){ objs.push(data[j]); break;}
+				}
+			}
+			return objs;
+		},
+		/**
+		 * 解析Map数据
+		 * @param {Object} map
+		 */
+		DataParse:function(map){
+			this.haveInt = true;//已执行
+			var json = map.data,_self = this;
+			this.notSubs = [], this.moreTops=[], tech=null;
+
+			// 收集可拖拽和不可拖拽数据
+			miniTool.each(json, function(obj,i){
+				// 检查是否是新闻页、地方站或微博页
+				if(obj.id == 1 || (obj.id == 16 && _self.isLocalSite) || (obj.id ==10 && !_self.isLocalSite)){
+					_self.canNotDrag.push(obj);
+				}
+				else if(obj.id == 21){
+					_self.moreTops.push(obj);
+				}
+				// 收集非订阅页卡
+				else if(obj.subscription === false && _self.userStatus != PERSONALIZED){
+					_self.notSubs.push(obj);
+				}else{
+					if (obj.id == 8 && !_self.isHouseSite || obj.id==16) {
+						return;
+					}
+					if(!_self.isHouseSite && obj.id==11 ){
+						tech = obj;
+						return;
+					}
+					_self.canDrag.push(obj);
+				}
+			});
+
+			if(!_self.isHouseSite && tech!=null){
+				_self.canDrag.splice(7, 0, tech);
+			}
+
+
+			// 检查是否做过定制
+			if(_self.haveOrder){
+				_self.canDrag = [];
+				// 兼容旧版短的用户数组
+				if(_self.userData.length<=8){
+					var userShotTolang = _self.getSours(_self.userData);
+					var newArr = userShotTolang.concat(_self.canNotDrag);//合并
+					var fanji = miniTool.filterArr(json,newArr);
+					_self.canDrag = userShotTolang.concat(fanji);
+				}else{
+					var obj = {"8":this.isHouseSite, "10":this.isLocalSite};
+					for(var i=0; i<_self.userData.length; i++){
+						var id = _self.userData[i];
+						if(typeof obj[id] != 'undefined'){
+							if(!obj[id]){
+								_self.userData.splice(i, 1);
+							}
+							delete obj[id];
+						}
+					}
+					for(var id in obj){
+						if( !obj.hasOwnProperty(id) ) continue;
+						if( obj[id] && !_self.userData.contains(id) ){
+							_self.userData.push(id);
+						}
+					}
+					_self.userData = miniTool.uniq( _self.userData );
+					_self.canDrag = _self.getSours(_self.userData);
+				}
+			}
+			this.DragMenu(_self.canDrag, true);
+			this.handle();
+		},
+		drag:"dragArea",
+		updata:"updata",
+		defaultBt:"default",
+		cancelBT:"cancel",
+		showBut:"Dz_But",
+		/**
+		 * 绘出ICON定制图标组
+		 * @param {Array} arr
+		 * @param {Boolean} aj
+		 */
+		DragMenu:function(arr,aj){
+			var _self = this,_tmp="";
+			this.MenuTmp =[];
+			this.MenuHTML =[]; // 初始化所有ICON的HTML
+			this.AjaxUrls =[];
+			this.Quenb = 0;
+			this.MenuTmp[0]="";
+			this.AjaxUrls[0]="";
+
+			var subscibeLib = miniTool.$('subscibeLib');
+			var contentLib = miniTool.$('contentLib');
+			var sFragment = document.createDocumentFragment();
+			var cFragment = document.createDocumentFragment();
+			var count = 0;
+			for(var i=0, len=arr.length; i<len; i++){
+				var obj = arr[i];
+				if(obj.id==8 && !_self.isHouseSite || obj.id==16 || obj.subscription === false){
+					continue;
+				}
+				var item = document.createElement('li');
+				item.setAttribute('dataID',obj.id);
+				item.title = '拖动试试';
+				var text = document.createElement('span');
+				text.className = obj.ico;
+				text.innerHTML = obj.title
+				item.appendChild(text);
+				if(++count < 10){
+					sFragment.appendChild(item);
+				}else{
+					cFragment.appendChild(item);
+				}
+
+				var t = obj.title, d=obj.id, j=obj.src, ch=obj.child, tp=obj.type, ico=obj.ico, link=obj.href;
+				if(aj){
+					try{
+						_self.ceartMenu(t,j,tp,ch,link);
+					}catch(e){}
+				}
+			}
+			subscibeLib.innerHTML = '';
+			subscibeLib.appendChild(sFragment);
+			contentLib.innerHTML = '';
+			contentLib.appendChild(cFragment);
+		},
+		/**
+		 * 绑定按钮事件
+		 */
+		handle:function(){
+			var _self = this;
+			miniTool.each(miniTool.$$("a"),function(obj){
+				miniTool.addEvent(obj,"focus",function(){
+					obj.blur();
+				})
+			});
+
+			var subBtn = miniTool.$('Dz_But');
+			var locationBtn = miniTool.$('location_btn');
+			
+			// 更多页卡按钮事件
+			miniTool.$('moreNav').onmouseover = function(){
+				var target = this;
+				window.clearTimeout( _self.tabTimer );
+				_self.tabTimer = null;
+				_self.tabTimer = window.setTimeout(
+				(function(target){
+					return function(){
+						_self.show( target );
+						_self.clearAuto();
+						
+						if(_self.SDemo){ // 关闭退订演示
+							_self.SDemo.close();
+						}
+						
+						if(_self.moreCard.style.display!='block'){
+							var name = target.name;
+							_self.exposure(name, 1); // 手动曝光
+
+							if(_self.currentMoreTab){
+								// 显示缓存页卡
+								var targetTab = _self.currentMoreTab;
+								_self.switchMoreTab(targetTab);
+								_self.tabShow( targetTab );
+								
+								_self.exposure(targetTab.name+'_More', 6); // 自动曝光
+							}else{
+								// 显示缺省页卡
+								var moreTabs = document.getElementById('moreTabs').getElementsByTagName('a');
+								if(moreTabs.length >0){
+									var defaultIndex = 0;
+									// 未订阅用户随机显示可视范围内的页卡。
+									if(_self.userStatus != SUBSCRIBED){
+										var maxLen = moreTabs.length>9?9:moreTabs.length;
+										var defaultIndex = Math.floor(Math.random()*maxLen);
+									}
+									var defaultTab = moreTabs[defaultIndex];
+									if(defaultTab){
+										_self.switchMoreTab(defaultTab);
+										_self.tabShow( defaultTab );
+										
+										_self.exposure(defaultTab.name+'_More', 6); // 自动曝光
+									
+										/* 切换到订阅时隐藏订我喜欢和位置按钮 */
+										if(defaultTab.name == '\u8BA2\u9605'){
+											subBtn.style.display = 'none';
+											locationBtn.style.display = 'none';
+										}else{
+											subBtn.style.display = 'block';
+											locationBtn.style.display = 'block';
+										}
+									}
+								}
+							}
+							_self.moreCard.style.display='block';
+
+							// 设置滚动条
+							if(!_self.moreScroll){
+								_self.setScroll();
+							}
+						}
+					};
+				})(target), 200);
+
+				// 加载订阅页卡
+				if(!_self.SubPlugin.isLoaded){
+					_self.SubPlugin.init();
+				}
+			};
+			miniTool.$('moreNav').onmouseout = function(e){
+				window.clearTimeout( _self.tabTimer );
+				_self.tabTimer = null;
+			};
+			
+			
+			// 添加定制内容按钮事件
+			miniTool.addEvent(miniTool.$(_self.showBut),"click",function(){
+				_self.setDefault = false;
+				miniTool.show( _self.customBox );
+				miniTool.hide( _self.contentBox );
+				// 初始化拖动区域（dragArea）中的ICON Button
+				//MIN_D.initDrag(_self.drag,"movable","div");
+
+				// 清除信息反馈区域（sortTips）
+				miniTool.html(miniTool.$("sortTips"),"");
+				
+				//DragMini.isDragThis = false;
+				_self.clearAuto();
+				try{
+					window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+				}catch(e){}
+				_self.setTabLock(true);
+				
+				_self.moreCard.style.display='none';
+				
+				// 判断用户是否订阅过
+				try{
+					var customed = UserData.getItem("ShowPrompt");
+					if( customed!='YES'){
+						_self.onOpenDemo();
+						UserData.setItem("ShowPrompt", "YES");
+					}
+				}catch(e){}
+				
+				return false;
+			});
+					
+			miniTool.$('operateDemo').onclick = function(e){
+				_self.onOpenDemo();
+			};
+			miniTool.$('iknowBtn').onclick = function(){
+				_self.onCloseDemo();
+			};
+			
+			// 确定按钮事件，回传用户定制信息
+			miniTool.$(_self.updata).onclick = function(){
+				var dragQue = DragMini.getDragQue();
+				var str = _self.setDefault?'':dragQue.join(",");
+				window.setTimeout(function(){
+					miniTool.html(miniTool.$("sortTips"),"正在传输数据...");
+					var url = "http://uple.qq.com/?t=aio_page&op=set&sessionkey="+_self.SKY+"&uin="+_self.UIN+"&data="+str;
+					miniTool.loadJs(url,function(){
+						if(typeof DragSet!=="undefined" && DragSet.code==0){
+							if(DragMini.isDragThis){
+								_self.currentMoreTab = null;
+								var arr = _self.getSours(dragQue);
+								_self.canDrag = arr;
+								_self.DragMenu(arr,true);
+							}
+							miniTool.html(miniTool.$("sortTips"),"您的订阅已成功！");
+							window.setTimeout(function(){
+								miniTool.hide( _self.customBox );
+								miniTool.show( _self.contentBox );
+								_self.setTabLock(false);
+							}, 500);
+						}else{
+							miniTool.html(miniTool.$("sortTips"),"订阅失败，请重试！");
+						}
+					});
+				},20);
+				return false;
+			};
+
+			// 取消按钮事件
+			miniTool.addEvent(miniTool.$(_self.cancelBT),"click",function(){
+				// 如果用户已经 定制，则重画ICON图标组
+				if(DragMini.isDragThis){
+					_self.DragMenu(_self.canDrag,false);
+				}
+				miniTool.hide( _self.customBox );
+				miniTool.show( _self.contentBox );
+				_self.setTabLock(false);
+				_self.moreCard.style.display='block';
+				return false;
+			});
+			// 恢复默认按钮事件
+			miniTool.addEvent(miniTool.$(_self.defaultBt),"click",function(){//这里没写完，恢复默认后重绘按钮，点确定没问题，点取消后如何复位
+				var arr = _self.getSours(_self.dataList);
+				// 用户已经 定制
+				DragMini.isDragThis = true;
+				_self.DragMenu(arr,false);
+				//MIN_D.initDrag(_self.drag,"movable","div");
+				_self.setDefault = true;
+				return false;
+			});
+		},
+		MenuTmp:[], // 存储所有菜单HTML
+		AjaxUrls:[],
+		FirrstTmp:"",
+		isMatch:function(city){
+			if(this.geoLocation == '')return false;
+			var cityArr = city.split('|');
+			var geoArr = this.geoLocation.split(',');
+			var flag = false;
+			for(var i=0,len=cityArr.length; i<len; i++){
+				for(var j=0, jlen=geoArr.length; j<jlen; j++){
+					if(cityArr[i] == geoArr[j]){
+						flag = true;
+						break;
+					}
+				}
+			}
+			return flag;
+		},
+		/**
+		 * 创建菜单
+		 * @param {String} t		标题
+		 * @param {String} url		地址
+		 * @param {String} type		类型
+		 * @param {Array} child		包含的子节点
+		 * @param {String} href		链接
+		 */
+		ceartMenu:function(t,url,type,child,href){
+			var loadUrl=url, loadType=type, tDifangzhan="", link=href, _self=this;
+			if(t=='房产' && typeof child!=='undefined' && child.length>0){
+				for(var i=0,len=child.length; i<len; i++){
+					var obj = child[i];
+					if( _self.isMatch(obj.city) ){
+						loadUrl = obj.src;
+						loadType = obj.type;
+						link = obj.href;
+						break;
+					}
+				}
+			}
+			
+			if(t=="体育"){
+				this.MenuTmp.push("<span><a href='"+link+"' name='"+t+"' target='_blank' rel='"+loadUrl+"' rev='"+loadType+"' class='ty_361'>"+t+"<em class='on_bg'></em></a>|</span>");
+			}else{
+				this.MenuTmp.push("<span><a href='"+link+"' name='"+t+"' target='_blank' rel='"+loadUrl+"' rev='"+loadType+"'>"+t+"<em class='on_bg'></em></a>|</span>");
+			}
+			if (loadType == "htm") {
+				_self.AjaxUrls.push(t + "|" + loadUrl);
+			}
+			if(this.MenuTmp.length==10){
+				miniTool.each(_self.canNotDrag,function(obj){
+					if(obj.id==1){
+						_self.MenuTmp[0]="<span><a href='"+obj.href+"' name='"+obj.title+"' target='_blank' rel='"+obj.src+"' rev='"+obj.type+"'>"+obj.title+"<em class='on_bg'></em></a>|</span>";
+						_self.AjaxUrls[0] =_self.FirrstTmp= obj.title+"|"+obj.src;
+					}else{
+						loadUrl = obj.src;
+						loadType = obj.type;
+						link = obj.href;
+						t = obj.title;
+						miniTool.each(obj.child,function(objinner){
+							if(_self.isMatch(objinner.city)){
+								loadUrl = objinner.src;
+								loadType = objinner.type;
+								link = objinner.href;
+								t= obj.title;
+								tDifangzhan = objinner.title;
+							}
+						});
+						_self.AjaxUrls.push(t+"|"+loadUrl);
+						_self.MenuTmp.push("<span><a href='"+link+"' name='"+t+"' target='_blank' rel='"+loadUrl+"' rev='"+loadType+"'>"+(tDifangzhan==""?t:tDifangzhan)+"<em class='on_bg'></em></a></span>");
+					}
+				});
+				// 生成菜单Tab
+				miniTool.html( _self.tabBox, _self.MenuTmp.join(""));
+
+				var newArr = _self.AjaxUrls.concat();
+				newArr = newArr.slice(0, 11);
+				// 加载页面内容
+				_self.preLoadBySSi( newArr );
+			}
+		},
+		Quenb:0,
+		preloadHTML:[],  // 用于存放页面内容的所有HTML
+		/*
+			*使用SSI技术动态合并页面片
+		*/
+		preLoadBySSi:function(arr){
+			if(arr.length==0) return;
+			var targStr = "",that=this;
+			
+			var cardName = UserData.getItem("refresh"), refreshName=null;
+			if(cardName){
+				UserData.removeItem("refresh");
+				refreshName = decodeURI( cardName );
+			}
+			
+			miniTool.each(arr,function(obj,i){
+				if(obj.split("|")[0]=='微博'){
+					return;
+				}
+				var ur = obj.split("|")[1];
+				var urShort = ur.split("/")[ur.split("/").length-1];
+				targStr+=urShort+',';
+			});
+			
+			miniTool.ajaxObj.init("/SSItoPage.htm?"+targStr+"&r="+Math.random(),function(d){
+				miniTool.append(that.contentBox,{tag:"div",inner:d});
+				miniTool.hide(miniTool.$('loadingMask'));
+				delete MIN.ajaxObj.request;
+				that.setTab( refreshName );
+
+				QosSS.addPoint(2);
+				QosSS.finish();
+
+				try{
+					crystal.requestText();//广告
+					
+					crystal3.request(); //广告经理
+					crystal.request(); //IMPro
+					
+					var arrStr = arr.join(",");
+					if(arrStr.indexOf("\u8D22\u7ECF")!==-1){
+						that.loadFinanceScript();
+					}
+					if(arrStr.indexOf("\u661F\u5EA7")!==-1){
+						that.loadAtsro();
+					}
+				}catch(e){}
+				
+				// 视频页卡逻辑
+				if(!that.exeCache['VideoTab']){
+					var videotab = miniTool.$('video_r_tab');
+					var videotab2 = miniTool.$('video_r_tab2');
+					var videocontent = miniTool.$('video_r_content');
+					var videocontent2 = miniTool.$('video_r_content2');
+
+					if(videotab && videocontent){
+						that.exeCache['VideoTab'] = true;
+						new miniTool.Tab({tabElement:videotab, contentElement:videocontent, eventType:'onmouseover'});
+					}
+					if(videotab2 && videocontent2){
+						new miniTool.Tab({tabElement:videotab2, contentElement:videocontent2, eventType:'onmouseover'});
+					}
+				}
+				
+				that.loadMoreTabs();
+			});
+			
+			//退订演示
+			that.SDemo = new SubscibeDemo({
+				imagesData:['tuiding01','tuiding02','tuiding03','tuiding04'],
+				demoBox:'tuidingMask'
+			});
+			that.SDemo.onShow = function(){
+				that.clearAuto();
+				 if(that.currentTab && that.currentTab.parentNode){
+				 	that.currentTab.parentNode.className = "";
+				 }
+			};
+			that.SDemo.onClose = function(){
+				 if(that.currentTab && that.currentTab.parentNode){
+				 	that.currentTab.parentNode.className = "on";
+				 }
+			};
+		},
+		loadFinanceScript: function(){
+			MIN.loadJs("http://mat1.gtimg.com/finance/js/st/p/aio/aio_v20120331140053.js",function(){
+				getzhishu();
+			});
+		},
+		/* 星座 */
+		currentAtsro:'\u767D\u7F8A\u5EA7',
+		callbackAtsro: function(obj){
+			try{
+				var obj = obj[this.currentAtsro];
+				if(!obj || obj["content"]==''){
+					throw "data error!";
+				}
+			}catch(e){
+				//加载静态数据
+				var url = 'http://mat1.gtimg.com/mini2012/js/other/astro_12back.js';
+				miniTool.Jsonp.request(url, {t:new Date().getTime()});
+				return;
+			}
+			var todayYunshi = miniTool.$('todayYunshi'); // 今日运势
+			var astro_cont = miniTool.$('astro_cont'); // 今日概述
+			var todayLuckBox = miniTool.$('todayLuckBox');
+			var attribBox = miniTool.$('attribBox');
+			var oAva=miniTool.$('avatra');
+			astro_cont.innerHTML = '';
+			function createDom(obj, flag){
+				var content = obj.content;
+				var contentName = '\u4ECA\u65E5\u6982\u8FF0\uFF1A';
+				var moreLink = obj.link;
+				if(flag!='luck'){
+					var content = obj.beizhu;
+					var contentName = '\u4E2A\u6027\u89E3\u8BFB\uFF1A';
+					var moreLink = obj.beizhulink;
+				}
+				var nameEle = document.createElement('b');
+				nameEle.innerHTML = contentName;
+				var contentEle = document.createTextNode(content.substring(0, 42)+'...');
+				var moreEle = document.createElement('span');
+				moreEle.className = 'blue_1';
+				moreEle.appendChild(document.createTextNode('['));
+				var moreLinkEle = document.createElement('a');
+				moreLinkEle.className = 'blue_1';
+				moreLinkEle.target = '_blank';
+				moreLinkEle.href = moreLink;
+				moreLinkEle.innerHTML = '\u8BE6\u7EC6';
+				moreEle.appendChild(moreLinkEle);
+				moreEle.appendChild(document.createTextNode(']'));
+				
+				astro_cont.appendChild(nameEle);
+				astro_cont.appendChild(contentEle);
+				astro_cont.appendChild(moreEle);
+				
+				oAva.href = moreLink;
+			}
+			
+			if(obj.zhishu!='' && obj.content!=''){
+				attribBox.style.display = 'none';
+				var zhishu = Number(obj.zhishu.replace('%', '')), width="16px";
+				if(zhishu<=20){
+					width = '16px';
+				}else if(zhishu<=40){
+					width = '32px';
+				}else if(zhishu<=60){
+					width = '48px';
+				}else if(zhishu<=80){
+					width = '64px';
+				}else{
+					width = '80px';
+				}
+				todayYunshi.style.width = width;
+				createDom(obj, 'luck');
+			}else{
+				todayLuckBox.style.display = 'none';
+				attribBox.style.display = 'block';
+				attribBox.innerHTML = '<span class="tit">\u5C5E\u6027\uFF1A</span>'+obj.attr;
+				createDom(obj, 'attrib');
+			}
+			
+		},
+		loadAtsro: function(){
+			var that = this;
+			(function(){
+				var oAva=miniTool.$('avatra');
+				var oBtn=miniTool.$('avatraBtn');
+				var oUl=miniTool.$('ul_sel');
+				var aSpan=miniTool.$('ul_sel').getElementsByTagName('span');
+				var oDiv1=miniTool.$('div_sel');
+				var aLi=miniTool.$('ul_sel').getElementsByTagName('li');
+				var timer=null;
+				
+				function closeLayer(e){
+					e = e||window.event;
+					var target = e.target||e.srcElement;
+					if(target!=oBtn && target!=oDiv1 && target.parentNode!=oDiv1){
+						move(0);
+					}
+				}
+				function move(itarget){
+					clearInterval(timer);
+					timer=setInterval(function(){
+					  var ispeed=(itarget-oUl.clientHeight)/2;
+					  ispeed=ispeed>0?Math.ceil(ispeed):Math.floor(ispeed);
+					  if (oUl.clientHeight==itarget){
+						clearInterval(timer)
+					  }else{
+						oUl.style.height = oUl.clientHeight+ispeed+'px';
+					  };
+					  if(oUl.clientHeight>0){
+						oUl.style.marginTop=0;
+					  }else{
+						oUl.style.marginTop=-1+'px';
+					  }
+					},30);
+					
+					if(0==itarget){
+						miniTool.delEvent(document, 'click', closeLayer);
+					}else{
+						miniTool.addEvent(document, 'click', closeLayer);
+					}
+				}
+				function change(index){
+					oAva.className=aLi[index].className;
+					move(0);
+					oDiv1.innerHTML=aLi[index].innerHTML;
+					that.currentAtsro = aLi[index].title;
+					try{
+						UserData.setItem('customedIndex', index);
+						createContent();
+					}catch(e){createContent();}
+				}
+				// 生成内容
+				function createContent(className){
+					var url = 'http://astro.lady.qq.com/c/astro_12all.js';
+					miniTool.Jsonp.request(url, {t:new Date().getTime()});
+				}
+				
+				oBtn.onclick=oDiv1.onclick=function(){
+					if(oUl.clientHeight==0){
+						move(264);
+					}else if(oUl.clientHeight==264){
+						move(0);
+					}
+				};
+				for(var i=0; i<aLi.length; i++) {
+					aLi[i].index=i;
+					aLi[i].onmouseover=function(){
+						this.style.cssText='background:#f18b4e;color:#fff';
+						aSpan[this.index].className='t_color'
+					};
+					aLi[i].onmouseout=function(){
+						this.style.cssText='';
+						aSpan[this.index].className=''
+					};
+					aLi[i].onclick=function(){
+						change(this.index);
+					};
+				}
+				// 加载用户订制的星座
+				try{
+					var customedIndex = UserData.getItem("customedIndex");
+					if(customedIndex != null){
+						change(customedIndex);
+					}else{
+						change(0);
+					}
+				}catch(e){change(0);}
+			})();
+		},
+		/**
+		 * 订阅模块
+		 */
+		SubPlugin:{
+			isLoaded: false,
+			init: function(){
+				this.guideBox = document.getElementById('guideBox');
+				miniTool.Jsonp.request("http://dyapi.inews.qq.com/getSubWebUserNews", {"callback":"MIN_M.SubPlugin.callback", "id":0, "count":12, "t":new Date().getTime()});
+			},
+			callback: function(obj){
+				if(obj.ret != 0) return;
+				if(obj.newslist.length < 1){
+					this.guidePage(this.init);
+					return;
+				}else{
+					this.guideBox.style.display = 'none';
+				}
+				var datas = obj.newslist, doc=document;
+				// 左侧图文
+				var leftModel = '<div class="f_pic" bosszone="%%bosszone%%">\
+        							<a href="%%url%%" target="_blank"><img width="150" height="110" src="%%thumbnail%%" /></a>\
+									<p><a href="%%url%%" target="_blank" class="txt">%%title%%</a><i></i><span class="source">%%chlname%%</span></p>\
+								 </div>';
+				var leftDatas = [];
+				for(var i=0; i<2; i++){
+					var obj = {}, data = datas.shift();
+					var chllen = miniTool.strAllLen(data.chlname);
+					obj.title = miniTool.cutstr(data.title, 42-chllen, '…');
+					obj.chlname = data.chlname;
+					obj.bosszone = 'focus' + (i+1) + '_dy';
+					if(data.thumbnails_qqnews.length > 0){
+						obj.thumbnail = data.thumbnails_qqnews[0];
+					}
+					obj.url = 'http://dy.qq.com/article.htm?id=' + data.id;
+					leftDatas.push(obj);
+				}
+				var sub_leftBox = doc.getElementById('sub_leftBox');
+				sub_leftBox.innerHTML = ModelJS.merge(leftModel, leftDatas);
+
+				// 头条
+				if(datas.length > 0){
+					var data = datas.shift();
+					var sub_title = doc.getElementById('sub_title');
+					sub_title.innerHTML = '';
+					sub_title.setAttribute('bosszone', 'headline_dy');
+					var titleEle = doc.createElement('h2');
+					var alink = doc.createElement('a');
+					alink.className = 'txt';
+					alink.target="_blank";
+					alink.href = 'http://dy.qq.com/article.htm?id=' + data.id;
+					var len = miniTool.strAllLen(data.chlname);
+					alink.innerHTML = miniTool.cutstr(data.title, 66-len, '…');
+					titleEle.appendChild(alink);
+					allLen = miniTool.strAllLen(data.title);
+					var isMultiLine = true;
+					if(allLen < 36){
+						isMultiLine = false;
+						titleEle.appendChild(doc.createElement('br'));
+					}
+					var chlnameEle = doc.createElement('span');
+					chlnameEle.className = 'source';
+					if(isMultiLine){
+						chlnameEle.style.cssText = ';padding-left:20px;';
+					}
+					chlnameEle.innerHTML = data.chlname;
+					titleEle.appendChild(chlnameEle);
+
+					sub_title.appendChild(titleEle);
+				}
+
+				// 列表区1
+				var articModel = '<li bosszone="%%bosszone%%"><span class="w_title"><a href="%%url%%" class="fY txt" target="_blank">%%title%%</a></span><span class="source">%%chlname%%</span></li>';
+				if(datas.length >= 4){
+					var sub_artis = doc.getElementById('sub_artis1');
+					sub_artis.innerHTML = '';
+					var articDatas = [];
+
+					for(var i=0; i<4; i++){
+						var obj={}, data=datas.shift();
+						var len = miniTool.strAllLen(data.chlname);
+						obj.title = miniTool.cutstr(data.title, 42-len, '…');
+						obj.bosszone = 'news' + (i+1) + '_dy';
+						obj.chlname = data.chlname;
+						obj.url = 'http://dy.qq.com/article.htm?id=' + data.id;
+						articDatas.push(obj);
+					}
+					sub_artis.innerHTML = ModelJS.merge(articModel, articDatas);
+				}
+
+				// 列表区2
+				if(datas.length >= 4){
+					var sub_artis2 = doc.getElementById('sub_artis2');
+					sub_artis2.innerHTML = '';
+					var articDatas = [];
+
+					for(var i=0; i<4; i++){
+						var obj={}, data=datas.shift();
+						var len = miniTool.strAllLen(data.chlname);
+						obj.title = miniTool.cutstr(data.title, 42-len, '…');
+						obj.bosszone = 'news' + (i+5) + '_dy';
+						obj.chlname = data.chlname;
+						obj.url = 'http://dy.qq.com/article.htm?id=' + data.id;
+						articDatas.push(obj);
+					}
+					sub_artis2.innerHTML = ModelJS.merge(articModel, articDatas);
+
+					this.isLoaded = true;
+				}
+			},
+			guidePage: function(callback){
+				this.guideCB = callback;
+				miniTool.Jsonp.request("http://dyapi.inews.qq.com/getFirstSubList", {"callback":"MIN_M.SubPlugin.guideShow", "t":new Date().getTime()});
+			},
+			guideShow: function(obj){
+				if(obj.ret != 0) return;
+				var that = this, doc=document;
+				var model = '<li class="cur" chlid="%%chlid%%"><div class="inner"><img src="%%icon%%" width="66" height="66"><i></i></div><p>%%chlname%%</p></li>';
+				var guideItems = doc.getElementById('guideItems');
+				var guideTips = doc.getElementById('guideTips');
+				guideItems.innerHTML = '';
+				if(obj.recommond.length > 8){
+					obj.recommond = obj.recommond.slice(0, 8);
+				}
+				guideItems.innerHTML = ModelJS.merge(model, obj.recommond);
+
+				guideItems.onclick = function(e){
+					e = e||window.event;
+					var target = e.target||e.srcElement;
+					var count = 5;
+					while(count--){
+						if('LI' != target.nodeName){
+							target = target.parentNode;
+						}else{
+							break;
+						}
+					}
+					if('LI' != target.nodeName){
+						return;
+					}
+
+					if(target.className == 'cur'){
+						var allChl = guideItems.children, count=0;
+						for(var i=0, len=allChl.length; i<len; i++){
+							var obj = allChl[i];
+							if(obj.className == 'cur' && obj != target){
+								count++;
+							}
+						}
+						if(count == 0){
+							guideTips.innerHTML = '\u63D0\u793A\uFF1A\u81F3\u5C11\u9009\u62E9\u4E00\u4E2A\u5A92\u4F53\uFF0C\u9605\u8BFB\u7CBE\u9009\u5185\u5BB9';
+						}else{
+							target.className = '';
+						}
+						// 取消订阅
+					}else{
+						target.className = 'cur';
+						guideTips.innerHTML = '';
+						// 开始订阅
+					}
+				};
+				// 开始阅读
+				var guideBtn = doc.getElementById('guideBtn');
+				guideBtn.onclick = function(){
+					var allChl = guideItems.children, chlids=[];
+					for(var i=0, len=allChl.length; i<len; i++){
+						var obj = allChl[i];
+						if(obj.className == 'cur'){
+							chlids.push( obj.getAttribute('chlid') );
+						}
+					}
+
+					var config = {"callback":"MIN_M.SubPlugin.guideDone"};
+					config.chlid = chlids.join(',');
+					config.t = new Date().getTime();
+
+					miniTool.Jsonp.request("http://dyapi.inews.qq.com/addSubWeb", config);
+					this.innerHTML = '\u6B63\u5728\u8BA2\u9605...';
+				};
+				this.guideBox.style.display = 'block';
+			},
+			guideDone: function(){
+				if(typeof this.guideCB != 'undefined'){
+					this.guideCB();
+				}
+			}
+		},
+		/**
+		 * 加载更多内容页卡
+		 */
+		loadMoreTabs: function(){
+			var tmpeData = this.canDrag.concat(this.notSubs);
+			var moreData = tmpeData.splice(9, tmpeData.length-9);
+			moreData = this.moreTops.concat(moreData);
+			var targArr = [], tabsData=[], that=this, isFinance=false, isAtsro=false;
+			try {
+				for (var i=0, len=moreData.length; i<len; ++i) {
+					var obj = moreData[i], tabObj = {};
+
+					tabObj.name = obj.title;
+					tabObj.miniIcon = obj.miniIcon;
+					tabObj.type = obj.type;
+					
+					tabObj.url = obj.href;
+					tabObj.src = obj.src;
+
+					if(obj.flag == 'new'){
+						tabObj.flag = true;
+					}
+					if (2 == obj.id) {
+						isFinance = true;
+					}else if(18==obj.id){
+						isAtsro = true;
+					}
+					if ('htm' == obj.type) {
+						if (obj.title == '\u623F\u4EA7') {
+							var child = obj.child;
+							for (var j = 0, jlen = child.length; j < jlen; ++j) {
+								var houseObj = child[j];
+								
+								if (this.isMatch(houseObj.city)) {
+									var filename = houseObj.src.split("/")[houseObj.src.split("/").length - 1];
+									targArr.push(filename);
+									tabObj.url = houseObj.href;
+									tabObj.src = houseObj.src;
+									break;
+								}
+							}
+						}
+						else {
+							var filename = obj.src.split("/")[obj.src.split("/").length - 1];
+							targArr.push(filename);
+						}
+					}
+					tabsData.push(tabObj);
+				}
+			}catch(e){}
+			this.createMoreTabs( tabsData );
+			
+			miniTool.ajaxObj.init("/SSItoPage.htm?"+targArr.join(',')+"&r="+Math.random(),function(responseText){
+				delete MIN.ajaxObj.request;
+				miniTool.append(that.contentBox,{tag:"div",Attribute:[["id","moreContentBox"]],inner:responseText});
+				crystal.requestText();//广告
+				crystal.request(); //IMPro
+
+				if(isFinance){ // 执行财经脚本
+					that.loadFinanceScript();
+				}
+				if(isAtsro){
+					that.loadAtsro();
+				}
+			});
+			// 加载位置插件
+			miniTool.loadJs("http://mat1.gtimg.com/mini2012/js/plugins/locationCustom_2.4.js", function(){});
+		},
+		setScroll: function(){
+			this.moreScroll = new ScrollBar({"scrollBox":document.getElementById('moreScrollBox'),
+					   "scrollBar":document.getElementById('moreScrollBar'),
+					   "contentBox":document.getElementById('channel_list'),
+					   "verticalMargin":3});
+		},
+		exposure: function(name, type){
+			if(this.ICcache['cache'] !== name){
+				try{
+					IC.rpt(name, type);
+				}catch(e){}
+				this.ICcache['cache'] = name;
+			}
+		},
+		switchMoreTab:function(obj){
+			if(this.currentMoreTab && this.currentMoreTab.parentNode){
+				this.currentMoreTab.parentNode.className = "";
+			}
+			this.currentMoreTab = obj;
+			obj.parentNode.className = "cur";
+		},
+		createMoreTabs: function( tabsData ){
+			var that = this;
+			var moreTabs = document.getElementById('moreTabs');
+			moreTabs.innerHTML = '';
+			var fragment = document.createDocumentFragment();
+			for(var i=0, len=tabsData.length; i<len; ++i){
+				var obj = tabsData[i];
+				var tab = document.createElement('li');
+				var link = document.createElement('a');
+				link.className = obj.miniIcon;
+				link.target="_blank";
+				link.rel = obj.src;
+				link.href = obj.url;
+				link.name = obj.name;
+				link.rev = obj.type;
+				
+				var icon = document.createElement('em');
+				link.appendChild(icon);
+
+				var nameEle = document.createElement('span');
+				nameEle.className = 'txt';
+				nameEle.innerHTML = obj.name;
+				link.appendChild( nameEle );
+
+				if(obj.flag){
+					var icoNew = document.createElement('i');
+					icoNew.className = 'ico_new';
+					link.appendChild( icoNew );
+				}
+
+				tab.appendChild(link);
+				fragment.appendChild(tab);
+			}
+			moreTabs.appendChild( fragment );
+			
+
+			var subBtn = miniTool.$('Dz_But');
+			var locationBtn = miniTool.$('location_btn');
+
+			moreTabs.onmouseover = function(e){
+				e = e||window.event;
+				var target = e.target||e.srcElement;
+				if('A' !== target.nodeName && 'A'!=target.parentNode.nodeName){
+					return;
+				}
+				if('A'==target.parentNode.nodeName){
+					target = target.parentNode;
+				}
+				var name = target.name + '_More';
+			
+				window.clearTimeout( that.tabTimer );
+				that.tabTimer = null;
+				that.tabTimer = window.setTimeout(
+				(function(target){					
+					return function(){
+						that.exposure(name , 1); // 手动曝光
+						that.switchMoreTab(target);
+						that.tabShow( target );
+						that.clearAuto();
+
+						/* 切换到订阅时隐藏订我喜欢和位置按钮 */
+						if(target.name == '\u8BA2\u9605'){
+							subBtn.style.display = 'none';
+							locationBtn.style.display = 'none';
+						}else{
+							subBtn.style.display = 'block';
+							locationBtn.style.display = 'block';
+						}
+					};
+				})(target), 200);
+				
+				if('function' === typeof e.preventDefault){
+					e.preventDefault();
+					e.stopPropagation();
+				}else{
+					e.returnValue = false;
+					e.cancelBubble = true;
+				}
+			};
+			moreTabs.onmouseout = function(e){
+				window.clearTimeout( that.tabTimer );
+				that.tabTimer = null;
+			};
+		},
+		passportRenewal: function(){
+			var that = this;
+			var url = 'http://uple.qq.com?t=aio_page&op=renew&sessionkey=' + that.SKY + '&uin=' + that.UIN + '&timestamp=' + new Date().getTime();
+			miniTool.loadJs(url,function(){
+				if(typeof DragRenew == "object" && DragRenew.code == 0){
+					window.setTimeout(function(){
+						that.passportRenewal();
+					}, that.renewalTime.succeed);
+					that.reportBoss('renewal_succeed', 1409, '登录态续期成功');
+				}else if(that.renewalError>=0){
+					that.renewalError--;
+					window.setTimeout(function(){
+						that.passportRenewal();
+					}, that.renewalTime.failed);
+					that.reportBoss('renewal_failed', 1409, '登录态续期失败');
+				}
+			});
+		},
+		/**
+		 * 设置页卡是否锁定
+		 * @param {Boolean} contr  当值为true时锁定，为false时为解锁
+		 */
+		setTabLock:function(contr){
+			var tabmask = miniTool.$('tabMask');
+			if(tabmask){
+				 if(contr){
+				 	this.clearAuto();
+					tabmask.style.display = 'block';
+					tabmask.parentNode.className = 'nav_box tabLock';
+				 }else{
+				 	tabmask.style.display = 'none';
+					tabmask.parentNode.className = 'nav_box';
+				 }
+				 
+				 if(this.currentTab && this.currentTab.parentNode){
+				 	this.currentTab.parentNode.className = contr?"":"on";
+				 }
+			}
+		},
+		ICcache:{}, //BOSS cache
+		/**
+		 * 显示某个Tab
+		 * @param {Element} obj   需要显示的Tab Dom对象
+		 */
+		show:function(obj){
+			if(this.currentTab && this.currentTab.parentNode){
+				this.currentTab.parentNode.className = "";
+			}
+			this.currentTab = obj;
+			obj.parentNode.className = "on";
+		},
+		tabTimer:null,
+		/**
+		 * 设置Tab显示并且添加触发事件，并且呼出AIO窗口
+		 * @param {Boolean} D 是否是地方站
+		 */
+		setTab:function(refreshName){
+			try{
+				if(W.external){
+					W.external.finallyComplete();
+				}
+			}catch(err){};
+			// hand是所有导航上的链接
+			var that = this, hand=miniTool.$$("a",that.tabId);
+					
+			// 使用事件委托方法完成全部Tab的绑定
+			that.tabBox.onmouseover = function(e){
+				e = e||window.event;
+				var target = e.target||e.srcElement;
+				if('A' !== target.nodeName){
+					return;
+				}
+				var name = target.name;
+				
+				window.clearTimeout( that.tabTimer );
+				that.tabTimer = null;
+				that.tabTimer = window.setTimeout(
+				(function(target){
+					return function(){
+						that.exposure(name , 1); // 手动曝光
+						// 隐藏更多内容
+						that.moreCard.style.display='none';
+						if(that.SDemo){ // 关闭退订演示
+							that.SDemo.close();
+						}
+						
+						MIN_M.show(target);
+						MIN_M.tabShow( target );
+						MIN_M.clearAuto();
+					};
+				})(target), 200);
+
+				if('function' === typeof e.preventDefault){
+					e.preventDefault();
+					e.stopPropagation();
+				}else{
+					e.returnValue = false;
+					e.cancelBubble = true;
+				}
+			};
+			that.tabBox.onmouseout = function(e){
+				window.clearTimeout( that.tabTimer );
+				that.tabTimer = null;
+			};
+			
+			// 是否自动轮播
+			if( refreshName ){
+				var localIndex = 0;
+				for(var i=0,len=hand.length; i<len; i++){
+					if( hand[i].name == refreshName ){
+						localIndex = i;
+					}
+				}
+				var obj = hand[localIndex];
+				try{
+					var name = obj.getAttribute("name");
+					IC.rpt(name,8);  //刷新曝光
+				}catch(e){}
+				that.show(obj);
+				that.tabShow(obj);
+			}else{
+				// 如果是地方站则优先显示地方站的内容，否则优先显示第一个标签
+				if(that.isLocalSite){
+					this.endPoint = this.startPoint = hand.length-1;
+				}else{
+					this.endPoint = this.startPoint = 0;
+				}
+				this.tabLength = hand.length-1;		// 页卡的长度
+				this.autoTab(hand);
+			}
+		},
+		timer:null,		// 轮播控制句柄
+		pointer:null,	// 轮播指针
+		circle:{		// 轮播周期
+			count:0,
+			length:1,
+			initialize: function(len){
+				this.count = 0;
+				this.length = len || 1;
+			}
+		},
+		/**
+		 * 清除自动切换
+		 */
+		clearAuto:function(){
+			clearTimeout(MIN_M.timer);
+			MIN_M.timer = null;
+			MIN_M.pointer = null;	// 轮播结束, 将轮播指针置空
+			MIN_M.circle.count = 0;
+		},
+		/**
+		 * 自动轮播Tab
+		 * @param {Array} hand 	所有页卡的A标签DOM数组
+		 */
+		autoTab: function(hand){
+			var that = this, isEnd=false;
+			
+			if(this.endPoint == this.pointer){
+				that.circle.count++;
+			}
+			
+			if(this.endPoint == this.pointer && that.circle.count == that.circle.length){
+				isEnd = true;	// 轮播结束
+			}else if(this.pointer == null){
+				this.pointer = this.startPoint;  // 轮播开始
+			}
+			var obj = hand[this.pointer];
+			
+			this.pointer++;
+			if(this.tabLength < this.pointer){
+				this.pointer = 0;
+			}
+			
+			if( "s_iframe" != obj.getAttribute('rev') ){
+				that.show(obj);
+				that.tabShow(obj);
+				try{
+					var name = obj.getAttribute("name");
+					IC.rpt(name,6);	// 自动曝光
+				}catch(e){}
+			}else{
+				that.autoTab( hand );
+				return;
+			}
+			
+			if(!that.isAutoPlay){
+				that.clearAuto();
+				return;
+			}
+			
+			if(!isEnd){
+				MIN_M.timer = window.setTimeout(function(){MIN_M.autoTab(hand);},3000);
+			}else{
+				that.clearAuto();	// 轮播结束, 清除自动切换
+			}
+		},
+		/**
+		 * 控制右栏广告位显示
+		 * @param {String} n
+		 * @param {String} p
+		 */
+		adZone:function(n,p){
+			// 隐藏所有广告位
+			miniTool.hide(miniTool.$("commAD"));
+			miniTool.hide(miniTool.$("autoAD"));
+			miniTool.hide(miniTool.$("difangzhanAD"));
+			miniTool.hide(miniTool.$("c1_ad"));
+			miniTool.hide(miniTool.$("c2_ad"));
+			if("1"==n){
+				if('auto'==p){
+					miniTool.show(miniTool.$("commAD"));
+					miniTool.hide(miniTool.$("autoAD"));
+					miniTool.hide(miniTool.$("difangzhanAD"));
+				}else if('difangzhan'==p){
+					miniTool.hide(miniTool.$("commAD"));
+					miniTool.hide(miniTool.$("autoAD"));
+					miniTool.show(miniTool.$("difangzhanAD"));
+				}else{
+					miniTool.show(miniTool.$("commAD"));
+					miniTool.hide(miniTool.$("autoAD"));
+					miniTool.hide(miniTool.$("difangzhanAD"));
+				}
+				miniTool.show(miniTool.$("c1_ad"));
+				miniTool.hide(miniTool.$("c2_ad"));
+			}else if(2==n){
+				 miniTool.show(miniTool.$("c2_ad"));
+				 miniTool.hide(miniTool.$("c1_ad"));
+			}else{
+				return;
+			}
+		},
+		onRefresh: function(isLocation){
+			var currentName = encodeURI(this.currentTab.name);
+			UserData.setItem("refresh", currentName);
+			window.setTimeout(function(){location.reload(true);}, 1);
+			return false;
+		},
+		// 页卡回调
+		tabCallback:{
+			'新闻':function(){MIN_M.adZone('1','comm');},
+			'财经':function(){MIN_M.adZone('1','comm');},
+			'娱乐':function(){MIN_M.adZone('1','comm');},
+			'时尚':function(){MIN_M.adZone('1','comm');},
+			'体育':function(){MIN_M.adZone('1','comm');},
+			'游戏':function(){MIN_M.adZone('1','comm');},
+			'微博':function(){MIN_M.adZone('1','comm');},
+			'读书':function(){MIN_M.adZone('1','comm');},
+			'教育':function(){MIN_M.adZone('1','comm');},
+			'网购':function(){MIN_M.adZone('1','comm');},
+			'科技':function(){MIN_M.adZone('1','comm');},
+			'数码':function(){MIN_M.adZone('1','comm');},
+			'房产':function(){MIN_M.adZone('4');},
+			'汽车':function(){MIN_M.adZone('1','auto');},
+			'视频':function(){MIN_M.adZone('4');},
+			'儿童':function(){MIN_M.adZone('4');},
+			'星座':function(){MIN_M.adZone('1','comm');},
+			'军事':function(){MIN_M.adZone('1','comm');},
+			'地方站':function(){MIN_M.adZone('1','difangzhan');}
+		},
+		ADreqIndex:[],
+		/**
+		 * 显示与Tab对应的频道内容
+		 * @param {String} url 	Tab的链接（rel属性）
+		 * @param {String} t	Tab的标题名称（name属性）
+		 * @param {String} tp	Tab的类型（rev属性）
+		 */
+		tabShow:function(eleObj){
+			var _self = this;			
+			var url=eleObj.getAttribute('rel'), t=eleObj.getAttribute('name'), tp=eleObj.getAttribute('rev');
+
+			// 如果发现Mini_Iframe_s（iframe）则将其隐藏
+			var miniIframe = miniTool.$("Mini_Iframe_s");
+			if(miniIframe){
+				miniTool.hide(miniIframe);
+			}
+			//页卡内业务单位的回调就接口
+			if('undefined' !== typeof _self.tabCallback[t]){
+				_self.tabCallback[t]();
+			}
+			// 调用财经接口
+			if("undefined"!==typeof hideSmartBox){
+				try{
+					hideSmartBox();
+				}catch(e){}
+			}
+			
+			// 隐藏主区域（Main_Conent）
+			miniTool.hide( _self.contentBox );
+			switch(tp){
+				case "htm":
+					miniTool.show( _self.contentBox );
+					// 对主区域（Main_conent）中所有内容区域的Dom进行遍历，如果名称匹配将显示，否则将隐藏。
+					miniTool.each(miniTool.$$("div",_self.contentBox),function(obj,i){
+						if(t==miniTool.attr(obj,"name")){
+							miniTool.show(obj);//显示当前
+						 }else{
+							if(miniTool.attr(obj,"name")!==null){
+								miniTool.hide(obj)//隐藏其他
+							}
+						 }
+					})
+					break;
+				case "s_iframe":
+					if( _self.customBox.style.display == "none"){
+						if(!miniIframe){
+							miniTool.append(miniTool.$("frame_Conent"),{tag:"IFRAME",Attribute:[["id","Mini_Iframe_s"],["src",url+'?'+Math.random()],["border","0"],["frameBorder","0"],["SCROLLING","0"],["style","width:523px;height:366px;position:absolute;left:0;top:0;z-index:2;"]]});
+						}else{
+							miniTool.show(miniIframe);
+						}
+					};
+					break;
+				case "json":
+					alert("暂不支持json数据!");
+					break;
+				default:
+					miniTool.show( _self.contentBox );
+					miniTool.each(miniTool.$$$( _self.contentBox,"div","preload"),function(obj,i){
+						if(t==miniTool.attr(obj,"name")){
+							miniTool.show(obj)
+						}else{
+							miniTool.hide(obj)
+						}
+					});
+			}
+		},
+		demoTimer: null,
+		onCloseDemo: function(){
+			this.aioMask.style.display = "none";
+			window.clearTimeout(demoTimer);
+		},
+		onOpenDemo: function(){
+			var that = this;
+			this.aioMask.style.display = "block";
+			demoTimer = window.setTimeout(function(){that.onCloseDemo();}, 5000);
+		}
+	};
+	// 防止IE6下用户拖动定制时闪烁
+	try{
+		document.execCommand("BackgroundImageCache",false,true);
+	}catch(e){}
+
+	extend(window["MIN"],miniTool);
+	extend(window["MIN_D"],DragMini);
+	extend(window["MIN_M"],MinisteMain);
+})(window);/*  |xGv00|97165fcd94816c17f42b26eda73ade56 */

@@ -1,0 +1,350 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>企业优惠信息发布平台</title>
+<link href="http://cdn.b.qq.com/space/portal/css/global.css" type="text/css" rel="stylesheet" />
+<link href="http://cdn.b.qq.com/space/$.UI/ui.css" type="text/css" rel="stylesheet" />
+<link href="http://cdn.b.qq.com/space/act/jyh/css/jyh.2013050202.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript">document.domain = "qq.com";</script>
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=15694828" charset="UTF-8"></script>
+<script type="text/javascript" src="http://wpa.b.qq.com/cgi/wpa.php" charset="UTF-8"></script>
+<!-- Gridsum tracking code begin. -->
+<script type='text/javascript'>
+    (function () {
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = (location.protocol == 'https:' ? 'https://ssl.' : 'http://static.') + 'gridsumdissector.com/js/Clients/GWD-000389-FBCA03/gs.js';
+        var firstScript = document.getElementsByTagName('script')[0];
+        firstScript.parentNode.insertBefore(s, firstScript);
+    })();
+</script>
+<!--Gridsum tracking code end. -->
+<script type="text/javascript" src="http://pingjs.qq.com/tcss.ping.js"></script>
+<script type="text/javascript">
+    if (typeof pgvMain == 'function'){
+        pgvMain();
+    }
+</script>
+</head>
+
+<body>
+<div class="head">
+	<div class="area">
+		<h1><a href="http://114.qq.com">QQ生活平台</a></h1>
+		<div class="hear_rc">
+			<div class="msg">
+            <span class="user" id="user">
+                欢迎您，杯具兰<a id="logout" href="#">[退出]</a>            </span>|<span><a target="_blank" href="http://b.qq.com/crm/home.html" class="bqq">如何出现在这里？</a> </div>
+			<div class="search">
+				<input type="text" maxlength="38" value="输入您想查找的入驻企业" class="search_text" id="search_text" style="color: rgb(153, 153, 153);" />
+				<a href="#" id="search_btn" class="search_btn"></a> </div>
+		</div>
+		<div class="nav">
+			<ul id="yw1" class="nav_ul">
+				<li><a href="/category">企业分类</a></li>
+				<li class="on"><img class="hot" alt="hot" src="http://cdn.b.qq.com/space/portal/images/hot.png" /><a href="/huodong/jyh">　 聚优惠</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="banner">
+    <div class="inner"></div>
+</div>
+<div class="container">
+<div class="area">
+<div class="fl">
+    <div id="banner-slide-box" class="slide-box">
+        <div class="slide-img-box">
+            <ul class="slide-img-ul">
+                <li class="slide-img-li">
+                    <a class="slide-img" href="http://4007020555.114.qq.com/ndetail_865.html" target="_blank"><img src="http://cdn.b.qq.com/space/act/jyh/images/banner_2013_1.jpg" width="668" height="205" alt="巴蜀风情&印象辉煌"/></a>
+                </li>
+                <li class="slide-img-li">
+                    <a class="slide-img" href="http://800063988.114.qq.com/ndetail_946.html" target="_blank"><img src="http://cdn.b.qq.com/space/act/jyh/images/banner_2013_2.jpg" width="668" height="205" alt="张家界自由行旅游网 "/></a>
+                </li>
+                <li class="slide-img-li">
+                    <a class="slide-img" href="http://800019919.114.qq.com/gdetail_72.html" target="_blank"><img src="http://cdn.b.qq.com/space/act/jyh/images/banner_2013_3.jpg" width="668" height="205" alt="上航假期旅游咨询中心"/></a>
+                </li>
+                <li class="slide-img-li">
+                    <a class="slide-img" href="http://800006323.114.qq.com/ndetail_658.html" target="_blank"><img src="http://cdn.b.qq.com/space/act/jyh/images/banner_2013_4.jpg" width="668" height="205" alt="八大洲旅游"/></a>
+                </li>
+                <li class="slide-img-li">
+                    <a class="slide-img" href="http://800058511.114.qq.com/ndetail_696.html" target="_blank"><img src="http://cdn.b.qq.com/space/act/jyh/images/banner_2013_5.jpg" width="668" height="205" alt="娈达旅游"/></a>
+                </li>
+                <li class="slide-img-li">
+                    <a class="slide-img" href="http://114.qq.com/qgirl/index" target="_blank"><img src="http://cdn.b.qq.com/space/act/jyh/images/banner_2013_6.jpg" width="668" height="205" alt="上期活动回顾-企业Q女郎"/></a>
+                </li>
+            </ul>
+        </div>
+        <div class="slide-btn-box">
+            <div class="slide-btn-bg"></div>
+            <ul class="slide-btn-ul">
+                <li class="slide-btn-li"><a class="slide-btn slide-btn-on" href="javascript:void(0);">1</a></li>
+                <li class="slide-btn-li"><a class="slide-btn" href="javascript:void(0);">2</a></li>
+                <li class="slide-btn-li"><a class="slide-btn" href="javascript:void(0);">3</a></li>
+                <li class="slide-btn-li"><a class="slide-btn" href="javascript:void(0);">4</a></li>
+                <li class="slide-btn-li"><a class="slide-btn" href="javascript:void(0);">5</a></li>
+                <li class="slide-btn-li"><a class="slide-btn" href="javascript:void(0);">6</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="goods-links">
+        <ul>
+            <li><i class="ico-click"></i><a href="http://4009929766.114.qq.com/ndetail_1401.html" target="_blank">蜀尚九黄汽车4日游350元/人</a></li>
+            <li><i class="ico-click"></i><a href="http://800099518.114.qq.com/ndetail_2157.html" target="_blank">3380元台湾环岛双船十一日游</a></li>
+            <li><i class="ico-click"></i><a href="http://4006004401.114.qq.com/ndetail_512.html" target="_blank">2480元首尔双直飞五日游</a></li>
+            <li><i class="ico-click"></i><a href="http://4007020001.114.qq.com/ndetail_699.html" target="_blank">398元乐山、峨眉山全景二日游</a></li>
+            <li><i class="ico-click"></i><a href="http://800021549.114.qq.com/ndetail_652.html" target="_blank">14600元欧洲8国十五日花海之旅</a></li>
+            <li><i class="ico-click"></i><a href="http://800079116.114.qq.com/ndetail_609.html" target="_blank">订票即可抽取四天三晚港澳游</a></li>
+            <li><i class="ico-click"></i><a href="http://4008000555.114.qq.com/ndetail_866.html" target="_blank">12599澳大利亚、新西兰12日游</a></li>
+            <li><i class="ico-click"></i><a href="http://800035488.114.qq.com/ndetail_752.html" target="_blank">450元纯玩三天全包</a></li>
+            <li><i class="ico-click"></i><a href="http://4008289828.114.qq.com/ndetail_531.html" target="_blank">1690元昆明大理丽江冰川大索道双飞纯玩六日游</a></li>
+            <li><i class="ico-click"></i><a href="http://800006323.114.qq.com/ndetail_656.html" target="_blank">14800元毛里求斯四季酒店蜜月半价进行时</a></li>
+        </ul>
+    </div>
+</div>
+<div class="fr">
+    <div class="weibo-wall" id="weibo_wall"></div>
+</div>
+<div class="goods-recommend">
+    <div class="inner">
+        <h2>特别推荐</h2>
+        <ul id="goods_list" class="goods-list">
+            <!-- 循环输出单元 start -->
+                            <li>
+                    <p class="goods-img"><a href="http://800022192.114.qq.com/gdetail_135.html" target="_blank"><img src="http://group.store.qq.com/crmspacephoto/V116GPCj0RIUP6/V2tsF6vL9KgkFEmNmUW/420" alt="野三坡重新开业 超低特价 6月1日 二日游218元/人" height="180" width="270"/></a></p>
+                    <p class="goods-title"><a href="http://800022192.114.qq.com/gdetail_135.html" target="_blank">野三坡重新开业 超低特价 6月1日 二日游218元/人</a></p>
+                    <p class="goods-info">
+                        <span class="click_num_800022192_135">305</span>次 | <span class="goods-price">￥218</span>
+                        <a href="javascript:void(0);" class="btn-wpa" data-account="800022192" data-gid="135" id="zixun_800022192_1"></a>
+                    </p><!-- data-sid存储咨询qq号 -->
+                    <p class="goods-label">六折后价</p>                </li>
+                            <li>
+                    <p class="goods-img"><a href="http://800015633.114.qq.com/gdetail_212.html" target="_blank"><img src="http://group.store.qq.com/crmspacephoto/V13uN10x1LnuMi/V2tEUWvLz2AQVGS0Uou/420" alt="香港九龙东皇冠假日酒店" height="180" width="270"/></a></p>
+                    <p class="goods-title"><a href="http://800015633.114.qq.com/gdetail_212.html" target="_blank">香港九龙东皇冠假日酒店</a></p>
+                    <p class="goods-info">
+                        <span class="click_num_800015633_212">402</span>次 | <span class="goods-price">￥760</span>
+                        <a href="javascript:void(0);" class="btn-wpa" data-account="800015633" data-gid="212" id="zixun_800015633_2"></a>
+                    </p><!-- data-sid存储咨询qq号 -->
+                                    </li>
+                            <li>
+                    <p class="goods-img"><a href="http://4000060622.114.qq.com/gdetail_437.html" target="_blank"><img src="http://group.store.qq.com/crmspacephoto/V140mWuE0CzlfY/V2tptnpN*Uio1G6cXo7/420" alt="青岛 日照 极地海洋世界三日游" height="180" width="270"/></a></p>
+                    <p class="goods-title"><a href="http://4000060622.114.qq.com/gdetail_437.html" target="_blank">青岛 日照 极地海洋世界三日游</a></p>
+                    <p class="goods-info">
+                        <span class="click_num_4000060622_437">234</span>次 | <span class="goods-price">￥698</span>
+                        <a href="javascript:void(0);" class="btn-wpa" data-account="4000060622" data-gid="437" id="zixun_4000060622_3"></a>
+                    </p><!-- data-sid存储咨询qq号 -->
+                    <p class="goods-label">7折</p>                </li>
+                            <li>
+                    <p class="goods-img"><a href="http://800079116.114.qq.com/gdetail_76.html" target="_blank"><img src="http://group.store.qq.com/crmspacephoto/V12x9Ikc0AcAW5/V2tDD2wL6ECjlC6NFMd/420" alt="在线订票返现金加送港澳四天三晚旅游劵" height="180" width="270"/></a></p>
+                    <p class="goods-title"><a href="http://800079116.114.qq.com/gdetail_76.html" target="_blank">在线订票返现金加送港澳四天三晚旅游劵</a></p>
+                    <p class="goods-info">
+                        <span class="click_num_800079116_76">445</span>次 | <span class="goods-price">￥0.10</span>
+                        <a href="javascript:void(0);" class="btn-wpa" data-account="800079116" data-gid="76" id="zixun_800079116_4"></a>
+                    </p><!-- data-sid存储咨询qq号 -->
+                    <p class="goods-label">免费送</p>                </li>
+                            <li>
+                    <p class="goods-img"><a href="http://800006323.114.qq.com/gdetail_176.html" target="_blank"><img src="http://group.store.qq.com/crmspacephoto/V10Adf250bOP4P/V2tsyCvL0j3P1GyFnQd/420" alt="【端午】马来西亚兰卡威四季4晚6日自由行" height="180" width="270"/></a></p>
+                    <p class="goods-title"><a href="http://800006323.114.qq.com/gdetail_176.html" target="_blank">【端午】马来西亚兰卡威四季4晚6日自由行</a></p>
+                    <p class="goods-info">
+                        <span class="click_num_800006323_176">364</span>次 | <span class="goods-price">￥9600</span>
+                        <a href="javascript:void(0);" class="btn-wpa" data-account="800006323" data-gid="176" id="zixun_800006323_5"></a>
+                    </p><!-- data-sid存储咨询qq号 -->
+                                    </li>
+                            <li>
+                    <p class="goods-img"><a href="http://800059166.114.qq.com/gdetail_429.html" target="_blank"><img src="http://group.store.qq.com/crmspacephoto/V115Ajqc0BgmP4/V2tHu.vLx1vylG8Qvs3/420" alt="特价签证之--伊朗签证" height="180" width="270"/></a></p>
+                    <p class="goods-title"><a href="http://800059166.114.qq.com/gdetail_429.html" target="_blank">特价签证之--伊朗签证</a></p>
+                    <p class="goods-info">
+                        <span class="click_num_800059166_429">153</span>次 | <span class="goods-price">￥1500</span>
+                        <a href="javascript:void(0);" class="btn-wpa" data-account="800059166" data-gid="429" id="zixun_800059166_6"></a>
+                    </p><!-- data-sid存储咨询qq号 -->
+                    <p class="goods-label">全场9折</p>                </li>
+                            <li style="display: none;">
+                    <p class="goods-img"><a href="http://800015633.114.qq.com/gdetail_212.html" target="_blank"><img src="http://group.store.qq.com/crmspacephoto/V13uN10x1LnuMi/V2tEUWvLz2AQVGS0Uou/420" alt="香港九龙东皇冠假日酒店" height="180" width="270"/></a></p>
+                    <p class="goods-title"><a href="http://800015633.114.qq.com/gdetail_212.html" target="_blank">香港九龙东皇冠假日酒店</a></p>
+                    <p class="goods-info">
+                        <span class="click_num_800015633_212">402</span>次 | <span class="goods-price">￥760</span>
+                        <a href="javascript:void(0);" class="btn-wpa" data-account="800015633" data-gid="212" id="zixun_800015633_7"></a>
+                    </p><!-- data-sid存储咨询qq号 -->
+                                    </li>
+                            <li style="display: none;">
+                    <p class="goods-img"><a href="http://800006323.114.qq.com/gdetail_24.html" target="_blank"><img src="http://group.store.qq.com/crmspacephoto/V10Adf250ywVyY/V2tsyCvL.h4l1BkTeQe/420" alt="马尔代夫第六感拉姆岛Six Senses Laamu4晚6日" height="180" width="270"/></a></p>
+                    <p class="goods-title"><a href="http://800006323.114.qq.com/gdetail_24.html" target="_blank">马尔代夫第六感拉姆岛Six Senses Laamu4晚6日</a></p>
+                    <p class="goods-info">
+                        <span class="click_num_800006323_24">305</span>次 | <span class="goods-price">￥15325.00</span>
+                        <a href="javascript:void(0);" class="btn-wpa" data-account="800006323" data-gid="24" id="zixun_800006323_8"></a>
+                    </p><!-- data-sid存储咨询qq号 -->
+                                    </li>
+                            <li style="display: none;">
+                    <p class="goods-img"><a href="http://800079116.114.qq.com/gdetail_76.html" target="_blank"><img src="http://group.store.qq.com/crmspacephoto/V12x9Ikc0AcAW5/V2tDD2wL6ECjlC6NFMd/420" alt="在线订票返现金加送港澳四天三晚旅游劵" height="180" width="270"/></a></p>
+                    <p class="goods-title"><a href="http://800079116.114.qq.com/gdetail_76.html" target="_blank">在线订票返现金加送港澳四天三晚旅游劵</a></p>
+                    <p class="goods-info">
+                        <span class="click_num_800079116_76">445</span>次 | <span class="goods-price">￥0.10</span>
+                        <a href="javascript:void(0);" class="btn-wpa" data-account="800079116" data-gid="76" id="zixun_800079116_9"></a>
+                    </p><!-- data-sid存储咨询qq号 -->
+                    <p class="goods-label">免费送</p>                </li>
+                            <li style="display: none;">
+                    <p class="goods-img"><a href="http://800022192.114.qq.com/gdetail_135.html" target="_blank"><img src="http://group.store.qq.com/crmspacephoto/V116GPCj0RIUP6/V2tsF6vL9KgkFEmNmUW/420" alt="野三坡重新开业 超低特价 6月1日 二日游218元/人" height="180" width="270"/></a></p>
+                    <p class="goods-title"><a href="http://800022192.114.qq.com/gdetail_135.html" target="_blank">野三坡重新开业 超低特价 6月1日 二日游218元/人</a></p>
+                    <p class="goods-info">
+                        <span class="click_num_800022192_135">305</span>次 | <span class="goods-price">￥218</span>
+                        <a href="javascript:void(0);" class="btn-wpa" data-account="800022192" data-gid="135" id="zixun_800022192_10"></a>
+                    </p><!-- data-sid存储咨询qq号 -->
+                    <p class="goods-label">六折后价</p>                </li>
+                            <li style="display: none;">
+                    <p class="goods-img"><a href="http://800006323.114.qq.com/gdetail_27.html" target="_blank"><img src="http://group.store.qq.com/crmspacephoto/V10Adf252NvPsA/V2tsyCvL*B5l1AEzicp/420" alt="马尔代夫柏悦Park Hyatt4晚6日自由行" height="180" width="270"/></a></p>
+                    <p class="goods-title"><a href="http://800006323.114.qq.com/gdetail_27.html" target="_blank">马尔代夫柏悦Park Hyatt4晚6日自由行</a></p>
+                    <p class="goods-info">
+                        <span class="click_num_800006323_27">324</span>次 | <span class="goods-price">￥16900.00</span>
+                        <a href="javascript:void(0);" class="btn-wpa" data-account="800006323" data-gid="27" id="zixun_800006323_11"></a>
+                    </p><!-- data-sid存储咨询qq号 -->
+                                    </li>
+                            <li style="display: none;">
+                    <p class="goods-img"><a href="http://800006323.114.qq.com/gdetail_19.html" target="_blank"><img src="http://group.store.qq.com/crmspacephoto/V10Adf2504ybQF/V2tsyCvL4B3l1DEwisM/420" alt="马尔代夫巴洛斯Baros4晚6日自由行" height="180" width="270"/></a></p>
+                    <p class="goods-title"><a href="http://800006323.114.qq.com/gdetail_19.html" target="_blank">马尔代夫巴洛斯Baros4晚6日自由行</a></p>
+                    <p class="goods-info">
+                        <span class="click_num_800006323_19">346</span>次 | <span class="goods-price">￥22350.00</span>
+                        <a href="javascript:void(0);" class="btn-wpa" data-account="800006323" data-gid="19" id="zixun_800006323_12"></a>
+                    </p><!-- data-sid存储咨询qq号 -->
+                                    </li>
+                            <li style="display: none;">
+                    <p class="goods-img"><a href="http://800006323.114.qq.com/gdetail_28.html" target="_blank"><img src="http://group.store.qq.com/crmspacephoto/V10Adf250ugsJ8/V2tsyCvL0F6l1D8hd4m/420" alt="马尔代夫可可棕榈Coco4晚6日自由行" height="180" width="270"/></a></p>
+                    <p class="goods-title"><a href="http://800006323.114.qq.com/gdetail_28.html" target="_blank">马尔代夫可可棕榈Coco4晚6日自由行</a></p>
+                    <p class="goods-info">
+                        <span class="click_num_800006323_28">340</span>次 | <span class="goods-price">￥15600.00</span>
+                        <a href="javascript:void(0);" class="btn-wpa" data-account="800006323" data-gid="28" id="zixun_800006323_13"></a>
+                    </p><!-- data-sid存储咨询qq号 -->
+                                    </li>
+                            <li style="display: none;">
+                    <p class="goods-img"><a href="http://800006323.114.qq.com/gdetail_176.html" target="_blank"><img src="http://group.store.qq.com/crmspacephoto/V10Adf250bOP4P/V2tsyCvL0j3P1GyFnQd/420" alt="【端午】马来西亚兰卡威四季4晚6日自由行" height="180" width="270"/></a></p>
+                    <p class="goods-title"><a href="http://800006323.114.qq.com/gdetail_176.html" target="_blank">【端午】马来西亚兰卡威四季4晚6日自由行</a></p>
+                    <p class="goods-info">
+                        <span class="click_num_800006323_176">364</span>次 | <span class="goods-price">￥9600</span>
+                        <a href="javascript:void(0);" class="btn-wpa" data-account="800006323" data-gid="176" id="zixun_800006323_14"></a>
+                    </p><!-- data-sid存储咨询qq号 -->
+                                    </li>
+                            <li style="display: none;">
+                    <p class="goods-img"><a href="http://800006323.114.qq.com/gdetail_24.html" target="_blank"><img src="http://group.store.qq.com/crmspacephoto/V10Adf250ywVyY/V2tsyCvL.h4l1BkTeQe/420" alt="马尔代夫第六感拉姆岛Six Senses Laamu4晚6日" height="180" width="270"/></a></p>
+                    <p class="goods-title"><a href="http://800006323.114.qq.com/gdetail_24.html" target="_blank">马尔代夫第六感拉姆岛Six Senses Laamu4晚6日</a></p>
+                    <p class="goods-info">
+                        <span class="click_num_800006323_24">305</span>次 | <span class="goods-price">￥15325.00</span>
+                        <a href="javascript:void(0);" class="btn-wpa" data-account="800006323" data-gid="24" id="zixun_800006323_15"></a>
+                    </p><!-- data-sid存储咨询qq号 -->
+                                    </li>
+                            <li style="display: none;">
+                    <p class="goods-img"><a href="http://800006323.114.qq.com/gdetail_175.html" target="_blank"><img src="http://group.store.qq.com/crmspacephoto/V10Adf253rJzx8/V2tsyCvL7v2P1ESMugF/420" alt="【端午】沙巴大红花度假村4晚、香港1晚自由行" height="180" width="270"/></a></p>
+                    <p class="goods-title"><a href="http://800006323.114.qq.com/gdetail_175.html" target="_blank">【端午】沙巴大红花度假村4晚、香港1晚自由行</a></p>
+                    <p class="goods-info">
+                        <span class="click_num_800006323_175">257</span>次 | <span class="goods-price">￥8880</span>
+                        <a href="javascript:void(0);" class="btn-wpa" data-account="800006323" data-gid="175" id="zixun_800006323_16"></a>
+                    </p><!-- data-sid存储咨询qq号 -->
+                                    </li>
+                            <li style="display: none;">
+                    <p class="goods-img"><a href="http://4000060622.114.qq.com/gdetail_437.html" target="_blank"><img src="http://group.store.qq.com/crmspacephoto/V140mWuE0CzlfY/V2tptnpN*Uio1G6cXo7/420" alt="青岛 日照 极地海洋世界三日游" height="180" width="270"/></a></p>
+                    <p class="goods-title"><a href="http://4000060622.114.qq.com/gdetail_437.html" target="_blank">青岛 日照 极地海洋世界三日游</a></p>
+                    <p class="goods-info">
+                        <span class="click_num_4000060622_437">234</span>次 | <span class="goods-price">￥698</span>
+                        <a href="javascript:void(0);" class="btn-wpa" data-account="4000060622" data-gid="437" id="zixun_4000060622_17"></a>
+                    </p><!-- data-sid存储咨询qq号 -->
+                    <p class="goods-label">7折</p>                </li>
+                            <li style="display: none;">
+                    <p class="goods-img"><a href="http://4000617886.114.qq.com/gdetail_43.html" target="_blank"><img src="http://group.store.qq.com/crmspacephoto/V14QvZ1Z0d2D92/V2t*9HpNxepW1FUR9sp/420" alt="马尔代夫法鲁3晚5日自助游  广州南航直飞，低价游马代" height="180" width="270"/></a></p>
+                    <p class="goods-title"><a href="http://4000617886.114.qq.com/gdetail_43.html" target="_blank">马尔代夫法鲁3晚5日自助游  广州南航直飞，低价游马代</a></p>
+                    <p class="goods-info">
+                        <span class="click_num_4000617886_43">406</span>次 | <span class="goods-price">￥7290.00</span>
+                        <a href="javascript:void(0);" class="btn-wpa" data-account="4000617886" data-gid="43" id="zixun_4000617886_18"></a>
+                    </p><!-- data-sid存储咨询qq号 -->
+                                    </li>
+                            <li style="display: none;">
+                    <p class="goods-img"><a href="http://4000617886.114.qq.com/gdetail_42.html" target="_blank"><img src="http://group.store.qq.com/crmspacephoto/V14QvZ1Z35hXYk/V2t*9HpNxanW1EUX.A4/420" alt="88元起，香港观光一日游！送夜游维多利亚！" height="180" width="270"/></a></p>
+                    <p class="goods-title"><a href="http://4000617886.114.qq.com/gdetail_42.html" target="_blank">88元起，香港观光一日游！送夜游维多利亚！</a></p>
+                    <p class="goods-info">
+                        <span class="click_num_4000617886_42">734</span>次 | <span class="goods-price">￥88.00</span>
+                        <a href="javascript:void(0);" class="btn-wpa" data-account="4000617886" data-gid="42" id="zixun_4000617886_19"></a>
+                    </p><!-- data-sid存储咨询qq号 -->
+                                    </li>
+                            <li style="display: none;">
+                    <p class="goods-img"><a href="http://800015633.114.qq.com/gdetail_212.html" target="_blank"><img src="http://group.store.qq.com/crmspacephoto/V13uN10x1LnuMi/V2tEUWvLz2AQVGS0Uou/420" alt="香港九龙东皇冠假日酒店" height="180" width="270"/></a></p>
+                    <p class="goods-title"><a href="http://800015633.114.qq.com/gdetail_212.html" target="_blank">香港九龙东皇冠假日酒店</a></p>
+                    <p class="goods-info">
+                        <span class="click_num_800015633_212">402</span>次 | <span class="goods-price">￥760</span>
+                        <a href="javascript:void(0);" class="btn-wpa" data-account="800015633" data-gid="212" id="zixun_800015633_20"></a>
+                    </p><!-- data-sid存储咨询qq号 -->
+                                    </li>
+                            <li style="display: none;">
+                    <p class="goods-img"><a href="http://800055696.114.qq.com/gdetail_323.html" target="_blank"><img src="http://group.store.qq.com/crmspacephoto/V14XKUuE0YuZh2/V2tkOGvLyApZlGYCTI7/420" alt="深圳西冲CS野战拓展一日游" height="180" width="270"/></a></p>
+                    <p class="goods-title"><a href="http://800055696.114.qq.com/gdetail_323.html" target="_blank">深圳西冲CS野战拓展一日游</a></p>
+                    <p class="goods-info">
+                        <span class="click_num_800055696_323">526</span>次 | <span class="goods-price">￥88</span>
+                        <a href="javascript:void(0);" class="btn-wpa" data-account="800055696" data-gid="323" id="zixun_800055696_21"></a>
+                    </p><!-- data-sid存储咨询qq号 -->
+                                    </li>
+                            <li style="display: none;">
+                    <p class="goods-img"><a href="http://800056007.114.qq.com/gdetail_109.html" target="_blank"><img src="http://group.store.qq.com/crmspacephoto/V14BuBbF1F248G/V2tx.KvLx7VRVEkAm06/420" alt="5月包位：绵阳-九寨沟-黄龙-成都2飞6日游（精典.环线）" height="180" width="270"/></a></p>
+                    <p class="goods-title"><a href="http://800056007.114.qq.com/gdetail_109.html" target="_blank">5月包位：绵阳-九寨沟-黄龙-成都2飞6日游（精典.环线）</a></p>
+                    <p class="goods-info">
+                        <span class="click_num_800056007_109">326</span>次 | <span class="goods-price">￥2380</span>
+                        <a href="javascript:void(0);" class="btn-wpa" data-account="800056007" data-gid="109" id="zixun_800056007_22"></a>
+                    </p><!-- data-sid存储咨询qq号 -->
+                                    </li>
+                            <li style="display: none;">
+                    <p class="goods-img"><a href="http://800055696.114.qq.com/gdetail_322.html" target="_blank"><img src="http://group.store.qq.com/crmspacephoto/V14XKUuE4X8ZSf/V2tkOGvL1coZlFY7Qo3/420" alt="东部华侨城大华兴寺+茶溪谷休闲一天游" height="180" width="270"/></a></p>
+                    <p class="goods-title"><a href="http://800055696.114.qq.com/gdetail_322.html" target="_blank">东部华侨城大华兴寺+茶溪谷休闲一天游</a></p>
+                    <p class="goods-info">
+                        <span class="click_num_800055696_322">291</span>次 | <span class="goods-price">￥188</span>
+                        <a href="javascript:void(0);" class="btn-wpa" data-account="800055696" data-gid="322" id="zixun_800055696_23"></a>
+                    </p><!-- data-sid存储咨询qq号 -->
+                                    </li>
+                            <li style="display: none;">
+                    <p class="goods-img"><a href="http://800006323.114.qq.com/gdetail_19.html" target="_blank"><img src="http://group.store.qq.com/crmspacephoto/V10Adf2504ybQF/V2tsyCvL4B3l1DEwisM/420" alt="马尔代夫巴洛斯Baros4晚6日自由行" height="180" width="270"/></a></p>
+                    <p class="goods-title"><a href="http://800006323.114.qq.com/gdetail_19.html" target="_blank">马尔代夫巴洛斯Baros4晚6日自由行</a></p>
+                    <p class="goods-info">
+                        <span class="click_num_800006323_19">346</span>次 | <span class="goods-price">￥22350.00</span>
+                        <a href="javascript:void(0);" class="btn-wpa" data-account="800006323" data-gid="19" id="zixun_800006323_24"></a>
+                    </p><!-- data-sid存储咨询qq号 -->
+                                    </li>
+                        <!-- 循环输出单元 end -->
+        </ul>
+        <ul id="list_control" class="list-control">
+            <li class="on"></li><li></li><li></li><li></li>        </ul>
+    </div>
+</div>
+<div class="brand-recommend">
+    <div class="inner">
+        <h2>精选品牌</h2>
+        <ul>
+            <li><a href="http://800006323.114.qq.com/" target="_blank"><img src="http://cdn.b.qq.com/space/act/jyh/images/brand_1.jpg" alt="" /></a></li>
+            <li><a href="http://4008289828.114.qq.com/" target="_blank"><img src="http://cdn.b.qq.com/space/act/jyh/images/brand_2.jpg" alt="" /></a></li>
+            <li><a href="http://4008000555.114.qq.com/" target="_blank"><img src="http://cdn.b.qq.com/space/act/jyh/images/brand_3.jpg" alt="" /></a></li>
+            <li><a href="http://800006882.114.qq.com/" target="_blank"><img src="http://cdn.b.qq.com/space/act/jyh/images/brand_4.jpg" alt="" /></a></li>
+            <li><a href="http://4000351663.114.qq.com/" target="_blank"><img src="http://cdn.b.qq.com/space/act/jyh/images/brand_5.jpg" alt="" /></a></li>
+            <li><a href="http://800063988.114.qq.com/" target="_blank"><img src="http://cdn.b.qq.com/space/act/jyh/images/brand_6.jpg" alt="" /></a></li>
+            <li><a href="http://800058511.114.qq.com/" target="_blank"><img src="http://cdn.b.qq.com/space/act/jyh/images/brand_7.jpg" alt="" /></a></li>
+            <li><a href="http://4007020001.114.qq.com/" target="_blank"><img src="http://cdn.b.qq.com/space/act/jyh/images/brand_8.jpg" alt="" /></a></li>
+            <li><a href="http://800067520.114.qq.com/" target="_blank"><img src="http://cdn.b.qq.com/space/act/jyh/images/brand_9.jpg" alt="" /></a></li>
+            <li><a href="http://800008898.114.qq.com/" target="_blank"><img src="http://cdn.b.qq.com/space/act/jyh/images/brand_10.jpg" alt="" /></a></li>
+            <li><a href="http://800006199.114.qq.com/" target="_blank"><img src="http://cdn.b.qq.com/space/act/jyh/images/brand_11.jpg" alt="" /></a></li>
+            <li><a href="http://800019919.114.qq.com/" target="_blank"><img src="http://cdn.b.qq.com/space/act/jyh/images/brand_12.jpg" alt="" /></a></li>
+        </ul>
+    </div>
+</div>
+</div>
+</div>
+<div class="foot">
+	<p> <a target="_blank" href="http://www.tencent.com/zh-cn/index.shtml">关于腾讯</a>|<a target="_blank" href="http://www.tencent.com/en-us/index.shtml">About Tencent</a>|<a target="_blank" href="http://www.qq.com/contract.shtml">服务条款</a>|<span><a target="_blank" href="http://www.tencentmind.com/">广告服务</a></span>|<span><a target="_blank" href="http://hr.tencent.com/">腾讯招聘</a></span>|<span><a target="_blank" href="http://service.qq.com/">客服中心</a></span>|<span><a target="_blank" href="http://www.qq.com/map/">网站导航</a></span>|<span><a target="_blank" href="http://b.qq.com/static/doc/腾讯营销QQ聚优惠平台用户服务协议.pdf">用户服务协议</a></span><br />
+		Copyright &copy; 1998 - 2012 Tencent. All Rights Reserved.<br />
+		腾讯公司 版权所有 </p>
+</div>
+<script type="text/javascript" src="http://cdn.b.qq.com/common/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="http://cdn.b.qq.com/space/portal/js/global.js"></script>
+<script type="text/javascript" src="http://cdn.b.qq.com/common/js/backbone-underscore-min.js"></script>
+<script type="text/javascript" src="http://cdn.b.qq.com/space/act/jyh/js/jyh.js"></script>
+<!-- WPA Button Begin -->
+<script type="text/javascript">
+    BizQQWPA.addCustom([{"nameAccount":"800022192","selector":"zixun_800022192_1"},{"nameAccount":"800015633","selector":"zixun_800015633_2"},{"nameAccount":"4000060622","selector":"zixun_4000060622_3"},{"nameAccount":"800079116","selector":"zixun_800079116_4"},{"nameAccount":"800006323","selector":"zixun_800006323_5"},{"nameAccount":"800059166","selector":"zixun_800059166_6"},{"nameAccount":"800015633","selector":"zixun_800015633_7"},{"nameAccount":"800006323","selector":"zixun_800006323_8"},{"nameAccount":"800079116","selector":"zixun_800079116_9"},{"nameAccount":"800022192","selector":"zixun_800022192_10"},{"nameAccount":"800006323","selector":"zixun_800006323_11"},{"nameAccount":"800006323","selector":"zixun_800006323_12"},{"nameAccount":"800006323","selector":"zixun_800006323_13"},{"nameAccount":"800006323","selector":"zixun_800006323_14"},{"nameAccount":"800006323","selector":"zixun_800006323_15"},{"nameAccount":"800006323","selector":"zixun_800006323_16"},{"nameAccount":"4000060622","selector":"zixun_4000060622_17"},{"nameAccount":"4000617886","selector":"zixun_4000617886_18"},{"nameAccount":"4000617886","selector":"zixun_4000617886_19"},{"nameAccount":"800015633","selector":"zixun_800015633_20"},{"nameAccount":"800055696","selector":"zixun_800055696_21"},{"nameAccount":"800056007","selector":"zixun_800056007_22"},{"nameAccount":"800055696","selector":"zixun_800055696_23"},{"nameAccount":"800006323","selector":"zixun_800006323_24"}]);
+</script>
+<!-- WPA Button END -->
+</body>
+</html>

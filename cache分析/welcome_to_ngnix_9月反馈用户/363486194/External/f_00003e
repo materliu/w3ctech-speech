@@ -1,0 +1,207 @@
+
+define(function(require,exports,module){var $=require('$'),lib=require('lib'),common=require('common'),console=lib.get('./console'),functional=common.get('./util.functional'),global_function=common.get('./global.global_function'),user_log=common.get('./user_log'),constants=common.get('./constants'),main=require('main').get('./main'),SUB_OP={DONE:0,FAIL:1,CANCEL:2};var getWords=function(str,num){try{var index=0;for(var i=0,l=str.length;i<l;i++){if((/[^\x00-\xFF]/).test(str.charAt(i))){index+=2;}else{index++;}
+if(index>num){return(str.substr(0,i)+'..');}}
+return str;}catch(e){return str;}}
+var revise_file_name=function(fileName,len){var fileNameAry=fileName.split('.');var suffix=fileNameAry.pop();var fileName=fileNameAry.join('.');return getWords(fileName,len)+'.'+suffix;}
+var cssText='\
+                            .DownloadParent{\
+                                padding-top: 3px;\
+                                padding-left: 2px;\
+                                position: fixed;\
+                                bottom: 0px;\
+                                height: 42px;\
+                                width: 100%;\
+                                overflow: hidden;\
+                                border-top: 1px solid #BCBCBC;\
+                                background: -webkit-gradient(linear, 0 0, 0 100%, from(#DEDEDE), to(#EFF2EF));\
+                                z-index: 9999;\
+                                cursor: default;\
+                                overflow: visible;\
+                            }\
+                            .DownloadParent .download{\
+                                margin-left: 4px;\
+                                width: 0px;\
+                                height: 37px;\
+                                line-height: 37px;\
+                                border: 1px solid #BEBEBC;\
+                                background: #E6E6E6;\
+                                overflow: hidden;\
+                                -webkit-border-radius: 3px;\
+                                -webkit-box-shadow: 0px 0px 5px #C4C4C4;\
+                                background: -webkit-gradient(linear, 0 0, 0 100%, from(#EDEDED), to(#D8D8D6));\
+                                overflow: visible;\
+                                cursor: pointer\
+                            }\
+                            .DownloadParent .close{\
+                                position: relative;\
+                                margin-top: 12px;\
+                                margin-right: 4px;\
+                                width: 12px;\
+                                height: 12px;\
+                                float: right;\
+                                background: url(http://imgcache.qq.com/vipstyle/nr/box/img/close_normal.png);\
+                                cursor: pointer;\
+                                z-index: 10003;\
+                            }\
+                            .DownloadParent .inline-block{\
+                                display: inline-block;\
+                                float: left;\
+                            }\
+                            .DownloadParent .text{\
+                                width: auto;\
+                                height: 100%;\
+                                color: #000000;\
+                                overflow: hidden;\
+                                font-size:13px;\
+                                text-indent: 48px;\
+                            }\
+                            .DownloadParent .text2{\
+                                display: inline-block;\
+                                float: right;\
+                                margin-right: 10px;\
+                                height: 100%;\
+                                color: #000000;\
+                                overflow: hidden;\
+                                font-size:13px;\
+                            }\
+                            .DownloadParent .download:hover{\
+                                background: #F2F2F2;\
+                             }\
+                            .DownloadParent .iconX{\
+                                position: absolute;\
+                                width: 32px;\
+                                height: 32px;\
+                                display: inline-block;\
+                                float: left;\
+                                margin-left: 6px;\
+                                margin-top: 2px;\
+                                background-image: url("http://imgcache.qq.com/vipstyle/nr/box/img/download-progress.png");\
+                            }\
+                            .DownloadParent .filetype{\
+                                background-image: url("http://imgcache.qq.com/vipstyle/nr/box/img/file-small.png") ;\
+                            }\
+                            .DownloadParent .default{\
+                                background-image: url("http://imgcache.qq.com/vipstyle/nr/box/img/img-32.png") ;\
+                            }\
+                            .DownloadParent .process_background{\
+                                position: absolute;\
+                                top: 150px;\
+                                left: 150px;\
+                                width: 32px;\
+                                height: 32px;\
+                                z-index: 1;\
+                            }\
+                            .process_background2{\
+                                position: absolute;\
+                                display: inline-block;\
+                                width: 32px;\
+                                height: 32px;\
+                                z-index: 9999;\
+                                top: 1px;\
+                                left: 1px;\
+                                background: url("http://imgcache.qq.com/vipstyle/nr/box/img/download-progress.png");\
+                            }\
+                            .DownloadParent canvas{\
+                                position: absolute;\
+                                z-index: 9999;\
+                            }\
+                            .icon_warn_tips{\
+                                background: url("http://imgcache.qq.com/vipstyle/nr/box/img/icon_warn_tips.png");\
+                                position: relative;\
+                                z-index:20001;\
+                                width:14px;\
+                                height:15px;\
+                                top: -8px;\
+                                left: 239px;\
+                            }\
+                            .download_tip{\
+                                position: fixed;\
+                                width: 246px;\
+                                height: auto;\
+                                background: #F2F2F2;\
+                                border: 1px solid #EFF2EF;\
+                                -webkit-border-radius: 3px;\
+                                -webkit-box-shadow: 0px 0px 5px #C4C4C4;\
+                                z-index: 10001\
+                            }\
+                            .download_tip div{\
+                                width: 100%;\
+                                height: 30px;\
+                                line-height: 30px;\
+                                font-size: 13px;\
+                                text-indent: 7px;\
+                                cursor:pointer;\
+                            }\
+                             .download_tip div:hover{\
+                                background: #BCBCBC;\
+                            }\
+                            .download_tip span{\
+                                float: right;\
+                                padding-right: 5px;\
+                                wdith: 70px;\
+                            }\
+                          '
+var Ui=(function(){var getParent=functional.getSingle(function(){$=jQuery;$('<style>'+cssText+'</style>').appendTo($('head'));var parent=$('<div class="DownloadParent"><div class="close"></div></div>').appendTo($('body')).hide();parent.find('.close').click(function(){hide();user_log('UPLOAD_DOWN_BAR_CLOSE');});return parent;});var hide=function(){$('#fileList').height($('#fileList').height()-50+'px');getParent().hide();}
+var show=function(){if(getParent().is(':hidden')){$('#fileList').height($('#fileList').height()+50+'px');}
+return getParent().show();}
+var create=function(targetPath){var parent=show();var div=$('<a title=""><div class="download inline-block"><span class="iconX"></span><span class="text inline-block"></span><span class="text2"></span></div></a>').prependTo(parent).find('.download');div.animate({"width":'246px'},500);div.click(function(){var task=TargetPath.find(targetPath).tasks[0];window.external.OpenFileDirectory(task.taskId,targetPath,task.fileName);user_log('UPLOAD_DOWN_BAR_OPEN_DIR');return false;})
+return div;};var unbind=function(node){node.unbind('*').empty().remove();};var Tip=(function(){var t,t1,throttle;var init=functional.getSingle(function(){var div=$('<div class="download_tip"></div>').appendTo($('body')).hide().hover(function(){clearTimeout(t);},function(){hide();});div.delegate('div','click',function(){var _rel=unescape($(this).attr('_rel')).split('|'),taskid=_rel[0],targetPath=_rel[1],fileName=_rel[2];window.external.OpenFileDirectory(taskid,targetPath,fileName);user_log('UPLOAD_DOWN_BAR_OPEN_DIR');});return div;});var _show=function(master){if(master.tasks.length<=1){return;}
+clearTimeout(t);var div=init().empty();var len=master.tasks.length;var c;var strHtml='';var status;while(c=master.tasks[--len]){if(c.process_done){status='100%';}
+if(c.process_fail){status='下载失败';}else{status=(GTasks.get_percent(c.taskId)|0)+'%';if(status==='0%'){status='下载中';}}
+var _rel=escape(c.taskId+'|'+c.targetPath+'|'+c.fileName);strHtml+='<div _rel='+_rel+'>'+revise_file_name(c.fileName,20)+' <span>('+status+')</span></div>';}
+$(strHtml).appendTo(div);var offset=master.Ui.offset();var left=offset.left;div.css('top',522-master.tasks.length*30-3+'px').css('left',left+'px').show();}
+var _show_throttle=functional.throttle(_show,200);var show=function(master){clearTimeout(t1);_show(master);t1=setInterval(function(){_show(master);},200);}
+var hide=function(){clearTimeout(t1);t=setTimeout(function(){init().hide();},40)}
+return{show:show,hide:hide}})()
+return{create:create,show:show,unbind:unbind,Tip:Tip}})()
+var TargetPath=(function(){var stack=[];return{find:function(targetPath){for(var i=0,obj;obj=stack[i++];){if(obj.targetPath===targetPath){return obj;}}
+if(stack.length>=3){var obj=stack.pop();obj.clean();obj=null;}
+var task=new Task(targetPath);stack.unshift(task);return task;}}})()
+var Task=function(targetPath){this.targetPath=targetPath;this.Ui=Ui.create(targetPath);this.init_event();this.tasks=[];this.process=null;this.is_start_process=false;this.failIcon=null;}
+Task.prototype.add=function(taskId,fileName,fileSize,icon,cover){var task={taskId:taskId,fileName:fileName,fileSize:fileSize,icon:icon,process_done:false,process_fail:false,targetPath:this.targetPath},__self=this;if(this.tasks.length){for(var i=0,c;c=this.tasks[i++];){Process_route.cancelProcess(c.taskId);}}
+this.registerProcess(task);if(!this.is_start_process){this.start_process(task);this.is_start_process=true;}
+if(cover==1){for(var len=this.tasks.length-1,i=0;len>=i;len--){var c=this.tasks[len];if(c.fileName===fileName){this.tasks.splice(len,1);}}}
+this.tasks.unshift(task);this.Ui.find('.process_background2').show();Status.add(task);Ui.show();return this.change_Info(task);}
+Task.prototype.check_fail_icon_title=function(){if(this.failIcon){if(this.tasks.length<=1){this.failIcon.attr('title','下载失败，请重试');}else{this.failIcon.attr('title','');}}}
+Task.prototype.init_event=function(){var __self=this;this.Ui.hover(function(){Ui.Tip.show(__self);return false;},function(){Ui.Tip.hide();return false;})}
+Task.prototype.registerProcess=function(task){var __self=this;return Process_route.registerProcess(task.taskId,task.fileName,task.fileSize,function(taskId,percent){GTasks.set_percent(taskId,percent);return __self.process.change_process(parseInt(percent)/100);},function(taskId,percent){GTasks.set_percent(taskId,percent);task.process_done=true;return __self.start_next_process(task);Process_route.cancelProcess(taskId);},function(taskId){task.process_done=true;task.process_fail=true;__self.fail(task.fileName);__self.check_fail_icon_title();return __self.start_next_process(task);Process_route.cancelProcess(taskId);})}
+Task.prototype.fail=function(fileName){if(!this.failIcon){var offset=this.Ui.offset();this.failIcon=$('<a><div class="icon_warn_tips"></div></a>').appendTo(this.Ui);}
+var errorCount=0;for(var i=0,c;c=this.tasks[i++];){if(c.process_fail===true){errorCount+=1;}}
+var title='下载失败';if(errorCount>1){title='等'+errorCount+'个文件下载失败';}}
+Task.prototype.start_next_process=function(currTask){for(var i=0,c;c=this.tasks[i++];){if(c.process_done===false){this.registerProcess(c);return this.change_Info(c);}}
+this.Ui.find('.iconX').attr('class',currTask.icon+' iconX filetype').fadeOut(400).fadeIn(400).fadeOut(400).fadeIn(400);if(currTask.icon==='default'){this.Ui.find('.iconX').removeClass('filetype');}
+this.hide();}
+Task.prototype.start_process=function(task){this.process=Process(task,this.Ui,this.tasks.length);this.change_Info(task);}
+Task.prototype.change_Info=function(task){var fileName;this.Ui.find('.iconX').attr('class','iconX');this.process.clear();this.process.change_process(0.02);if(this.tasks.length>1){this.Ui.find('.text2').html('等'+this.tasks.length+'个文件');fileName=revise_file_name(task.fileName,12);}else{fileName=revise_file_name(task.fileName,22);}
+this.Ui.find('.text').html(fileName);}
+Task.prototype.clean=function(){this.Ui.unbind('*').empty().remove();}
+Task.prototype.hide=function(){this.Ui.find('.process_background2').hide();}
+var Process=function(task,Ui,length){var
+ctx,init,change_process,clear,circle_center,parent=parent,parent2;init=functional.getSingle(function(){var canvas,parent2=$('<div class="process_background2" style="z-index:9999;"></div>').appendTo(Ui.find('.iconX'));canvas=$('<canvas></canvas>').appendTo(parent2)[0];ctx=canvas.getContext("2d");ctx.fillStyle='#2AA9E0';return ctx;});var conut=0.02;change_process=function(pencent){init();if(pencent===0){conut+=0.002;pencent=conut;if(pencent>0.96){pencent=0.96;}}
+pencent=Math.max(pencent,0.02);ctx.clearRect(0,0,300,300);ctx.beginPath();ctx.moveTo(16,16);ctx.arc(16,16,16,1.5*Math.PI,1.5*Math.PI+pencent*Math.PI*2,false);ctx.fill();ctx.closePath();};clear=function(){conut=0.02;ctx&&ctx.clearRect(0,0,300,300);}
+return{change_process:change_process,clear:clear}}
+var Process_route={stack:{},registerProcess:function(taskId,fileName,fileSize,processfn,donefn,failfn){this.stack[taskId]={fileName:fileName,fileSize:fileSize,processfn:processfn,donefn:donefn,failfn:failfn,startTime:+new Date()};},cancelProcess:function(taskId){this.stack[taskId]&&delete this.stack[taskId].processfn;},done:function(taskId){var obj=this.stack[taskId],disk_actived=main.get_cur_mod_alias()=='disk';obj.donefn(taskId,'100%');user_log('webkit_donwload',0,{service_id:disk_actived?constants.SERVICE_ID.DISK:constants.SERVICE_ID.PHOTO,subop:SUB_OP.DONE,file_size:obj.fileSize,extString1:obj.fileName,extString2:+new Date()-obj.startTime});},onprocess:function(taskId,percent){this.stack[taskId].processfn&&this.stack[taskId].processfn(taskId,percent*100+'%');},fail:function(taskId,error_code,file_name,file_size){var obj,during_time=0,disk_actived=main.get_cur_mod_alias()==='disk';if(taskId){obj=this.stack[taskId]
+obj.failfn&&obj.failfn(taskId);file_name=obj.fileName;file_size=obj.fileSize;during_time=+new Date()-obj.startTime;}
+user_log('webkit_donwload',error_code,{service_id:disk_actived?constants.SERVICE_ID.DISK:constants.SERVICE_ID.PHOTO,subop:SUB_OP.FAIL,file_size:file_size,extString1:file_name,extString2:during_time});},cancelDownload:function(taskId){var obj=this.stack[taskId],disk_actived=main.get_cur_mod_alias()==='disk';user_log('webkit_donwload',0,{service_id:disk_actived?constants.SERVICE_ID.DISK:constants.SERVICE_ID.PHOTO,subop:SUB_OP.CANCEL,file_size:obj.fileSize,extString1:obj.fileName,extString2:+new Date()-obj.startTime});}}
+var GTasks=(function(){var obj={};set_percent=function(taskId,percent){obj[taskId]=percent;}
+var get_percent=function(taskId){return(parseInt(obj[taskId])||'0%');}
+return{set_percent:set_percent,get_percent:get_percent}})()
+var Status=function(){var stack=[];var add=function(task){stack.push(task);}
+var tmp=[];var check_done=function(){tmp=[];var flag="true";for(var i=0,c;c=stack[i++];){if(!c.process_done){tmp.push({taskId:c.taskId,fileName:c.targetPath+"\\"+c.fileName});flag="false";}}
+return flag;}
+var getTmpFile=function(){return tmp.slice(0);}
+return{add:add,check_done:check_done,getTmpFile:getTmpFile}}();global_function.register('WYCLIENT_BeforeCloseWindow',function(flag){if(flag==="TRUE"){var tmpFiles=Status.getTmpFile();for(var i=0,c;c=tmpFiles[i++];){window.external.AbortDownload(c.taskId);Process_route.cancelDownload(c.taskId);}
+return true;}
+if(Status.check_done()==="false"){var ret=window.external.MsgBox_Confirm('提示','您有文件正在下载，确定要关闭微云吗？',1);if(ret===true){var tmpFiles=Status.getTmpFile();for(var i=0,c;c=tmpFiles[i++];){window.external.AbortDownload(c.taskId);Process_route.cancelDownload(c.taskId);}
+return true;}
+return false;}
+return true;});var init=(function(){var
+exports=window,addDownloadTask,downloadTaskPreparing,downloadTaskBegin,downloadTaskProcessing,downloadTaskCompleted,downloadTaskFail;addDownloadTask=function(taskId,fileName,fileSize,targetPath,icon,cover){var task=TargetPath.find(targetPath);task.add(taskId,fileName,fileSize,icon,cover);}
+downloadTaskPreparing=function(taskId){}
+downloadTaskBegin=function(taskId){}
+downloadTaskProcessing=function(taskId,percent,speed){Process_route.onprocess(taskId,(parseInt(percent)|0)/100,0);}
+downloadTaskCompleted=function(taskId,targetPath,errorCode,fileName,fileSize){if(errorCode==0||errorCode==1){return Process_route.done(taskId);}
+return Process_route.fail(taskId,errorCode,fileName,fileSize);}
+downloadTaskFail=function(taskId){Process_route.dispatch(taskId,0,2);}
+if(jQuery.browser.msie){return;}
+window.WYCLIENT_AddDownloadTask=addDownloadTask;window.WYCLIENT_OnDownloadTaskPreparing=downloadTaskPreparing;window.WYCLIENT_OnDownloadTaskBegin=downloadTaskBegin;window.WYCLIENT_OnDownloadTaskProcessing=downloadTaskProcessing;window.WYCLIENT_OnDownloadTaskCompleted=downloadTaskCompleted;})()});/*  |xGv00|017cef465f304ead81ede93241115f4b */

@@ -1,0 +1,1030 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="robots" content="noindex, nofollow,nosnippet,noarchive,noodp">
+<title>迷你首页</title>
+<script type="text/javascript">
+var QosSS={initialize:function(e){this.key=e.key,this.tQueue=new Array((e.points||5)+1),this.percent=e.percent||100,this.url=e.url||"http://qos.report.qq.com/collect",this.addPoint(0)},addPoint:function(e,t){try{if(this.tQueue.length>e)if(typeof t=="undefined"||"start"!=t&&"end"!=t)this.tQueue[e]=(new Date).getTime();else{var n=typeof this.tQueue[e]!="undefined"?this.tQueue[e]:{};n[t]=(new Date).getTime(),this.tQueue[e]=n}}catch(r){}},finish:function(){var e=Math.ceil(this.percent*Math.random()),t=this;if(e!=1)return;this.img=new Image,this.img.onload=this.img.onerror=function(){delete t.img};var n=["type=1"];n.push("name="+this.key);try{for(var r=0,i=this.tQueue.length;r<i-1;r++){var s=r+1;if(typeof this.tQueue[s]=="number"){var o=this.tQueue[s]-this.tQueue[0];n.push(s+"="+o)}else if(typeof this.tQueue[s]=="object"){var u=this.tQueue[s];if(u.start&&u.end){var o=u.end-u.start;n.push(s+"="+o)}}}this.img.src=this.url+"?"+n.join("&")}catch(a){}}};QosSS.initialize({key:"minisite_2012"});
+</script>
+<link rel="shortcut icon" href="http://mat1.gtimg.com/www/icon/favicon.ico"/>
+<style type="text/css">
+/* reset */
+html,
+body{ overflow:hidden; }
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,form,input,textarea,p,th,td,button { padding:0; margin:0; }
+input,label,select,option,textarea,button { font:12px/18px Simsun, Helvetica, Arial, sans-serif; }
+table { border-collapse:collapse; border-spacing:0; }
+ul { list-style:none; }
+img { border:none; }
+button { cursor:pointer; }
+input,textarea { font-size:12px; }
+body { font:12px/18px Simsun, Helvetica, Arial, sans-serif; text-align:center;}
+a { text-decoration:none; color:#333333; }
+a:hover { text-decoration:underline; color:#BD0A01; }
+::selection {background-color:#669900;color:#FFFFFF;}
+::-moz-selection {background-color:#669900;color:#FFFFFF;}
+
+/*background*/
+.nav_box .refresh_box a,/*刷新按钮*/
+.wb_ico,/*微博*/
+.more,/*更多*/
+.vico,/*视频页卡视频图标*/
+.play,/*播放*/
+.video_side .hd h4,/*标题前竖条背景*/
+.vip,/*微博认证*/
+.jia_tz,/*+背景*/
+.home,/*我的主页*/
+.at_me,/*提到我的*/
+.tj_wb,/*每日推荐*/
+.nav_box .on_bg,/*导航选中小三角*/
+.dj_ico,/*独家*/
+.live_ico,/*Live*/
+.video_ico,/*非视频页卡视频图标*/
+.zt_ico,/*组图*/
+.buy_logo,/*网购*/
+.vico_right{ background-image:url(http://mat1.gtimg.com/mini2012/images/img_v1/ico_new2.png); background-repeat:no-repeat; }
+.product_fc .hd,
+.input_qc,
+.sort_qc,
+.age_child,
+.list_child li,
+.ad_child,
+.ybt_video,
+.product_wb_n,
+.login_wb,
+.login_wb0709,
+.login_btn,
+.login_btn_jr,
+.buy_ico,
+.product_cj .bd .finance_weikaitong dt .kaitongzixuangu,
+.product_cj .bd .finance_yikaitong dt .zixuangu,.v-side .v-tab-hd,.v-side .v-tab-bd .listul .top_bg,.play_small,.v-seach .v-btn,.v-seach a.upload,.icon_mb,.user_link_wb .hd a.at,.user_link_wb .hd a.message,.user_link_wb .hd a.fans,.infzm .col2 .logocx{ background-image:url(http://mat1.gtimg.com/mini2012/images/img_r1/pro_bg8-5.png); background-repeat:no-repeat; }
+.custom_wrap,
+.placeholder,
+.custom_btn a,
+.product_pp .ad_pp{ background-image:url(http://mat1.gtimg.com/mini2012/images/img_v2/custom_bg2.png); background-repeat:no-repeat; }
+.normal_bg { background:#FFFFFF url(http://mat1.gtimg.com/mini2012/images/img_v1/normal_bg.png) 0 0 no-repeat; }
+
+/*global*/
+.more,
+.home,
+.at_me { display:inline-block; }
+.wb_ico { background-position:right 3px; padding-right:10px; }
+.more_box{ margin-left:4px; position:relative;}
+.more { width:6px; height:5px; position:absolute; left:0;_left:4px; top:3px; background-position:-14px -40px; }
+.vico { background-position:0 -114px; padding-left:23px; }
+.vico_right{ padding-right:20px; background-position:right -496px;}
+h2 .vico_right{ background-position:right -493px;}
+.play { background-position:0 -154px; padding-left:20px; }
+.home { width:19px; height:18px; background-position:0 -320px; vertical-align:-5px; }
+.at_me { width:20px; height:16px; background-position:0 -360px; vertical-align:-3px; }
+.vip { width:16px; height:16px; background-position:right -239px; }
+.clear { clear:both; height:0; line-height:0; font-size:0; overflow:hidden; zoom:1; }
+.focus_link { display:block; width:220px; height:130px; position:relative; color:#FFFFFF; overflow:hidden; }
+.focus_link:hover { text-decoration:none; color:#FFFFFF; }
+.focus_tit,
+.focus_filter { display:block; width:100%; position:absolute; bottom:0px; left:0; text-align:center; z-index:3; cursor:pointer; }
+.focus_filter { height:21px; background:#000000; filter:alpha(opacity=60); -moz-opacity:0.6; opacity:0.6; z-index:1; }
+.focus_tit:hover { text-decoration:none; color:#FFFFFF; }
+.mod_left { margin-top:10px; }
+.mt5 {margin-top:5px; }
+#mini_wrap .bor_n { border:0 none; }
+#mini_wrap .none { display:none; }
+
+/*color*/
+.gray_1 { color:#656565; }
+.red_1 { color:#BD0A01; }
+.blue_1 { color:#004499; }
+.green_1 { color:#009901; }
+.black_1 { color:#333333; }
+.orange_1 { color:#FF8021; }
+.gray_2 { color:#B6B6B6; }
+.ad_text a{color:#656565; margin-right:5px;}
+.ad_text a:hover{ color:#BD0A01;}
+h2 a{ color:#004499;}
+h2 a:hover{ color:#BD0A01;}
+
+#mini_wrap { }
+.wrapper { width:698px; height:399px; margin:0 auto; text-align:left; }
+
+/*头部*/
+.ad_bg{position:relative}
+.header { width:698px; height:33px; }
+/*导航*/
+.nav_box { width:688px; padding:4px 0 0 10px; }
+.nav_box span { float:left; color:#BCCAE0; }
+.nav_box a{ display:inline-block; width:45px; height:26px; padding-top:3px; text-align:center; color:#0B3B8C; font-size:14px; position:relative; *vertical-align:-9px; _vertical-align:middle;text-decoration:none}
+.nav_box .on_bg { display:block; width:9px; height:5px; background-position:0 -460px; position:absolute; left:18px; bottom:2px; overflow:hidden;}
+.nav_box .on a, .nav_box .on a:hover, .nav_box .dz_box a:hover{ font-weight:bold; color:#333333; text-decoration:none}
+.nav_box span a:hover{text-decoration:none; color:#0B3B8C}
+.nav_box .on_bg { display:none; }
+.nav_box .on a .on_bg{ display:block; }
+.nav_box .dz_box { float:left; padding-left:11px;}
+.nav_box .dz_box a { width:63px; text-align:left; }
+.nav_box .refresh_box{ float:left; padding-left:7px;}
+.nav_box .refresh_box a{ display:block; width:18px; background-position:2px -535px;_background-position:2px -534px; text-indent:-9999px; overflow:hidden;}
+.nav_box .refresh_box a:hover{ background-position:0 -579px; _background-position:0 -578px;}
+/*新刷新按钮2012-10-16*/
+.nav_box a.three_txt{width:50px}
+.nav_box a.sx{width:20px;height:19px;float:left;padding:0px;margin-top:2px;left:3px;background:url(http://mat1.gtimg.com/mini2012/images/img_r1/sx14.jpg) no-repeat 0 0px}
+.nav_box a.sx:hover{background:url(http://mat1.gtimg.com/mini2012/images/img_r1/sx14.jpg) no-repeat 0 -19px}
+/*主体内容*/
+.cont { width:698px; height:366px; overflow:hidden; zoom:1; text-align:left; }
+#Main_Conent { float:left; width:523px; height:366px; background:#FFFFFF url(http://mat1.gtimg.com/mini2012/images/img_v1/loading.gif) center center no-repeat; }
+.big_box { width:698px; height:366px; background:#FFFFFF; }
+.main { float:left; width:509px; height:352px; padding:14px 0 0 14px; zoom:1; background:#FFFFFF; text-align:left; position:relative;}
+.main_left { float:left; width:222px; padding-right:20px; background:#FFFFFF; overflow:hidden; }
+/*焦点图*/
+.focus_box { width:220px; height:130px; border:1px solid #DDDFDE; }
+.focus_box .focus_link { width:220px; }
+.focus_box .focus_link img { width:220px; height:130px; }
+/*新闻列表*/
+.list_news { *zoom:1;}
+.list_news:after { display:block; clear:both; content:""; }
+.list_news li { font-family:simsun; }
+.list_news li a { display:inline-block; height:22px; line-height:22px; }
+/*图文列表*/
+.pic_txt { width:210px; height:130px; background:#F7FCFF; padding:10px 0 0 10px; border:1px solid #D0DDEE; }
+.pic_txt .pic_txt_box { overflow:hidden; zoom:1; }
+.pic_txt .pic_txt_box h3 { float:left; font-size:12px; padding-top:3px; margin-bottom:1px; }
+.pic_txt .img_wrap { float:left; margin-right:5px; }
+.pic_txt .img_wrap img { width:100px; height:70px; }
+.pic_txt p { float:left; width:100px; line-height:22px; }
+.pic_txt .list_news { padding-bottom:8px; margin-top:8px; }
+/*图片列表*/
+.list_pic { width:222px; overflow:hidden; zoom:1; }
+.list_pic ul { width:232px; }
+.list_pic li { float:left; margin-right:10px; }
+.list_pic li a { float:left; width:100px; padding:2px; border:1px solid #DDDFDE; }
+.list_pic li a img { width:100px; height:65px; }
+.list_pic li a span { display:block;  height:19px; padding-top:6px; text-align:center; cursor:pointer; }
+.list_pic li a:hover,
+.list_pic li a:hover img,
+.list_pic li a:hover span { text-decoration:none; }
+/*资讯区域*/
+.main_right { float:left; width:244px; background:#FFFFFF; overflow:hidden; }
+.tit_index { font:18px/22px "Microsoft Yahei", simsun; margin-bottom:10px; text-align:center; }
+.main_right .list_news { border-bottom:1px dotted #8B8C8C; padding-bottom:10px; margin-bottom:10px; }
+/*侧栏广告*/
+.side { float:right; width:175px; }
+.normal_ad { width:160px; margin-top:14px; }
+.normal_ad .normal_ad_up { width:160px; height:250px; margin-bottom:6px; overflow:hidden; }
+.normal_ad .normal_ad_down { width:160px; height:80px; overflow:hidden; }
+
+/*新闻产品*/
+.link_box { width:222px; line-height:22px;}
+.link_box a{ color:#656565; margin-right:5px; }
+.link_box a:hover{ color:#BD0A01;}
+
+/*财经产品*/
+.product_cj .hd { width:210px; height:19px; padding:3px 2px 3px 8px;border:1px solid #D0DDEE;}
+.product_cj .hd .jishibaojia{float:left;font-weight:bold;padding-top:2px;color:#3f3f3f;}
+.product_cj .txt_pro {float:left; width:95px; height:17px; line-height:17px; padding:0 0 0 3px; background:#fff; border:1px solid #b6b6b6;margin:0 4px 0 8px;}
+.product_cj .cx_pro {float:left; width:39px; height:19px; line-height:16px; text-align:center; cursor:pointer; border:1px solid #a6adb3; background:#fff; }
+.product_cj .bd { width:220px;height:161px; padding-top:5px; border:1px solid #D0DDEE; border-top:0 none; background:#F7FCFF; }
+.product_cj .bd .finance_weikaitong{border-top:1px dotted #bedae5;}
+.product_cj .bd .finance_weikaitong dt{padding-top:10px}
+.product_cj .bd .finance_weikaitong dt .kaitongzixuangu{width:142px;height:27px;display:block;background-position:right -180px;margin:0 auto;}
+.product_cj .bd .finance_weikaitong dd{padding:5px 0 0 8px;color:#7a9cb8;text-align:center;}
+.product_cj .bd .finance_yikaitong{border-top:1px dotted #bedae5;background:#fff;}
+.product_cj .bd .finance_yikaitong dl{padding:5px 0 0 10px;}
+.product_cj .bd .finance_yikaitong dt{padding:8px 0 2px;}
+.product_cj .bd .finance_yikaitong dt .zixuangu{background-position:right -220px;color:#fff;padding:2px 7px 2px 3px;}
+.product_cj .bd .finance_yikaitong dd{padding-top:5px;}
+.product_cj td { vertical-align:top; height:24px; }
+.product_cj .list_news { width:206px; margin:5px auto; padding-top:6px; border-top:1px dotted #8B8C8C; }
+
+/*房产产品*/
+.product_fc { width:220px; border:1px solid #D0DDEE; }
+.product_fc .hd { background-position:0 -40px; width:220px; height:26px; }
+.product_fc .hd h4 { float:left; font:bold 14px/26px simsun; text-indent:22px; }
+.product_fc .hd span { float:right; line-height:26px; padding-right:10px; }
+.product_fc .bd { width:220px; padding:5px 0; border-top:1px solid #CFDDF0; background:#F7FCFF; }
+.product_fc td { vertical-align:top; height:22px; }
+.product_fc .ad_fc { width:210px; height:45px; margin:0 auto; }
+.product_fc2 { width:222px;  }
+.product_fc2 .list_news_fc { padding:4px 0;  }
+.left_ad_fc2 { width:222px; height:48px; margin:0 auto; }
+
+
+/*视频new-2013-0116*/ 
+.v-side{width: 175px;float:right;margin-top:14px}
+.v-side .v-tab{width: 160px;}
+.v-side .v-tab-hd{height:22px;background-color: #edf3f9;background-position:-340px -338px;overflow: hidden;*zoom:1;}
+.v-side .v-tab-hd li{float:left;margin-left:-1px;margin-top:0px;height:19px;padding:3px 12px 0;background: url(http://mat1.gtimg.com/mini2012/images/img_r1/v_tab_bg2.png) no-repeat 0 2px}
+.v-side .v-tab-hd li.current{margin-left:0px;padding:2px 11px 0;border:1px solid #95b8da;border-bottom:none;font-weight:bold;background:#fff url(http://mat1.gtimg.com/mini2012/images/img_r1/v_tab_bg1.png) repeat-x 0 0px}
+.v-side .v-tab-bd{padding-top:3px;}
+.v-side .v-tab-bd .listul{margin-top: 0px;height:137px;overflow:hidden; text-align: left; position: relative; }
+.v-side .v-tab-bd .listul .top_bg{width: 30px; height: 138px;position:absolute;top:0px;z-index:99;background-position: -560px -237px;}
+.v-side .v-tab-bd .listul li{height: 22px;line-height: 22px;border-bottom: 1px dotted  #cccccc; }
+.v-side .v-tab-bd .listul li a{display: block;height: 22px;padding-left:30px;line-height: 22px;position: relative;}
+.v-side .v-tab-bd .listul li a .ico_play{display:none;width:13px;height:12px;padding:0px;float:right;margin:4px 6px 0 0;_margin:4px 3px 0 0;background-position:0 -31px; }
+.v-side .v-tab-bd .listul li a:hover{background:#f7f7f7 }
+.v-side .v-tab-bd .listul li a:hover .ico_play{display: block}
+.v-side .v-tab-bd img{width: 160px; height: 140px;}
+.v-side .v-tab-bd .focus_link{width: 160px; height: 140px;}
+.v-side .v-tab-bd .focus_link .focus_tit{text-align: left; padding-left:27px;bottom: 1px;}
+.v-side .v-tab-bd .focus_link .play_small{width:15px;height:15px;padding:0px;position:absolute;left:5px;bottom:3px;background-position:-404px -280px;z-index:4;  }
+/*video-seach*/
+.v-seach{width:240px; height: 22px;}
+.v-seach .v-inp{width: 137px; height: 18px; float:left; padding:2px 0 0 4px;outline:none; border:1px solid #d1d1d1; border-right:none;color:#999;}
+.v-seach .v-btn{width: 39px; height: 22px; float:left;border:0;background-position: -424px -280px; }
+.v-seach .v-btn span{display: none}
+.v-seach .v-btn a{display: none}
+.v-seach a.upload{width: 49px; height: 22px;float:right; background-position: -467px -280px;}
+.v-seach a.upload span{display: none}
+/*汽车产品*/
+.product_qc { clear:both; width:486px; position:relative; }
+.product_qc .link_qc { line-height:24px; margin-bottom:6px; }
+.product_qc .input_qc { width:175px; height:22px; position:absolute; right:0; top:25px; background-position:-240px 0; }
+.product_qc .input_qc input { float:left; height:22px; line-height:22px; border:0 none; background:none; }
+.product_qc .input_qc .sea_qc { width:111px; padding-left:10px; }
+.product_qc .input_qc .sub_qc { width:54px; text-align:center; cursor:pointer; }
+.product_qc .sort_qc { width:474px; height:22px; padding:8px 0 0 10px; line-height:32px; background:#F5F5F5; border:1px solid #E4E4E4; }
+.product_qc .sort_qc span { float:left; height:14px; line-height:14px; }
+.product_qc .sort_qc a { float:left; height:14px; line-height:14px; padding:0 8px; border-right:1px solid #D9D9D9; }
+.product_qc .sort_qc .sort_sea { float:right; }
+.product_qc .sort_qc .sort_sea a { padding:0 10px 0 0; border:0; }
+
+/*娱乐产品*/
+.product_yl .list_news_yl1 { padding:4px 0; margin-bottom:3px; border-bottom:1px dotted #8B8C8C; }
+
+/*拍拍产品*/
+.product_pp .ad_pp { width:222px; height:142px; background-position:-180px -200px; margin-bottom:10px; font:14px "Microsoft Yahei",simsun; }
+.product_pp .ad_pp .tit_ad_pp{ height:21px; padding:10px 0 0 10px; font-weight:bold; overflow:hidden;}
+.product_pp .ad_pp .tit_ad_pp h3{ float:left; margin-right:4px; font-size:14px;}
+.product_pp .ad_pp .tit_ad_pp a{ float:left;}
+.product_pp .ad_pp .tit_ad_pp a:hover{ text-decoration:none;}
+.product_pp .ad_pp .con_ad_pp{ width:212px; padding:10px 0 0 10px; position:relative;}
+.product_pp .ad_pp .con_ad_pp .price_pp{}
+.product_pp .ad_pp .con_ad_pp .price_pp strong{ font-weight:normal; font-size:24px; line-height:22px;}
+.product_pp .ad_pp .con_ad_pp .img_pp{ display:block; width:105px; height:105px; position:absolute; left:116px; top:5px;}
+.product_pp .ad_pp .con_ad_pp .btn_pp{ display:block; width:114px; height:31px; position:absolute; left:2px; top:72px; text-indent:-9999px; overflow:hidden;}
+.paipai .list_news { margin-bottom:0; padding:0; }
+.paipai .sec_index { font:bold 14px/32px simsun; text-align:left; text-indent:12px; }
+
+
+/*地方站产品*/
+.product_dfz .list_news_yl1 { padding:4px 0 5px; }
+.product_dfz .ad_dfz { width:222px; height:45px; }
+
+
+/*微博产品*/
+.loading_wb { width:220px; height:96px; border:1px solid #D0DDEE; overflow:hidden; background:#F7FCFF url(http://mat1.gtimg.com/mini2012/images/img_v1/loading.gif) center center no-repeat; }
+.product_wb { width:212px; height:84px; padding:6px 0 6px 8px; border:1px solid #D0DDEE; background:#F7FCFF; overflow:hidden; }
+.product_wb .wb_hd { width:205px; height:56px; border-bottom:1px dotted #D2E1EA; }
+.wb_hd .img_wrap { float:left; margin-right:9px; }
+.wb_hd .img_wrap img { display:block; width:45px; height:45px; padding:1px; background:#FFFFFF; border:1px solid #D2D2D2; }
+.wb_hd p { float:left; width:140px; margin-top:4px; }
+.wb_hd .tit_wb a { float:left; font-size:14px; margin-right:2px; }
+.wb_hd .tz_wb a { font-weight:bold; }
+.wb_hd .tz_wb .jia_tz { display:inline-block; width:36px; height:19px; margin-left:5px; text-align:center; font-weight:bold; line-height:19px; background-position:0 -280px; }
+.wb_hd .tz_wb a.jia_tz:hover { text-decoration:none; }
+.product_wb .wb_bd { width:212px; padding-top:9px; overflow:hidden; zoom:1; }
+.wb_bd a { float:left; width:102px; }
+.link_wb { width:488px; clear:both; overflow:hidden; zoom:1; }
+.link_wb .link_wb_up { width:488px; height:24px; line-height:24px; overflow:hidden; zoom:1; }
+.link_wb .link_wb_up strong { float:left; height:24px; }
+.link_wb div a { float:left; height:14px; line-height:14px; overflow:hidden; padding:0 11px 0 12px; border-right:1px solid #B6B6B6; }
+.link_wb .link_wb_scroll { float:right; width:384px; height:19px; padding-top:5px; overflow:hidden; position:relative; }
+.link_wb .link_wb_box { float:left; width:10000px; height:24px; overflow:hidden; }
+.link_wb .link_wb_box p { float:left; }
+.link_wb .link_wb_down { width:492px; height:19px; padding-top:5px; overflow:hidden; }
+.tj_wb { clear:both; width:456px; height:23px; line-height:19px; padding:3px 0 0 32px; background-color:#FAFAFA; background-position:10px -395px; border:1px solid #E7E7E7; }
+.tj_wb a { margin-right:5px; }
+.product_wb_n,
+.login_wb { width:220px; height:91px; border:1px solid #D0DDEE; padding-top:5px; background-color:#F7FCFF; background-position:-519px -70px; }
+.product_wb_n p,
+.login_wb p { width:195px; margin:0 auto; line-height:21px; }
+.product_wb_n .login_btn,
+.login_wb .login_btn { display:block; width:123px; height:28px; margin:10px auto 0; background-position:-440px 0; text-indent:-9999px; overflow:hidden; }
+.login_wb .login_btn { background-position:-360px -80px; }
+.weibo .list_news .wb_ico { padding:0 0 0 14px; background-position:-30px 3px; }
+/*微薄20120709*/
+.icon_mb{width:16px;height:16px; display:inline-block;margin-right:3px; vertical-align:-2px;*vertical-align:0px;_vertical-align:0px; background-position: -565px -377px;  }
+.user_link_wb{width:220px; height:93px; padding:6px 0 6px 0px; border:1px solid #D0DDEE; background:#F7FCFF; overflow:hidden; }
+.user_link_wb .hd{width:210px; height:56px;margin:0 auto;padding:0 0px;overflow:hidden;*zoom:1;}
+.user_link_wb .hd .pic{float:left;margin-right:10px;}
+.user_link_wb .hd .txt_name{float:left;width:130px;margin-top:4px;}
+.user_link_wb .hd .txt_name a{font-size:14px;}
+.user_link_wb .hd .txt_name a.vip{display:inline-block;margin-left:2px;vertical-align:0px;*vertical-align:4px;_vertical-align:4px;}
+.user_link_wb .hd .txt_num{float:left;margin-top:4px;}
+.user_link_wb .hd .txt_num a{float:left;font-family:arial;font-weight:bold;}
+.user_link_wb .hd a.at{ background-position:-565px -406px;width:30px;padding-left:20px;}
+.user_link_wb .hd a.message{ background-position:-563px -433px;width:30px;padding-left:20px;}
+.user_link_wb .hd a.fans{ background-position:-564px -465px;width:30px;padding-left:20px;}
+.user_link_wb .bd{width:210px;margin:0 auto; border-top:1px dashed #a3c4e5;overflow:hidden;*zoom:1}
+.user_link_wb .bd a{float:left;white-space:nowrap;height:14px;line-height:14px;padding:0 7px 0 8px;margin-top:5px;border-right:1px solid #b6b6b6 }
+.loading_wb0709 { width:220px; height:105px; border:1px solid #D0DDEE; overflow:hidden; background:#F7FCFF url(http://mat1.gtimg.com/mini2012/images/img_v1/loading.gif) center center no-repeat; }
+.login_wb0709 { width:220px; height:100px; border:1px solid #D0DDEE; padding-top:5px; background-color:#F7FCFF; background-position:-519px -70px; }
+.login_wb0709 p { width:195px; margin:0 auto; line-height:21px; }
+.login_wb0709 .login_btn { display:block; width:123px; height:28px; margin:10px auto 0; background-position:-360px -80px; text-indent:-9999px; overflow:hidden; }
+.login_wb0709 .login_btn_jr{display:block; width:123px; height:28px; margin:10px auto 0; background-position:-440px 0; text-indent:-9999px; overflow:hidden;   }
+/*20110718 大渝网图片广告变文字链*/
+.main_dyw .product_dfz .list_news_yl1{ padding:4px 0; margin-bottom:3px; border-bottom: 1px dotted #8B8C8C;}
+
+.tabLock span a{ color:#666;}
+
+.nav_box .dz_box{ width:80px; padding-left:0;}
+.nav_box .dz_box a{ font-size:12px;  background:url(http://mat1.gtimg.com/mini2012/images/img_v2/custom_bg2.png) -431px -238px no-repeat; padding-left:22px; width:58px;}
+.nav_box .dz_box a:hover, #operateDemo:hover, .custom_btn a.blue_1:hover{ font-weight:100; color:#900}
+
+.nav_box .refresh_box{ padding-right:7px; padding-left:0}
+
+.dragLabel{ float:left; width:55px; height:194px; padding-left:14px}
+.dragLabel span{ display:block; width:47px; padding:1px 0 0 4px; height:17px; background:url(http://mat1.gtimg.com/mini2012/images/img_v2/custom_bg2.png) no-repeat; color:#014173}
+.dragLabel .default{background-position:-431px -210px; margin-top:40px; color:#fff;}
+.dragLabel .subscibe{background-position:-487px -210px; margin-top:80px;}
+
+.custom_btn{ padding-left:0; width:auto;}
+.custom_btn .customLeft{ float:left; width:318px; display:inline-block; padding-left:22px}
+/*#operateDemo{ float:left; background:url(http://mat1.gtimg.com/mini2012/images/img_v1/ico_new.png) -12px -620px no-repeat; padding-left:20px; color:#004399; cursor:pointer;margin-left:0; text-align:left}*/
+.custom_btn .customLeft .demoTips{ position:absolute; bottom:45px; left:70px; height:45px; width:210px; background:url(http://mat1.gtimg.com/mini2012/images/img_v2/tips.png) 0 0 no-repeat;_background:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="http://mat1.gtimg.com/mini2012/images/img_v2/tips.png" ,sizingMethod="crop"); }
+
+.custom_hf{ height:18px;}
+.custom_btn a.blue_1{ background:none; width:55px; color:#004499;}
+#flashContent{position:absolute; top:18px; left:3000px; z-index:10000}
+
+.nav_box span#prompt{ display:none; width:50px; height:30px; background:url(http://mat1.gtimg.com/mini2012/images/img_v2/prompt.png) no-repeat; position:absolute; top:20px; right:2px; z-index:9999; display:none}
+/*20111020广告文字对齐*/
+.ad_width a{width:117px;}
+.ad_width2{width:232px;padding:7px 0 3px 2px}
+.ad_width2 a{width:106px;margin-right:8px;color:#656565;}
+.ad_width2 a:hover{ color:#BD0A01;}
+/*20111205新增图片页卡*/
+.pic_main{width:670px;height:352px;padding:14px 14px 0;}
+.pic_left_top,.pic_left_bottom,.pic_center_top,.pic_center_middle,.pic_center_bottom,.pic_right_top,.pic_right_middle,.pic_right_bottom{border:0;}
+.pic_left{width:260px;float:left;}
+.pic_left_top,.pic_left_top .focus_link,.pic_left_top .focus_link img{width:260px;height:130px;}
+.pic_left_bottom,.pic_left_bottom .focus_link,.pic_left_bottom .focus_link img{width:260px;height:200px;}
+.pic_left_bottom{margin-top:10px;}
+.pic_center{width:170px;float:left;padding:0 10px;}
+.pic_center_top,.pic_center_top .focus_link,.pic_center_top .focus_link img{width:170px;height:100px;}
+.pic_center_middle,.pic_center_middle .focus_link,.pic_center_middle .focus_link img{width:170px;height:110px;}
+.pic_center_middle{margin-top:10px;}
+.pic_center_bottom,.pic_center_bottom .focus_link,.pic_center_bottom .focus_link img{width:170px;height:110px;}
+.pic_center_bottom{margin-top:10px;}
+.pic_right{width:220px;float:left;}
+.pic_right_top,.pic_right_top,.focus_link,.pic_right_top,.focus_link img{width:220px;height:130px;}
+.pic_right_middle,.pic_right_middle .focus_link,.pic_right_middle .focus_link img{width:220px;height:80px;}
+.pic_right_middle{margin-top:10px;}
+.pic_right_bottom,.pic_right_bottom .focus_link,.pic_right_bottom .focus_link img{width:220px;height:110px;}
+.pic_right_bottom{margin-top:10px;}
+
+
+
+/*20111219新增网购页卡*/
+.tit_buy{ width:222px; height:30px; margin-bottom:15px; position:relative; background:#EFEFEF;}
+.tit_buy .buy_logo{ float:left; height:25px; padding:5px 0 0 10px; background-position:10px -717px;}
+.tit_buy .buy_logo a{ display:inline-block; padding-left:24px;}
+.tit_buy .buy_logo a:hover{ color:#333333; text-decoration:none;}
+.tit_buy .buy_logo em{ font:bold 14px "Microsoft Yahei"; margin-right:5px;}
+.tit_buy .more_buy{ position:absolute; right:10px; top:8px;}
+.con_buy{ padding-left:12px;}
+.con_buy .img_wrap{ display:block; margin:0 0 13px 23px; width:160px;}
+.con_buy .img_wrap a{ display:block;}
+.con_buy .price_buy .em_price{ font:bold 18px "Microsoft Yahei";}
+.con_buy .market_price{ margin-bottom:2px; color:#999999;}
+.con_buy .market_price span{ font-family:"Microsoft Yahei";}
+.con_buy .txt_buy{ margin-bottom:7px;}
+.con_buy .btn_buy .buy_ico{ display:block; width:85px; height:24px; text-indent:-9999px; overflow:hidden; background-position:-360px -120px;}
+
+.main_right .list_buy{ margin-bottom:2px;}
+.ad_buy{ width:237px; height:95px; overflow:hidden;}
+
+/*20120104新增房产页卡*/
+.side_fc{ position:absolute; top:0; right:-175px;_right:-176px; width:175px; }
+/*20120718新增奥运tab样式*/
+.on_ay .on_bg{width: 45px;height: 7px;bottom: 0;display: block;left: 0;overflow: hidden;position: absolute;background: url("http://mat1.gtimg.com/mini2012/images/img_r1/ay_nav_icon.png") no-repeat ;}
+/*儿童新页卡css02120823*/
+.kid_warp{width: 698px; height: 366px;padding-top:14px; }
+a.zong{color:#7a450a }
+a.zong:hover{color:#BD0A01}
+.kid_left{ width:222px; float:left;display:inline; margin-left:14px; }
+.kid_top5{width:222px; height:207px;margin-top:6px;overflow:hidden;background:url(http://mat1.gtimg.com/kid/r/kid_pic.png) no-repeat 0 0; }
+.kid_top5 .hd{width:222px; height:24px; }
+.kid_top5 .hd h4{height:20px;padding-top:6px;padding-left:38px; font-size:12px;display:inline-block;color:#457f06; font-weight:bold}
+.kid_mid{width:270px; height:344px;float:left;display:inline;margin-left:9px;overflow:hidden;background:url(http://mat1.gtimg.com/kid/r/kid_pic.png) no-repeat 0 -210px; }
+.kid_mid .hd{width:270px; height:24px; }
+.kid_mid .hd h4{height:20px;padding-top:4px;padding-left:33px; font-size:12px;display:inline-block;color:#7a450a; font-weight:bold}
+.kid_mid .bd{padding-top:6px;}
+.kidplist{width:270px; }
+.kidplist ul{padding-left:21px;overflow:hidden;*zoom:1;}
+.kidplist li{width:60px; float:left;display:inline;margin:0 23px 0 0px;text-align:center; position:relative;  }
+.kidplist li img{width:60px; height:60px; }
+.kidplist li a{display:block; line-height:20px; }
+.kidplist li .r{width:60px;height:60px;display:block; position:absolute; top:0px;background:url(http://mat1.gtimg.com/kid/r/r.png) no-repeat;_background:none;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="http://mat1.gtimg.com/kid/r/r.png"); cursor:pointer}
+.kidplist li a.round{width:60px;padding-top:60px;display:block; position:absolute; top:0px;background:url(http://mat1.gtimg.com/kid/r/r.png) no-repeat;_background:none;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="http://mat1.gtimg.com/kid/r/r.png"); cursor:pointer}
+
+.kid_right{width:160px; height:344px;float:left;display:inline;overflow:hidden;margin-left:9px;background:url(http://mat1.gtimg.com/kid/r/kid_pic2-8.png) no-repeat 0 0px; }
+.hot_act .hd{width:160px; height:24px; }
+.hot_act .hd h4{height:16px;padding-top:8px;padding-left:35px; font-size:12px;display:inline-block;color:#7a450a; font-weight:bold}
+.hot_act ul{width:140px;padding-top:9px;margin:0 0 0 14px }
+.hot_act ul li{line-height:23px; }
+.kid_tool{width:160px;margin-top:14px;overflow:hidden;*zoom:1; }
+.kid_tool ul{padding-left:2px;}
+.kid_tool li{width:51px;  float:left;display:inline;margin-left:1px;text-align:center; }
+.kid_tool li a{display:block; line-height:20px; }
+.kid_age{width:160px;margin-top:6px;overflow:hidden;*zoom:1; }
+.kid_age ul{padding-left:2px;}
+.kid_age li{width:51px;  float:left;display:inline;margin-left:1px;text-align:center; }
+.kid_age li img{width:51px; height:50px;  }
+.kid_age li a{display:block; line-height:20px; }
+.kid_top5 ul{width:200px;  margin-left: 12px;padding-top: 12px;}
+.kid_top5 li{height:24px;overflow:hidden;*zoom:1;vertical-align:bottom;position:relative;}
+.kid_top5 li.big{height:70px;}
+.kid_top5 li.big .txt{float:left;margin-left:8px;}
+.kid_top5 li.big .star{width:50px; height:9px;font-size:0px;margin:5px 0; display:block;background:url(http://mat1.gtimg.com/kid/r/kid_pic.png) no-repeat -190px -661px }
+.kid_top5 li span.up_ico,.kid_top5 li span.flat_ico,.kid_top5 li span.down_ico{width:15px; height:12px;font-size:0px;position:absolute; top:2px;right:4px;display:inline-block;background:url(http://mat1.gtimg.com/kid/r/kid_pic.png) no-repeat -190px -677px}
+.kid_top5 li span.flat_ico{background:url(http://mat1.gtimg.com/kid/r/kid_pic.png) no-repeat -190px -692px}
+.kid_top5 li span.down_ico{background:url(http://mat1.gtimg.com/kid/r/kid_pic.png) no-repeat -190px -708px}
+
+.kid_top5 li em{width:12px; height:16px;line-height:16px; margin-right:12px;float:left;vertical-align:-3px;*vertical-align:-1px;_vertical-align:-1px;overflow:hidden; display:inline-block;background:url(http://mat1.gtimg.com/kid/r/top_bg22.png) no-repeat ;color:#fff;font-size:12px; font-family:Arial;font-style:normal;padding-left:4px;}
+.kid_top5 li.big em{width:18px;height:22px;line-height:22px; margin-right:7px; font-size:22px; background:url(http://mat1.gtimg.com/kid/r/top_bg11.png) no-repeat ; }
+.kid_top5 li.big .pic{width:60px;height:60px;float:left;display:inline-block;}
+.kid_top5 li.big .pic img{width:60px;height:60px;vertical-align:-3px;}
+
+.kid_top5 li.small .pic{width:16px;height:16px;float:left;display:inline-block;margin-right:10px;}
+.kid_top5 li.small .pic img{width:16px;height:16px;vertical-align:-3px;}
+/*new ico 2012-11-2*/
+.ico_live,.ico_play,.ico_img,.ico_wb,.ico_qs1,.ico_qs2,.ico_qs3,.ico_qs4{background-image:url(http://mat1.gtimg.com/mini2012/images/img_r1/ico_r8_new4.png); background-repeat:no-repeat; }
+.ico_live{padding-left:34px;background-position:0 2px ;}
+.main .main_right h2 a.ico_live{background-position:0 4px ;}
+
+.ico_play{padding-left:19px;background-position:0 -27px ;}
+.main .main_right h2 a.ico_play{background-position:0 -25px ;}
+
+.ico_img{padding-left:19px;background-position:0 -57px ;}
+.main .main_right h2 a.ico_img{background-position:0 -55px ;}
+
+.ico_wb{padding-right:10px;background-position:right -87px ;}
+.main .main_right h2 a.ico_wb{padding-right:11px;background-position:right -84px ;}
+
+.ico_qs1{padding-left:19px;background-position:0 -117px ;}
+.main .main_right h2 a.ico_qs1{background-position:0 -114px ;}
+
+.ico_qs2{padding-left:42px;background-position:0 -147px ;}
+.ico_qs3{padding-left:42px;background-position:0 -177px ;}
+.ico_qs4{padding-left:42px;background-position:0 -207px ;}
+/*astro 2012-11-13*/
+/*星座图文列表*/
+.pic_txt_astro{border:1px solid #dddfde;background:#fff}
+.pic_txt .pic_txt_box_astro {width:210px;height:70px; overflow:hidden; zoom:1; }
+.pic_txt .pic_txt_box_astro h3 { width: 103px; float:left; font-size:12px; padding-top:3px; margin-bottom:1px; }
+.pic_txt .pic_txt_box_astro a.btn {width:60px;height:18px;padding-top: 2px;float:left;margin-top:-19px;text-align:center; color:#fff;background-position: 0 -580px;}
+.pic_txt .pic_txt_box_astro a.btn:hover{text-decoration:none; }
+#astro_pro,#astro_pro .selwrap .btn,#astro_pro .stra ul,#astro_pro .stra ul li,.pic_txt .pic_txt_box_astro a.btn{background-image:url(http://mat1.gtimg.com/mini2012/images/img_r1/astro_pic8-1.png) }
+#astro_pro{width:222px;height:122px;padding:10px 12px 0 10px; margin-bottom: 20px;text-align: left;position:relative;z-index:7;background-position: 0 0 }
+#astro_pro .avatra{float: left;width:50px;height: 50px;}
+#astro_pro .avatra .baiyang,#astro_pro .avatra .jinniu,#astro_pro .avatra .shuangzi,#astro_pro .avatra .juxie,#astro_pro .avatra .shizi,#astro_pro .avatra .chunv,#astro_pro .avatra .tianping,#astro_pro .avatra .tianxie,#astro_pro .avatra .sheshou,#astro_pro .avatra .mojie,#astro_pro .avatra .shuiping,#astro_pro .avatra .shuangyu{width: 50px;height: 50px;display:block;background-image:url(http://mat1.gtimg.com/mini2012/images/img_r1/astro_pic8-1.png)}
+#astro_pro .selwrap{float: left;padding-left:12px;width: 160px;height:23px;position: relative;}
+#astro_pro .selwrap .sel{float:left;width: 126px;height:19px;padding:2px 0 0 8px;border: 1px solid #f3dbc1;color:#f8791a;background: #fff;z-index:9 }
+#astro_pro .selwrap .sel span{font-weight: bold;color: #f8791a} 
+#astro_pro .selwrap .btn{float:left;width: 24px;height: 23px;margin-left:-1px;cursor:pointer;display:block;background-position: 0 -153px;}
+#astro_pro .stra{float: left;width: 160px;margin:6px 0 0 12px;}
+#astro_pro .stra .tit{float:left;padding-top:0px;color: #666666}
+#astro_pro .stra ul{float:left;width: 80px;height: 16px;background-position: -26px -153px;}
+#astro_pro .stra ul li{height: 16px;background-position: -108px -153px;}
+#astro_pro .astro_cont{float:left;width: 222px;margin-top:4px;color: #333;line-height:21px;}
+#astro_pro .avatra .baiyang{background-position:0 -197px; }
+#astro_pro .avatra .jinniu{background-position:-97px -197px; }
+#astro_pro .avatra .shuangzi{background-position:-193px -197px; }
+
+#astro_pro .avatra .juxie{background-position:0 -300px; }
+#astro_pro .avatra .shizi{background-position:-97px -300px; }
+#astro_pro .avatra .chunv{background-position:-193px -300px; }
+
+#astro_pro .avatra .tianping{background-position:0 -400px; }
+#astro_pro .avatra .tianxie{background-position:-97px -400px; }
+#astro_pro .avatra .sheshou{background-position:-193px -400px; }
+
+#astro_pro .avatra .mojie{background-position:0 -500px; }
+#astro_pro .avatra .shuiping{background-position:-97px -500px; }
+#astro_pro .avatra .shuangyu{background-position:-193px -500px; }
+#ul_sel{width:157px; height:0px;margin-top:-1px; overflow: hidden; background:#fffbef; border:1px solid #f3dbc1;border-top:0;position: absolute;top:23px;left:12px;z-index: 8 }
+
+#ul_sel li{height:22px;line-height: 22px;padding-left:8px;cursor: pointer;color: #999;}
+#ul_sel li span{color:#333 }
+#ul_sel li span.t_color{color:#fff }
+/*ico-2012-1206*/
+.ico_new,.select_wrap .btn,.sureBtn,.cancelBtn,.watchGame .wgCont li span.like,.watchGame .wgCont li span.on,.watchGame .wgCont li span.live{background-image:url(http://mat1.gtimg.com/mini2012/images/img_r1/ico_r8-3.png)}
+/*订阅一期css*/
+.more_card,.more_card .dy_like,.more_card .city_like,.channel_list li,.channel_list li.cur,.more_card .scroll-box,.more_card .scrollbar{background-image:url(http://mat1.gtimg.com/mini2012/images/img_r1/more_card_pic2.gif)}
+.more_card{width:175px; height:366px;font-size:13px; overflow:hidden;text-align:left;background-position:0px 0px;position:absolute;top:0px;right:0px;display:none;z-index:99999}
+.more_card .dy_like{width:58px; height:20px;padding-top:4px;padding-left:25px;font-size:12px; display:block;color:#333333; background-position:0px -458px; position:absolute; left:12px;bottom:18px;text-decoration:none;  }
+.more_card .city_like{width:31px; height:20px;padding-top:4px;padding-left:20px;font-size:12px; display:block;color:#333333; background-position:-93px -458px; position:absolute; left:104px;bottom:18px;text-decoration:none;  }
+.more_card .scroll-box{height:304px;width:13px;position:absolute; top:12px;right:5px;background-position:-182px 0px; }
+.more_card .scrollbar{width:9px;height:64px;cursor:pointer;position:absolute;left:2px;background-position:-186px -306px; display:none}
+.channel_list{width:137px; height:297px;overflow:hidden; padding-top:1px; padding-left:1px;margin-left:0px;  margin-top:14px; }
+.channel_list li{width:137px; height:33px;vertical-align:bottom;background-position:0px -413px;list-style:none;}
+.channel_list li a{width:137px;height:22px;padding-top:11px;line-height:14px; display:block;padding-left:0px; margin-left:0px; color:#0b3b8c; text-decoration:none;}
+.channel_list li a em{font-size:0px;background-image:url(http://mat1.gtimg.com/mini2012/images/img_r1/more_card_ico10.gif)}
+.channel_list li a span.txt{float:left}
+.channel_list li a i.ico_new{width:21px; height:9px;float:left;margin:-3px 0 0 5px;font-size:0px;background-position:0 0;}
+.channel_list li a:hover{text-decoration:none; }
+.channel_list li.cur{background-position:0px -374px;height:34px;margin-top:-1px;}
+.channel_list li.cur a{color:#000000;font-weight:bold;height:21px;padding-top:12px; }
+
+/*微薄—wb*/
+.channel_list li a.wb em{width:13px; height:20px;float:left;margin:-3px 12px 0 15px; background-position:0px -248px; }
+.channel_list li.cur a.wb em{background-position:-30px -248px; }
+/*读书—book*/
+.channel_list li a.book em{width:15px; height:12px;float:left;margin:0px 11px 0 14px;  background-position:0px -13px; }
+.channel_list li.cur a.book em{background-position:-30px -13px; }
+/*儿童—kid*/
+.channel_list li a.kid em{width:16px; height:11px;float:left;margin:1px 11px 0 13px;background-position:0px -132px; }
+.channel_list li.cur a.kid em{background-position:-30px -132px; }
+/*教育—edu*/
+.channel_list li a.edu em{width:15px; height:11px;float:left;margin:1px 13px 0 12px;background-position:0px -49px; }
+.channel_list li.cur a.edu em{background-position:-30px -49px; }
+/*财经—finance*/
+.channel_list li a.finance em{width:16px; height:14px;float:left;margin:0px 13px 0 12px;background-position:0px -82px; }
+.channel_list li.cur a.finance em{background-position:-30px -82px; }
+/*娱乐—ent*/
+.channel_list li a.ent em{width:14px; height:14px;float:left;margin:-2px 14px 0 13px;background-position:0px -64px; }
+.channel_list li.cur a.ent em{background-position:-30px -64px; }
+/*时尚—luxury*/
+.channel_list li a.luxury em{width:16px; height:14px;float:left;margin:-1px 12px 0 13px;background-position:0px -148px; }
+.channel_list li.cur a.luxury em{background-position:-30px -148px; }
+/*体育—sports*/
+.channel_list li a.sports em{width:15px; height:15px;float:left;margin:-1px 12px 0 13px;background-position:0px -166px; }
+.channel_list li.cur a.sports em{background-position:-30px -166px; }
+/*视频—video*/
+.channel_list li a.video em{width:15px; height:15px;float:left;margin:-1px 12px 0 13px;background-position:0px -229px; }
+.channel_list li.cur a.video em{background-position:-30px -229px; }
+/*网购—buy*/
+.channel_list li a.buy em{width:14px; height:17px;float:left;margin:-3px 12px 0 13px;background-position:0px -28px; }
+.channel_list li.cur a.buy em{background-position:-30px -28px; }
+/*汽车—auto*/
+.channel_list li a.auto em{width:17px; height:9px;float:left;margin:1px 11px 0 13px;background-position:0px 0px; }
+.channel_list li.cur a.auto em{background-position:-30px 0px; }
+/*房产—house*/
+.channel_list li a.house em{width:16px; height:13px;float:left;margin:0px 11px 0 13px;background-position:0px -115px; }
+.channel_list li.cur a.house em{background-position:-30px -115px; }
+/*游戏—game*/
+.channel_list li a.game em{width:16px; height:11px;float:left;margin:1px 11px 0 13px;background-position:0px -100px; }
+.channel_list li.cur a.game em{background-position:-30px -100px; }
+/*科技—tech*/
+.channel_list li a.tech em{width:14px; height:14px;float:left;margin:-2px 11px 0 15px;background-position:0px -187px; }
+.channel_list li.cur a.tech em{background-position:-30px -187px; }
+/*数码—digi*/
+.channel_list li a.digi em{width:13px; height:16px;float:left;margin:-2px 11px 0 15px;background-position:0px -206px; }
+.channel_list li.cur a.digi em{background-position:-30px -206px; }
+/*星座—astro*/
+.channel_list li a.astro em{width:15px; height:15px;float:left;margin:-3px 11px 0 15px;background-position:0px -274px; }
+.channel_list li.cur a.astro em{background-position:-30px -274px; }
+/*军事—mil*/
+.channel_list li a.mil em{width:17px; height:10px;float:left;margin:1px 11px 0 13px;background-position:0px -298px; }
+.channel_list li.cur a.mil em{background-position:-30px -298px; }
+/*南方周末——infzm*/
+.channel_list li a.infzm em{width:14px; height:17px;float:left;margin:-3px 11px 0 13px;background-position:0px -317px; }
+.channel_list li.cur a.infzm em{background-position:-30px -317px; }
+/*财新——caixin*/
+.channel_list li a.caixin em{width:16px; height:16px;float:left;margin:-2px 11px 0 13px;background-position:0px -342px; }
+.channel_list li.cur a.caixin em{background-position:-30px -342px; }
+/*订阅二期css2012-12-10*/
+.subscribe{width:698px; height:397px;overflow:hidden;border-top:2px solid #4973a8;background:#fff; position:absolute;top:0px;left:0px;z-index:9999  }
+.subscribe .mycustom,.subscribe .bd li span,.subscribe .ft a.ext,.subscribe .ft a.ext:hover,.subscribe .ft a.sure,.subscribe .ft a.sure:hover,.subscribe .pagewrap a,.subscribe .pagewrap a:hover,.subscribe .pagewrap a.cur{background-image:url(http://mat1.gtimg.com/mini2012/images/img_r1/mycustom_pic5-8.png)}
+.subscribe .mycustom{width:668px;height:116px; margin:0 auto;background-position: 0 0; }
+.subscribe .conlib{width:668px;height:196px; margin:18px auto 0;border-top:1px solid #deecf8;border-bottom:1px solid #deecf8;background:#f7f9fa;  }
+.subscribe .bd h4{font-size:14px;margin:0px;padding:0px;padding-left:14px; color:#0b3b8c;text-align:left; font-family:simsun  }
+.subscribe .mycustom h4{background:#fff;padding-top:19px; }
+.subscribe .conlib h4{padding-top:14px; }
+.subscribe .bd ul{width:668px; overflow:hidden;*zoom:1; margin:0px;padding:0px;}
+.subscribe .mycustom ul{padding-top:4px;}
+.subscribe .conlib ul{float:left;padding-top:3px;*padding-bottom:10px;_padding-bottom:10px;  }
+.subscribe .bd li{float:left;width:54px;height:54px;display:inline;margin:5px 5px 10px 14px;background:url(http://mat1.gtimg.com/mini2012/images/img_r1/mc_bg.png);_background:none;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="http://mat1.gtimg.com/mini2012/images/img_r1/mc_bg.png"); cursor:move }
+.subscribe .bd li.cur{background:url(http://mat1.gtimg.com/mini2012/images/img_r1/mc_bg_over.png);_background:none;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="http://mat1.gtimg.com/mini2012/images/img_r1/mc_bg_over.png");}
+.subscribe .bd li span{width:42px;height:42px;line-height:10em;overflow:hidden; float:left;margin:6px 0 0 6px; }
+.subscribe .bd li span.finance{ background-position:0 -160px;}
+.subscribe .bd li span.ent{ background-position:-50px -160px }
+.subscribe .bd li span.luxury{background-position:-100px -160px }
+.subscribe .bd li span.sports{ background-position:-150px -160px }
+.subscribe .bd li span.video{background-position:-200px -160px }
+.subscribe .bd li span.buy{background-position:-250px -160px }
+.subscribe .bd li span.auto{background-position:-300px -160px }
+.subscribe .bd li span.house{background-position:-350px -160px }
+.subscribe .bd li span.game{background-position:-400px -160px }
+.subscribe .bd li span.wb{background-position:-450px -160px }
+.subscribe .bd li span.tech{background-position:-500px -160px }
+.subscribe .bd li span.book{background-position:-550px -160px }
+.subscribe .bd li span.kid{background-position:-600px -160px }
+.subscribe .bd li span.edu{background-position:-650px -160px }
+.subscribe .bd li span.digi{background-position:-700px -160px }
+.subscribe .bd li span.astro{background-position:0 -215px }
+.subscribe .bd li span.mil{background-position:-50px -215px }
+.subscribe .ft{overflow:hidden;*zoom:1;padding:20px 25px 0 17px;font-size:12px;}
+.subscribe .ft a,.subscribe .ft a:hover{text-decoration:none; }
+.subscribe .ft a.tip{float:left;line-height:24px; padding-left:21px;background:url(http://mat1.gtimg.com/mini2012/images/img_v1/ico_new.png) no-repeat  -12px -619px; }
+.subscribe .ft a.gback{float:right;line-height:25px; margin-right:14px;}
+.subscribe .ft a.ext{float:right;width:78px; height:23px; line-height:23px;text-align:center;  margin-left:6px; color:#000;background-position: 0px -120px;  }
+.subscribe .ft a.ext:hover{background-position: -80px -120px;  }
+.subscribe .ft a.sure{float:right;width:78px; height:23px;line-height:23px;text-align:center;   color:#fff;background-position: -160px -120px;  }
+.subscribe .ft a.sure:hover{background-position: -240px -120px;  }
+.subscribe .ft span.sortTips{float:right;line-height:25px;margin-right:15px;color:green;}
+.subscribe .mask{width:698px; height:397px;background:url(http://mat1.gtimg.com/mini2012/images/img_r1/mask_bg5.png) no-repeat; position:absolute; top:0px;left:0px;display:none;}
+.subscribe .mask a.know{width:86px;height:30px;  display: block;position: absolute;top: 167px;right: 168px; }
+.subscribe .pagewrap{width: 668px;text-align: center; position:absolute; left:0px;bottom:15px;}
+
+.subscribe .pagewrap a{width: 8px;height: 8px;font-size:0px;overflow:hidden;margin:0 5px;display:inline-block;*display:inline;zoom:1;cursor: pointer; background-position: right 0 }
+.subscribe .pagewrap a:hover{background-position: right -13px}
+.subscribe .pagewrap a.cur{background-position: right -13px}
+
+.subscribe .maskLayer{height:54px; width:54px; opacity:0.8; visibility:hidden; position:absolute; z-index:1000; cursor:move}
+.subscribe .maskLayer ul{ margin:0; padding:0; width:auto}
+.subscribe .maskLayer ul li{ margin:0;cursor:move}
+.subscribe .bd li.opa{ opacity:0.4; filter:progid:DXImageTransform.Microsoft.Alpha(opacity=40); background:url(http://mat1.gtimg.com/mini2012/images/img_r1/mc_bg_op.png);}
+/*city*/
+ .city_layer{width:174px;border-left:1px solid #d7dee8;text-align:left;position: absolute;top:0;right:0px;display:none;z-index:99999;}
+  .city_layer .inner{width:151px;height:352px;padding:14px 0 0 22px;border-left: 1px solid #fff;background: #eff6fe;}
+
+
+  .select_wrap{width: 127px;height: 23px;margin-top:10px; position: relative;}
+
+  .select_wrap .txt{width: 95px; height: 19px;padding:2px 0 0 7px;float:left;border: 1px solid #c8d8ed;border-right:none;background: #fff;}
+
+  .select_wrap .btn{width: 24px; height: 23px;float:left;cursor: pointer;background-position:0 -28px;}
+   .sel_wrap{display: none;}
+  .select_wrap ul{width: 125px; height: 257px;border: 1px solid #c8d8ed;border-top:none;background: #fff;position:absolute;top:23px;left:0px;overflow:hidden;}
+
+
+
+  .select_wrap ul li{width: 125px;float:left;height:23px;line-height:23px;padding:0 0 0 0px;cursor: pointer;overflow: hidden;}
+  .select_wrap ul li a{display:block;padding-left:7px;vertical-align:top}
+  .select_wrap ul li a:hover{background: #ddeafa;color: #333;text-decoration: none;}
+  .select_wrap ul li a.current{background: #5498e5;color: #fff}
+  .select_wrap .scroll-box2{height:253px;width:19px;background:#fff;position:absolute; top:23px;right:1px;_right:0;z-index:3;}
+ .select_wrap .scrollbar2{width:9px;border-radius:15px; background:#cbe0f7;height:64px;cursor:pointer;position:absolute;left:7px; }
+  .wrapBtn{width:127px;padding:15px 0 0;overflow: hidden;}
+  .wrapBtn .txt{float:left;padding:15px 0 5px;}
+  .sureBtn,.cancelBtn{width:53px; height:20px;padding-top:3px;float:left;color:#fff;text-align:center;background-position:0 -119px;}
+  .sureBtn:hover,.cancelBtn:hover{color: #333;text-decoration: none;}
+  .sureBtn:hover{color: #fff}
+ .cancelBtn{margin-left:10px;color:#333;background-position:0 -74px;}
+ .city_layer .message{color: #008000}
+ /*video B-2*/
+ .vp_box{width: 488px;height: 229px;overflow:hidden;border-bottom: 1px dotted #333;margin-bottom:14px;padding-bottom:6px;}
+ .vp_box ul{width: 507px;overflow: hidden;zoom:1;}
+ .vp_box li{float:left;margin:0 16px 15px 0;}
+ .vp_box li .link{width: 110px;height: 100px;display: block;position: relative;color: #FFFFFF;overflow: hidden;}
+ .vp_box li a:hover{color: #fff;text-decoration: underline;}
+ .vp_box li .filter,.vp_box li .tit{display: block;width: 100%;position: absolute;bottom: 0px;left: 0;text-align: center;z-index: 3;cursor: pointer;color: #fff}
+ .vp_box li .filter{height: 21px;background: #000000;filter: alpha(opacity=60);-moz-opacity: 0.6;opacity: 0.6;z-index: 1;
+}
+ .vp_box li img{width: 110px;height: 100px}
+ .listl{float: left;width: 247px;}
+ .listr{float: left;width: 240px;}
+  /*infzm*/
+  .infzm{}
+   	.infzm .col1{width:225px;height:254px;float:left;}
+   	.infzm .col1 .focus_box{width: 225px;height: 160px;border:none;}
+   	.infzm .col1 .focus_link{width: 225px;height: 160px;}
+   	.infzm .col1 .focus_link .focus_tit,.infzm .col1 .focus_link .focus_filter{height: 28px;line-height: 28px; font-size: 14px;}
+   	.infzm .col1 .focus_box img{width: 225px;height: 160px;}
+   	.infzm .list_news{font-size: 14px; line-height: 26px;}
+   	.infzm .col2{width:238px;height:254px;float:left;margin-left:31px;}
+   	.infzm .col2 .logocx{height:15px;margin-bottom:5px;background-position:0 -359px}
+   	.infzm .col2 .tit1{font-size:18px; line-height:24px;height:48px;text-align: left}
+   	.infzm .col2 .tit2{margin-top:9px;margin-bottom:0px;font-size:16px; line-height:26px;text-align: left}
+   	.infzm .col2 p{color:#666;line-height: 20px;padding-bottom:10px;border-bottom: 1px dotted #8b8c8c}
+   	.infzm .col3{width:494px;height:84px;padding-top:14px;float:left;border-top: 1px dotted #8b8c8c;}
+   	.infzm .col3 img{width: 110px; height: 65px;}
+   	.infzm .col3 .pt_box{width: 512px;overflow: hidden;zoom:1;}
+   	.infzm .col3 .pt_box li{float:left;width: 247px;margin-right:9px;}
+   	.infzm .col3 .pt_box li .pic,.infzm .col3 .pt_box li .tit,.infzm .col3 .pt_box li .txt{float:left;line-height: 22px}
+   	.infzm .col3 .pt_box li .pic{padding-right: 17px;}
+   	.infzm .col3 .pt_box li .txt{width: 95px}
+  /*看比赛*/
+  .watchGame{width: 222px;text-align:left;margin-top:29px;}
+	.watchGame .wgCont{position: relative;}
+	.watchGame .wgCont ul{width: 220px;height:25px;overflow:hidden;border:1px solid #d0ddee;border-bottom: 1px solid #9dbadf;position: absolute;top:-25px; z-index:4;background:#fff }
+	.watchGame .wgCont li{line-height: 25px;height:25px;overflow: hidden;color: #333333;padding:0 4px 0 4px;vertical-align:bottom;}
+	
+	.watchGame .wgCont li span{float: left;}
+	.watchGame .wgCont li .time{padding-right: 10px;}
+	/*.watchGame .wgCont li span.like,.watchGame .wgCont li span.on,.watchGame .wgCont li span.live{background-image:url(http://mat1.gtimg.com/mini2012/images/img_r1/ico_r8-3.png);  }*/
+	.watchGame .wgCont li span.like{float:right;margin-top:4px;width: 11px;height: 11px;background-position: -57px -204px;cursor:pointer;}
+	.watchGame .wgCont li span.on{background-position:-75px -204px;}
+	.watchGame .wgCont li span.live{float: right;margin-top:3px;width: 43px;height: 16px;line-height:16px;text-align:center;background-position:0 -204px}
+	.watchGame .wgCont li span.ing{color: #da5700}
+	.watchGame .wgCont li span.no{color: #333}
+	.watchGame .wgCont li span.ed{color: #666}
+	.watchGame .wgTab{width: 204px;height:23px;line-height:23px;border:1px solid #d0ddee; border-top: none;padding:3px 0 0 16px;color: #333;z-index: 5;background: #F4F9FC}
+	.watchGame .wgTab em{color: #bd0a01;font-weight: bold;font-style: normal;font-size: 14px}
+	.watchGame .wgTab .on a{font-weight: bold;position: relative;}
+	.watchGame .wgTab .on .arrow-out{width:0px;height:0px;display:block; position:absolute;left:12px;top:-8px;*top:-7px;_top:-6px;border-left:7px dashed  transparent;border-right:7px dashed  transparent;border-top:7px solid #9dbadf ;z-index: 6;}
+  	.watchGame .wgTab .on .arrow-in{width:0px;height:0px;display:block; position:absolute;left:-6px;top:-7px;border-left:6px dashed  transparent;border-right:6px dashed  transparent;border-top:6px solid #fff ;}
+</style><!--[if !IE]>|xGv00|a39e77a5b6091bf93fa733f1c10f6670<![endif]-->
+<script src="http://adsrich.qq.com/web/crystal/v1.9Beta07Build073/crystal-min.js" id="l_qq_com" arguments="{'extension_js_src':'http://adsrich.qq.com/web/crystal/v1.9Beta07Build073/crystal_ext-min.js','lview_time_out':10,'mo_page_ratio':0.02,'mo_ping_ratio':0.01,'mo_ping_script':'http://adsrich.qq.com/sc/mo_ping-min.js'}"></script>
+<style>.absolute{position:absolute;}</style>
+<!--[if !IE]>|xGv00|50a018c17c2988ee4b31dec5849adc37<![endif]-->
+<script type="text/javascript" src="http://j.wit.qq.com/sc/crystal_aio.js"></script>
+</head>
+<body>
+<div id="mini_wrap" class="wrapper normal_bg" style="position:relative">
+<div id="loadingMask" style="width:698px;height:399px;background:url(http://mat1.gtimg.com/mini2012/images/loadingnew.png) center center no-repeat #fff;position:absolute;left:0;top:0;z-index:9999;"></div>
+	<div class="festival_bg">
+		<div class="ad_bg">
+			<div class="header">
+				<!--nav-->
+				<div class="nav_box">
+					<!--div id="tabMask" title="点击&quot;确定&quot;或&quot;退出&quot;离开本页"></div-->
+					<span id="Tab_Nav" bosszone="AIOTab"></span>
+<span>|<a id="moreNav" name="更多"  bosszone="more_qqhome" target="_blank" href="http://www.qq.com">更多<em class="on_bg"></em></a></span>
+<a href="javascript:void(0);" onclick="MIN_M.onRefresh(); return false;" id="refreshBtn" title="刷新" class="sx"></a>
+<div class="refresh_box" style="padding:0px;"><a href="javascript:void(0);" onclick="MIN_M.SDemo.show(); return false;" id="exitSubscibe" class="refresh" title="退订">退订</a></div><!--div class="dz_box"><a href="javascript:void(0);" id="Dz_But" title="订我喜欢">订我喜欢</a></div-->
+					<!--span id="prompt"></span-->
+				</div>
+			</div>
+			<div class="cont" style="position:relative"  id="frame_Conent">
+				<div id="Main_Conent" style="width:523px;height:366px;float:left;background:url(http://mat1.gtimg.com/mini2012/images/loadingnew.png) center center no-repeat #FFF;">
+				</div>
+				<div class="side">
+					<!--普通广告-->
+					<div class="normal_ad" id="AD_zone">
+						<!--擎天柱普通-->
+						<div id="c1_ad">
+<div id="difangzhanAD">
+
+</div>
+
+<div id="commAD"><!--AllInOne_11_UpRight_div AD begin...."l=AllInOne_11_UpRight&log=off"-->
+<div id="AllInOne_11_UpRight" style="width:160px;height:250px;" class="l_qq_com"></div>
+<!--AllInOne_11_UpRight AD end --><!--[if !IE]>|xGv00|13670c16b335fad01269cc6c827af256<![endif]--></div>
+<div id="autoAD"><!--include virtual="/inc/ad/ALLINONE_AUTO_UpRight1_div.shtml"--></div>
+<!--button广告-->
+<div style="margin-top:6px;"><!--AllInOne_11_Button_div AD begin...."l=AllInOne_11_Button&log=off"-->
+<div id="AllInOne_11_Button" style="width:160px;height:80px;" class="l_qq_com"></div>
+<!--AllInOne_11_Button AD end --><!--[if !IE]>|xGv00|93fda5071d69fd85dd1b55a1024ae138<![endif]--></div>
+</div>
+<!--擎天柱房产-->
+
+
+<div id="c2_ad"></div>
+</div>
+<!--ALLINONE_RM1_test_div AD begin...."l=ALLINONE_RM1_test&log=off"-->
+<div id="ALLINONE_RM1_test" style="width:1px;height:1px;display:none;margin:0 auto;" class="l_qq_com"></div>
+<!--ALLINONE_RM1_test AD end --><!--[if !IE]>|xGv00|a5cf65a694aa51d71ee438a758e0110d<![endif]-->
+<script>crystal.request('AllInOne_11_UpRight','AllInOne_11_Button','ALLINONE_RM1_test');</script>
+					<!--皮肤广告-->
+					<div class="skin_ad" style="display:none"></div>
+				</div>
+                
+				<div class="more_card" id="moreCard">
+                    <div class="channel_list">
+                        <ul id="moreTabs" bosszone="AIOTab"></ul>
+                    </div>
+                    <div class="scroll-box"><div class="scrollbar" style="top:2px;"></div></div>
+                    <a id="Dz_But" href="javascript:void(0);" title="订我喜欢" class="dy_like">订我喜欢</a>
+                    <a id="location_btn" href="javascript:void(0);" title="位置" class="city_like">位置</a>
+
+
+              <!--city-->
+  <div class="city_layer" id="city_layer">
+    <div class="inner">
+     选择您所在的城市：
+    <div class="select_wrap" style="z-index:1">
+      <div class="txt" id="province_sel"><span>选择省份</span></div>
+      <span class="btn" id="province_btn"></span>
+	  <div class="sel_wrap"  id="province_box">
+          <ul id="province_list"></ul>
+          <div id="pscroll_box" class="scroll-box2"><div id="province_scroll" class="scrollbar2" style="top:2px;"></div></div>
+      </div>
+    </div>
+    <div class="select_wrap">
+      <div class="txt" id="city_sel"><span>选择城市</span></div>
+      <span class="btn" id="city_btn"></span>
+      <div class="sel_wrap" id="city_box">
+          <ul id="city_list"></ul>
+          <div id="cscroll_box" class="scroll-box2"><div id="city_scroll" class="scrollbar2" style="top:2px;"></div></div>
+      </div>
+    </div>
+    <div class="wrapBtn">
+      <a href="javascript:void(0);" id="update_location" class="sureBtn">确认</a><a href="javascript:void(0);" class="cancelBtn" id="cencel_location">取消</a>
+      <a href="javascript:void(0);" id="default_btn" class="txt blue_1">恢复默认城市</a>
+    </div>
+    <div id="locationMsg" class="message">
+      设置失败，请重试！
+    </div>
+    </div>
+  </div>
+  <!--city-->
+
+              </div>
+			</div>
+		</div>
+
+
+		<!--订阅二期，拖动替换-->
+		<div class="subscribe" id="Drag_Zone" style="display:none;">
+		 	<div class="bd">
+			 	<div id="maskLayer" class="maskLayer"></div>
+			 	<div id="subLayer" class="maskLayer"></div>
+			 	<div id="conLayer" class="maskLayer"></div>
+				<div class="mycustom">
+					<h4>我的订阅</h4>
+					<ul id="subscibeLib"></ul>
+				</div>
+				<div class="conlib" id="interface">
+					<h4>内容库</h4>
+					<div>
+						<ul id="contentLib"></ul>
+					</div>
+				</div>
+		 	</div>
+			<div class="ft">
+				<a href="javascript:void(0);" id="operateDemo" title="操作小提示" class="blue_1 tip">操作小提示</a>
+				<a href="javascript:void(0);" id="cancel" class="ext">返回</a>
+				<a href="javascript:void(0);" id="updata" class="sure">完成订阅</a>
+				<a href="javascript:void(0);" id="default" title="恢复默认" class="blue_1 gback">恢复默认</a>
+				<span id="sortTips" class="sortTips">正在传输数据...</span>
+			</div>
+			<div class="mask" id="aioMask"><a href="javascript:void(0)" id="iknowBtn" class="know" title="我知道了"></a></div>
+		</div>
+
+	</div>
+
+<style type="text/css">
+#tabMask{width:698px;}
+#tuidingMask{width:698px;height:366px;position:absolute;top:33px;left:0;z-index:100000;display:none;}
+.tuiding01{background:#fff url(http://mat1.gtimg.com/mini2012/images/testv1/tuiding01.png) no-repeat;}
+.tuiding02{background:#fff url(http://mat1.gtimg.com/mini2012/images/testv1/tuiding02.png) no-repeat;}
+.tuiding03{background:#fff url(http://mat1.gtimg.com/mini2012/images/testv1/tuiding033.png) no-repeat;}
+.tuiding04{background:#fff url(http://mat1.gtimg.com/mini2012/images/testv1/tuiding044.png) no-repeat;}
+#demoImage{position:absolute;float:left;z-index:100001;}
+#nextBtn{width:119px;height:33px;cursor:pointer;position:absolute;top:258px;left:347px;z-index:100002;}
+#lastBtn{width:119px;height:33px;cursor:pointer;position:absolute;top:258px;left:347px;z-index:100002;display:none;}
+.tuiding04 #nextBtn{display:none;}
+.tuiding04 #lastBtn{display:block;}
+#outBtn{width:28px;height:18px;cursor:pointer;position:absolute;top:274px;left:476px;z-index:100002;display:block;}
+.nav_box .refresh_box a{line-height:20px;text-indent:0;background:none;color:#849cc2;font-size:12px;width:34px;margin-left:8px;text-align:center;font-weight:bold;overflow:hidden;}
+.nav_box .refresh_box a:hover{text-decoration:none;line-height:20px;color:#5176b1;background:url(http://mat1.gtimg.com/mini2012/images/testv1/tuidingbg.png) no-repeat center 3px;font-weight:bold;}
+.nav_box .dz_box{width:48px;overflow:hidden;}
+.nav_box .dz_box a{background:url(http://mat1.gtimg.com/mini2012/images/testv1/moreIcon.png) no-repeat 7px 7px;font-size:14px;width:55px;height:21px;}
+.nav_box .dz_box a:hover{text-decoration:none;width:55px;height:21px;color:#0B3B8C;background:url(http://mat1.gtimg.com/mini2012/images/testv1/moreHover.png) no-repeat left 2px;}
+.tabLock .dz_box a{color:#666;}
+.tabLock .refresh_box a{color:#666;}
+.cont{overflow:visible;}
+/*
+#Drag_Zone{top:-33px!important;padding-top:58px;}
+.custom h3{margin-bottom:14px;}
+.custom{border-top:2px solid #4973a8;}
+*/
+</style>
+<div id="tuidingMask" class="tuiding01">
+	<div id="nextBtn" onclick="MIN_M.SDemo.nextPage(); return false;"></div>
+	<a id="lastBtn" onclick="MIN_M.SDemo.nextPage(); return false;" href="javascript:void(0);"></a>
+	<a id="outBtn" onclick="MIN_M.SDemo.close(); return false;" href="javascript:void(0);"></a>
+</div><!--[if !IE]>|xGv00|ece37e71d7313e06a8e48675d248728b<![endif]-->
+
+</div>
+<!--last 2.3.1-->
+<script type="text/javascript" src="http://mat1.gtimg.com/mini2012/js/test/minisiteNew_5.6.2_d.js"></script>
+<script>
+var MinisiteMap ={'data':[
+	{'id':1,'title':'新闻','href':'http://www.qq.com','src':'/mini_tab/xinwen.htm','ico':'','type':'htm','child':[]},
+	{'id':6,'title':'视频','href':'http://v.qq.com','src':'/aio/shipin20121225.htm','type':'htm','ico':'video','miniIcon':'video','child':[]},
+	{'id':2,'title':'财经','href':'http://finance.qq.com','src':'/aio/finance20120313.htm','type':'htm','ico':'finance','miniIcon':'finance','child':[]},
+	{'id':3,'title':'娱乐','href':'http://ent.qq.com','src':'/aio/yule.htm','type':'htm','ico':'ent','miniIcon':'ent','child':[]},
+	{'id':4,'title':'时尚','href':'http://fashion.qq.com/','src':'/aio/shishang.htm','type':'htm','ico':'luxury','miniIcon':'luxury','child':[]},
+	{'id':5,'title':'体育','href':'http://sports.qq.com','src':'/aio/tiyu.htm','type':'htm','ico':'sports','miniIcon':'sports','child':[]},
+	{'id':15,'title':'网购','href':'http://buy.qq.com/?WGTAG=1000.2.23.1','src':'/aio/buy130625.htm','type':'htm','ico':'buy','miniIcon':'buy','child':[]},
+	{'id':7,'title':'汽车','href':'http://auto.qq.com','src':'/aio/auto.htm','type':'htm','ico':'auto','miniIcon':'auto','child':[]},
+	{'id':8,'title':'房产','href':'http://house.qq.com','src':'/mini_tab/fangchan.htm','type':'htm','ico':'house','miniIcon':'house','child':[
+		{'city':'四川省','href':'http://cd.house.qq.com/','src':'/aio/fc_cd20120516.htm','type':'htm','ico':'house','enName':'cd'},
+		{'city':'重庆市','href':'http://cq.house.qq.com/','src':'/aio/fc_cq20120516.htm','type':'htm','ico':'house','enName':'cq'},
+		{'city':'陕西省','href':'http://xian.house.qq.com/','src':'/aio/fc_xian20120528.htm','type':'htm','ico':'house','enName':'xa'},
+		{'city':'北京市','href':'http://bj.house.qq.com/','src':'/aio/fc_bj20120814.htm','type':'htm','ico':'house','enName':'bj'},
+		{'city':'洛阳市','href':'http://luoyang.house.qq.com/','src':'/aio/fc_luoyang.htm','type':'htm','ico':'house','enName':'ly'},
+		{'city':'河南省','href':'http://zz.house.qq.com/','src':'/aio/fc_zhengzhou20120528.htm','type':'htm','ico':'house','enName':'zz'},
+		{'city':'沈阳市','href':'http://sy.house.qq.com/','src':'/aio/shenyang_tpl.htm','type':'htm','ico':'house','enName':'sy'},
+		{'city':'杭州市|湖州市|嘉兴市','href':'http://hz.house.qq.com/','src':'/aio/hangzhou_tpl.htm','type':'htm','ico':'house','enName':'hz'},
+		{'city':'太原市','href':'http://ty.house.qq.com/','src':'/aio/taiyuan_tpl.htm','type':'htm','ico':'house','enName':'ty'},
+		{'city':'南宁市','href':'http://nn.house.qq.com/','src':'/aio/nanning_tpl.htm','type':'htm','ico':'house','enName':'nn'},
+		{'city':'贵阳市|铜仁地区|毕节地区|安顺市','href':'http://gy.house.qq.com/','src':'/aio/guiyang_tpl.htm','type':'htm','ico':'house','enName':'gy'},
+		{'city':'大连市','href':'http://dl.house.qq.com/','src':'/aio/dalian_tpl.htm','type':'htm','ico':'house','enName':'dl'},
+		{'city':'绍兴市','href':'http://shaoxing.house.qq.com/','src':'/aio/shaoxing_tpl.htm','type':'htm','ico':'house','enName':'shaoxing'},
+		{'city':'宁波市|舟山市','href':'http://nb.house.qq.com/','src':'/aio/ningbo_tpl.htm','type':'htm','ico':'house','enName':'nb'},
+		{'city':'唐山市','href':'http://tangshan.house.qq.com/','src':'/aio/tangshan_tpl.htm','type':'htm','ico':'house','enName':'tangshan'},
+		{'city':'鞍山市|丹东市','href':'http://anshan.house.qq.com/','src':'/aio/anshan_tpl.htm','type':'htm','ico':'house','enName':'anshan'},
+		{'city':'盘锦市|营口市|锦州市','href':'http://panjin.house.qq.com/','src':'/aio/panjin_tpl.htm','type':'htm','ico':'house','enName':'panjin'},
+		{'city':'苏州市','href':'http://suzhou.house.qq.com/','src':'/aio/suzhou_tpl.htm','type':'htm','ico':'house','enName':'suzhou'},
+		{'city':'无锡市','href':'http://wuxi.house.qq.com/','src':'/aio/wuxi_tpl.htm','type':'htm','ico':'house','enName':'wuxi'},
+		{'city':'常州市','href':'http://changzhou.house.qq.com/','src':'/aio/changzh_tpl.htm','type':'htm','ico':'house','enName':'changzhou'},
+		{'city':'石家庄市','href':'http://sjz.house.qq.com/','src':'/aio/shijiazhuang_tpl.htm','type':'htm','ico':'house','enName':'sjz'},
+		{'city':'抚顺市|本溪市|铁岭市','href':'http://fushun.house.qq.com/','src':'/aio/fushun_tpl.htm','type':'htm','ico':'house','enName':'fushun'},
+		{'city':'天津市','href':'http://tianjin.house.qq.com/','src':'/aio/tianjin_tpl.htm','type':'htm','ico':'house','enName':'tianjin'},
+		{'city':'桂林市','href':'http://guilin.house.qq.com/','src':'/aio/guilin_tpl.htm','type':'htm','ico':'house','enName':'guilin'},
+		{'city':'柳州市','href':'http://liuzhou.house.qq.com/','src':'/aio/liuzhou_tpl.htm','type':'htm','ico':'house','enName':'liuzhou'},
+		{'city':'南京市','href':'http://nj.house.qq.com/','src':'/aio/nanjing_tpl.htm','type':'htm','ico':'house','enName':'nj'},
+		{'city':'镇江市','href':'http://zhenjiang.house.qq.com/','src':'/aio/zhenjiang_tpl.htm','type':'htm','ico':'house','enName':'zhenjiang'},
+		{'city':'盐城市','href':'http://yancheng.house.qq.com/','src':'/aio/yancheng_tpl.htm','type':'htm','ico':'house','enName':'yancheng'},
+		{'city':'连云港市','href':'http://lianyungang.house.qq.com/','src':'/aio/lianyungang_tpl.htm','type':'htm','ico':'house','enName':'lianyungang'},
+		{'city':'泰州市','href':'http://taizhou.house.qq.com/','src':'/aio/taizhou_tpl.htm','type':'htm','ico':'house','enName':'taizhou'},
+		{'city':'徐州市','href':'http://xuzhou.house.qq.com/','src':'/aio/xuzhou_tpl.htm','type':'htm','ico':'house','enName':'xuzhou'},
+		{'city':'南通市','href':'http://nantong.house.qq.com/','src':'/aio/nantong_tpl.htm','type':'htm','ico':'house','enName':'nantong'},
+		{'city':'珠海市|中山市','href':'http://zh.house.qq.com','src':'/aio/fc_zhuhai120911.htm','type':'htm','ico':'house','enName':'zhuhai'},
+		{'city':'深圳市','href':'http://sz.house.qq.com','src':'/aio/fc_shenzhen120911.htm','type':'htm','ico':'house','enName':'shenzhen'},
+		{'city':'东莞市','href':'http://dg.house.qq.com/','src':'/aio/fc_dongguan.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'清远市','href':'http://qy.house.qq.com/','src':'/aio/fc_qingyuan.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'惠州市','href':'http://huizhou.house.qq.com/','src':'/aio/fc_huizhou.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'佛山市|江门市','href':'http://fs.house.qq.com/','src':'/aio/fc_foshan.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'广东省','href':'http://gd.qq.com/house/','src':'/aio/fc_gfq20120419.htm','type':'htm','ico':'house','enName':'gz'},
+		{'city':'扬州市','href':'http://yangzhou.house.qq.com/','src':'/aio/yangzhou_tpl.htm','type':'htm','ico':'house','enName':'yangzhou'},
+		{'city':'海南省','href':'http://hainan.house.qq.com/','src':'/aio/hainan_tpl.htm','type':'htm','ico':'house','enName':'hainan'},
+		{'city':'湘潭市','href':'http://xiangtan.house.qq.com/','src':'/aio/fc_xiangtan.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'常德市|益阳市','href':'http://changde.house.qq.com/','src':'/aio/fc_changde.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'岳阳市','href':'http://yueyang.house.qq.com/','src':'/aio/fc_yueyang.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'郴州市','href':'http://chenzhou.house.qq.com/','src':'/aio/fc_chenzhou.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'衡阳市','href':'http://hengyang.house.qq.com/','src':'/aio/fc_hengyang.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'永州市|邵阳市','href':'http://yongzhou.house.qq.com/','src':'/aio/fc_yongzhou.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'湖南省','href':'http://cs.house.qq.com/','src':'/aio/fc_hunan20120612.htm','type':'htm','ico':'house','enName':'hunan'},
+		{'city':'泉州市','href':'http://quanzhou.house.qq.com/','src':'/aio/quanzhou_tpl.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'厦门市|漳州市|龙岩市','href':'http://xm.house.qq.com/','src':'/aio/fc_xiamen120926.htm','type':'htm','ico':'house','enName':'xiamen'},
+		{'city':'福建省','href':'http://fz.house.qq.com','src':'/aio/fc_fuzhou20120612.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'大理州|丽江市','href':'http://dali.house.qq.com','src':'/aio/dali_tpl.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'玉溪市|曲靖市','href':'http://yuxi.house.qq.com','src':'/aio/yuxi_tpl.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'昆明市|保山市|西双版纳州','href':'http://km.house.qq.com/','src':'/aio/kunming_tpl.htm','type':'htm','ico':'house','enName':'km'},
+		{'city':'上海市','href':'http://sh.house.qq.com/','src':'/aio/fc_sh20120815.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'南昌市|宜春市','href':'http://nanchang.house.qq.com','src':'/aio/nanchang_tpl.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'淮安市','href':'http://huaian.house.qq.com','src':'/aio/huaian_tpl.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'襄樊市','href':'http://xiangyang.house.qq.com','src':'/aio/fc_xiangyang.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'宜昌市|恩施州','href':'http://yichang.house.qq.com','src':'/aio/fc_yichang.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'湖北省','href':'http://wh.house.qq.com/','src':'/aio/fc_wuhan20120528.htm','type':'htm','ico':'house','enName':'wh'},
+		{'city':'宿迁市','href':'http://suqian.house.qq.com/','src':'/aio/fc_suqian.htm','type':'htm','ico':'house','enName':'suqian'},
+		{'city':'烟台市','href':'http://yantai.house.qq.com/','src':'/aio/fc_yantai.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'大同市|朔州市','href':'http://datong.house.qq.com/','src':'/aio/fc_dashuo.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'九江市','href':'http://jiujiang.house.qq.com','src':'/aio/fc_jiujiang.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'济南市|泰安市|滨州市|德州市|东营市|莱芜市','href':'http://jn.house.qq.com/','src':'/aio/fc_jinan.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'保定市','href':'http://baoding.house.qq.com/','src':'/aio/fc_baoding.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'邢台市','href':'http://xingtai.house.qq.com/','src':'/aio/fc_xingtai.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'临汾市|长治市|运城市|晋城市','href':'http://linfen.house.qq.com/','src':'/aio/fc_linfen.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'哈尔滨市|大庆市|牡丹江市|齐齐哈尔市','href':'http://haerbin.house.qq.com/','src':'/aio/fc_haerbin.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'合肥市|六安市','href':'http://hefei.house.qq.com/','src':'/aio/fc_hefei.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'长春市|吉林市|松原市|通化市','href':'http://changchun.house.qq.com/','src':'/aio/fc_changchun.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'邯郸市','href':'http://handan.house.qq.com/','src':'/aio/fc_handan.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'沧州市','href':'http://cangzhou.house.qq.com/','src':'/aio/fc_cangzhou.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'秦皇岛市','href':'http://qinhuangdao.house.qq.com/','src':'/aio/fc_qinhuangdao.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'温州市','href':'http://wenzhou.house.qq.com/','src':'/aio/fc_wenzhou.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'潍坊市','href':'http://weifang.house.qq.com/','src':'/aio/fc_weifang.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'威海市','href':'http://weihai.house.qq.com/','src':'/aio/fc_weihai.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'承德市','href':'http://chengde.house.qq.com/','src':'/aio/fc_chengde.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'台州市|丽水市','href':'http://tz.house.qq.com/','src':'/aio/fc_tz.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'淮南市','href':'http://huainan.house.qq.com/','src':'/aio/fc_huainan.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'青岛市','href':'http://qd.house.qq.com/','src':'/aio/fc_qingdao.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'赣州市|吉安市|新余市|萍乡市','href':'http://ganzhou.house.qq.com/','src':'/aio/fc_ganzhou.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'钦州市|防城港市|北海市','href':'http://qinfang.house.qq.com/','src':'/aio/fc_qinfang.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'金华市|衢州市','href':'http://jinhua.house.qq.com/','src':'/aio/fc_jinhua.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'玉林市|贵港市|梧州市','href':'http://yugui.house.qq.com/','src':'/aio/fc_yulin.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'芜湖市|马鞍山市','href':'http://wuhu.house.qq.com/','src':'/aio/fc_wuhu.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'临沂市','href':'http://linyi.house.qq.com/','src':'/aio/fc_linyi.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'蚌埠市|宿州市','href':'http://bengbu.house.qq.com/','src':'/aio/fc_bengbu.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'阜阳市','href':'http://fuyang.house.qq.com/','src':'/aio/fc_fuyang.htm','type':'htm','ico':'house','enName':'fujian'},
+		{'city':'宣城市|黄山市','href':'http://xuancheng.house.qq.com/','src':'/aio/fc_xuancheng.htm','type':'htm','ico':'house','enName':'fujian'}]},
+	{'id':9,'title':'游戏','href':'http://games.qq.com','src':'/aio/youxi.htm','type':'htm','ico':'game','miniIcon':'game','child':[]},
+	{'id':19,'title':'军事','href':'http://mil.qq.com/','src':'/aio/mil20121214.htm','type':'htm','ico':'mil','miniIcon':'mil','child':[]},
+	{'id':18,'title':'星座','href':'http://astro.fashion.qq.com/','src':'/aio/astro.htm','type':'htm','ico':'astro','miniIcon':'astro','child':[]},
+	{'id':17,'title':'数码','href':'http://digi.tech.qq.com','src':'/aio/digi20120830.htm','type':'htm','ico':'digi','miniIcon':'digi','child':[]},
+	{'id':14,'title':'教育','href':'http://edu.qq.com','src':'/aio/edu.htm','type':'htm','ico':'edu','miniIcon':'edu','child':[]},
+	{'id':12,'title':'读书','href':'http://book.qq.com','src':'/aio/book.htm','type':'htm','ico':'book','miniIcon':'book','child':[]},
+	{'id':10,'title':'微博','href':'http://t.qq.com','src':'http://minisite2012.qq.com/mini_tab/weibo0709.htm','type':'s_iframe','ico':'wb','miniIcon':'wb','child':[]},
+	{'id':11,'title':'科技','href':'http://tech.qq.com','src':'/aio/tech20120830.htm','type':'htm','ico':'tech','miniIcon':'tech','child':[]},
+	{'id':20,'title':'财新网','href':'http://www.caixin.com/','src':'/aio/caixin20130509.htm','type':'htm','ico':'caixin','miniIcon':'caixin','child':[], 'subscription':false},
+	{'id':13,'title':'儿童','href':'http://kid.qq.com','src':'/aio/kid_aio20120823.htm','type':'htm','ico':'kid','miniIcon':'kid','child':[]},
+	{'id':16,'title':'地方站','href':'http://www.qq.com','src':'/mini_tab/difangzhan.htm','type':'htm','ico':'','child':[
+		{'city':'陕西省','title':'大秦网','href':'http://xian.qq.com','src':'/aio/dfz_xian130703.html','type':'htm','ico':'','enName':'d_xa'},
+		{'city':'重庆市','title':'大渝网','href':'http://cq.qq.com','src':'/aio/dfz_chongqing130703.html','type':'htm','ico':'','enName':'d_cq'},
+		{'city':'上海市','title':'大申网','href':'http://sh.qq.com','src':'/aio/dfz_shanghai130703.html','type':'htm','ico':'','enName':'d_sh'},
+		{'city':'四川省','title':'大成网','href':'http://cd.qq.com','src':'/aio/dfz_chengdu130424.htm','type':'htm','ico':'','enName':'d_cd'},
+		{'city':'湖北省','title':'大楚网','href':'http://hb.qq.com','src':'/aio/dfz_hubei130703.html','type':'htm','ico':'','enName':'d_wh'},
+		{'city':'福建省','title':'大闽网','href':'http://fj.qq.com','src':'/aio/dfz_fujian130703.html','type':'htm','ico':'','enName':'d_fj'},
+		{'city':'广东省','title':'大粤网','href':'http://gd.qq.com','src':'/aio/dfz_guangdong130703.html','type':'htm','ico':'','enName':'d_gd'},
+		{'city':'河南省','title':'大豫网','href':'http://henan.qq.com','src':'/aio/dfz_henan130703.html','type':'htm','ico':'','enName':'d_hn'},
+		{'city':'湖南省','title':'大湘网','href':'http://hn.qq.com/','src':'/aio/dfz_hunan130617.html','type':'htm','ico':'','enName':'d_hn'},
+		{'city':'浙江省','title':'大浙网','href':'http://zj.qq.com','src':'/aio/dfz_zhejiang130703.html','type':'htm','ico':'','enName':'d_hn'},
+		{'city':'辽宁省','title':'大辽网','href':'http://ln.qq.com','src':'/aio/dfz_liaoning.html','type':'htm','ico':'','enName':'d_hn'}]}
+]};
+
+document.domain = "qq.com";
+var skinMap = {	1:'http://mat1.gtimg.com/mini2012/css/style1.css'};
+window.onerror = function(){return true;};
+
+window.onload = function(){
+	QosSS.addPoint(1);
+	MIN.loadJs("http://mat1.gtimg.com/mini2012/js/other/boss_ministe_v1.3.8.js",function(){
+		MIN_M.init(MinisiteMap, skinMap);
+	});
+	MIN.loadJs("http://mat1.gtimg.com/mini2012/js/other/ping_minisite.js",function(){
+		if(typeof(pgvMain) == 'function'){pgvMain()};
+	});
+	window.setTimeout(function(){
+		MIN.loadJs("http://jqmt.qq.com/cdn_minisite.js",function(){});
+		MIN.loadJs("http://mat1.qq.com/js/speed_ns_v10.5-min.js",function(){});
+		MIN.loadJs("http://mat1.gtimg.com/www/js/common.js",function(){
+			checkNonTxDomain(0.01, 12);
+		});
+	}, 5000);
+}
+</script>
+</body>
+</html><!--[if !IE]>|xGv00|b423a5564841b6480e28de7cfba86ba2<![endif]-->

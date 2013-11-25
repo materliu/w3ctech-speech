@@ -1,0 +1,41 @@
+// sass compass 演示页面
+
+// 演示父子元素嵌套
+#container {
+    .blue {
+        color: red;
+    }
+
+    .red {
+        color: blue;
+    }
+}
+
+// 演示变量定义
+$general_color: blue;
+body {
+    background-color: $general_color;
+}
+
+// 演示文件组织
+@import "fonts";
+
+// 演示合图插件
+@import "icons";
+
+// 演示图片-》dataurl的自动转换
+.alert {
+    background-image: inline-image("icons/alert.png");
+}
+
+
+
+
+
+
+
+
+
+
+
+

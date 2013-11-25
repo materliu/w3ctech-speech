@@ -1,0 +1,8 @@
+$icons-base-class:'';
+$icons-layout: smart;
+$icons-sprite-dimensions: true;
+$icons-prefix:'icon';
+@import "icons/*.png";
+@include all-icons-sprites($icons-sprite-dimensions, $icons-prefix);
+
+
